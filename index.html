@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio</title>
+<meta name="description" content="Engineering portfolio — robotics, embedded systems, mechatronics and CAD projects.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234ea3ff'/><text x='50' y='68' font-size='52' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2306121e'>IS</text></svg>">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="mark" id="brand-mark">IS</span>
+      <span id="brand-name">Portfolio</span>
+    </a>
+    <nav class="main">
+      <a href="#projects" id="nav-projects">Projects</a>
+      <a href="#skills"   id="nav-skills">Skills</a>
+      <a href="#exp"      id="nav-exp">Experience</a>
+      <a href="#contact"  id="nav-contact">Contact</a>
+    </nav>
+    <div class="ctrl">
+      <div class="langbtn">
+        <button type="button" id="lang-en" aria-pressed="true">EN</button>
+        <button type="button" id="lang-fr" aria-pressed="false">FR</button>
+      </div>
+      <button type="button" id="theme-btn" title="Theme">☀</button>
+      <button type="button" id="print-btn" title="Print / PDF">⎙</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow" id="hero-eyebrow"></div>
+      <h1 id="hero-name"></h1>
+      <p class="role"   id="hero-role"></p>
+      <p class="school" id="hero-school"></p>
+      <p class="tagline" id="hero-tagline"></p>
+      <div class="hero-actions" id="hero-actions"></div>
+      <div class="stats" id="hero-stats"></div>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="sec-projects-title"></h2></div>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="sec-skills-title"></h2></div>
+      <div class="skillgrid" id="skillgrid"></div>
+      <div class="langrow" id="langrow"></div>
+    </div>
+  </section>
+
+  <section id="exp">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="sec-exp-title"></h2></div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="sec-contact-title"></h2></div>
+      <div class="contact-box">
+        <p id="contact-text"></p>
+        <div class="contact-links" id="contact-links"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;width:100%">
+    <span id="footer-name"></span>
+    <span id="footer-note"></span>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

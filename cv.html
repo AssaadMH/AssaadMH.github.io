@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lassaad Mahmoudi — CV</title>
+<style>
+  :root{
+    --ink:#14202c; --mut:#5b6b7a; --line:#d9e0e7; --accent:#1f6fd6;
+    --bg:#eef1f4; --paper:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);
+    font:13px/1.5 "Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* screen controls (hidden when printing) */
+  .bar{position:sticky;top:0;z-index:10;display:flex;gap:8px;justify-content:center;
+    align-items:center;padding:10px;background:#0d1620;color:#fff}
+  .bar button{font:inherit;font-size:12px;padding:6px 12px;border:1px solid #2b3f52;
+    background:#16232f;color:#cfe0f0;border-radius:6px;cursor:pointer}
+  .bar button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .bar .sp{flex:0 0 14px}
+
+  /* the A4 sheet */
+  .page{background:var(--paper);width:210mm;min-height:297mm;margin:16px auto;
+    padding:16mm 16mm 14mm;box-shadow:0 6px 30px rgba(0,0,0,.18)}
+
+  header.cv{border-bottom:2px solid var(--accent);padding-bottom:12px;margin-bottom:14px}
+  header.cv h1{margin:0;font-size:27px;letter-spacing:.3px}
+  header.cv .role{margin:3px 0 0;color:var(--accent);font-weight:600;font-size:14px}
+  header.cv .contact{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px 16px;
+    font-size:12px;color:var(--mut)}
+  header.cv .contact b{color:var(--ink);font-weight:600}
+
+  .summary{font-size:12.5px;color:#25333f;margin:0 0 14px}
+
+  .cols{display:flex;gap:20px}
+  .main{flex:1 1 62%;min-width:0}
+  .side{flex:0 0 33%}
+
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);
+    margin:0 0 8px;padding-bottom:3px;border-bottom:1px solid var(--line)}
+  section{margin-bottom:15px;break-inside:avoid}
+
+  .item{margin-bottom:11px;break-inside:avoid}
+  .item .t{font-weight:700;font-size:13px}
+  .item .m{display:flex;justify-content:space-between;gap:10px;color:var(--mut);
+    font-size:11.5px;margin:1px 0 2px}
+  .item .m .org{font-style:italic}
+  .item p{margin:2px 0 0;font-size:12px;color:#2c3a46}
+  .item .tech{margin-top:3px;font-size:11px;color:var(--accent)}
+  .item ul{margin:3px 0 0;padding-left:16px}
+  .item ul li{font-size:12px;margin-bottom:1px;color:#2c3a46}
+
+  .side h2{border-bottom-color:var(--line)}
+  .skwrap{margin-bottom:10px}
+  .skwrap .g{font-weight:700;font-size:12px;margin-bottom:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:4px}
+  .chips span{font-size:10.5px;background:#eef4fb;color:#274a6b;border:1px solid #d5e3f2;
+    border-radius:20px;padding:2px 8px}
+  .langs div{font-size:12px;margin-bottom:3px}
+  .langs b{font-weight:600}
+  .langs em{color:var(--mut);font-style:normal}
+
+  ul.tight{margin:2px 0 0;padding-left:16px}
+  ul.tight li{font-size:12px;margin-bottom:3px;color:#2c3a46}
+
+  footer.cv{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);
+    font-size:10.5px;color:var(--mut);text-align:center}
+
+  @media print{
+    .bar{display:none}
+    body{background:#fff}
+    .page{width:auto;min-height:0;margin:0;box-shadow:none;padding:12mm 14mm}
+  }
+  @page{size:A4;margin:0}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span style="font-size:12px;color:#8aa0b4">Language</span>
+  <button id="en" class="on" type="button">English</button>
+  <button id="fr" type="button">Français</button>
+  <span class="sp"></span>
+  <button id="print" type="button">⎙ Print / Save as PDF</button>
+</div>
+
+<div class="page" id="sheet"></div>
+
+<script>
+/* ------------------------------------------------------------------ content
+   Grounded strictly in the real FlowCV resume (2026). No inflated claims. */
+var CV = {
+  en: {
+    name: "Lassaad Mahmoudi",
+    role: "Robotics, Embedded Systems &amp; Automation — Engineering Student",
+    contact: [
+      ["Location", "Tunisia"],
+      ["Email", "assaadmahmoudio@gmail.com"],
+      ["Phone", "+216 23 315 873"],
+      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"]
+    ],
+    summary: "2nd-year Electrical Engineering student (Automation) at ENIG, focused on robotics — from autonomous ground vehicles and PID line-followers to custom sensor PCBs and industrial automation cells. Hands-on with ESP32/STM32, ROS 2, PID control, computer vision and power electronics; every project below is built on real hardware. Head of Robotics at the Alliance of Engineers Club. Seeking an internship in robotics, embedded systems or industrial automation.",
+
+    expTitle: "Internship",
+    exp: [
+      { t:"Automation Intern", org:"STEG Feriana — Tunisian Electricity &amp; Gas Company", y:"",
+        bullets:[
+          "Studied the industrial infrastructure of a gas-turbine power plant.",
+          "Analysed and understood industrial automatic control and regulation systems.",
+          "Examined real-time control-command and regulation loops."
+        ] }
+    ],
+
+    projTitle: "Robotics &amp; engineering projects",
+    projects: [
+      { t:"SHADOW — Autonomous 4WD Ground Vehicle",
+        tech:"ROS 2 · Jetson Orin Nano · STM32 · BLDC · Python / C",
+        bullets:[
+          "Built a full-size four-wheel-drive robot from scratch: Jetson Orin Nano compute brain, STM32 real-time motor MCU, four 52 V BLDC hub motors.",
+          "Layered ROS 2 stack (motor driver, teleop, bring-up) with a 0.5 s safety watchdog; lidar + RGB-D perception and multilingual voice control.",
+          "Calibrated odometry to 0.0232 m/pulse against tape measurement."
+        ] },
+      { t:"Line-Following Robot — PID Control &amp; Simulator",
+        tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
+        bullets:[
+          "Real-time PID controller on ESP32 with 16-channel QTR line sensing, ultrasonic and MPU6050 IMU; corner-braking and automatic line recovery.",
+          "Found and fixed six firmware bugs; wrote a Python/OpenCV simulator that tunes the gains from a photo of the track before the robot runs it."
+        ] },
+      { t:"ALLIANCE — Competition Robot &amp; Custom Sensor PCB",
+        tech:"STM32 · Keil · Custom PCB / Gerber · TCRT5000 · ESP32",
+        bullets:[
+          "Designed a custom 16-channel TCRT5000 infrared sensor array from schematic through to my own Gerber files.",
+          "Drives an STM32 PID maze-solving car (Keil), with an ESP32 Bluetooth manual-control node. Built for the ENIG ROBOTs autonomous competition."
+        ] },
+      { t:"All-Terrain Robot",
+        tech:"ESP32 / Arduino · C/C++ · Motor Control · Sensors",
+        bullets:[
+          "Designed and built an all-terrain robot able to navigate rough surfaces, with motor control, sensor fusion and stability management for off-road movement."
+        ] },
+      { t:"Automated Sorting Cell — KUKA Robot + Siemens S7-1200",
+        tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
+        bullets:[
+          "Industrial pick-and-sort cell: a KUKA arm sequenced by an S7-1200 PLC in Ladder, designed against recognised machine-safety standards (with Chahin Dhaoui)."
+        ] },
+      { t:"Real-Time Facial Recognition System",
+        tech:"Python · OpenCV · Raspberry Pi 4",
+        bullets:[
+          "Detection → embedding extraction → real-time identity classification pipeline targeting a Raspberry Pi 4.",
+          "Confidence threshold justified with a documented ROC evaluation, not a single accuracy figure."
+        ] },
+      { t:"Sealed Lidar Enclosure — Parametric CAD",
+        tech:"OpenSCAD · Parametric CAD · Tolerance analysis · DFM",
+        bullets:[
+          "Weather-sealed OpenSCAD housing for a YDLIDAR X2 where the clear tube is the structural load path and nothing crosses the scan plane.",
+          "Wrote a post-export checker that caught a severed, non-manifold part invisible in the slicer's default view."
+        ] },
+      { t:"Power Electronics &amp; Motor Drives",
+        tech:"Proteus · Power electronics · KiCad / EasyEDA · Arduino",
+        bullets:[
+          "Hoverboard BLDC motor controller (IRFZ44N MOSFETs, Hall sensors + PWM) and a sensorless back-EMF BLDC drive, modelled and simulated end to end.",
+          "Custom PCBs: a QTR infrared sensor board and a TRIAC-based AC power dimmer (gradateur de puissance)."
+        ] }
+    ],
+
+    actTitle: "Activities &amp; Responsibilities",
+    act: [
+      { t:"Alliance of Engineers Club — Robotics Dept.",
+        bullets:["Co-Head then Head of Robotics — co-managed and later led the robotics department."] },
+      { t:"ENIGRobots — International Robotics Event",
+        bullets:["Co-Chair of ENIGRobots 7.0; organising member of the 6th edition."] },
+      { t:"BattleSky 1.0 &amp; 2.0",
+        bullets:["Organising-team member for both editions."] }
+    ],
+
+    eduTitle: "Education",
+    edu: [
+      { t:"Electrical &amp; Automation Engineering", org:"ENIG — Gabès", y:"2024 – present" },
+      { t:"Preparatory Technological Cycle", org:"IPEIG — Gafsa", y:"2022 – 2024" },
+      { t:"Technical Baccalaureate", org:"", y:"2022" }
+    ],
+
+    skTitle: "Skills",
+    skills: [
+      { g:"Embedded", items:["ESP32","PIC16F877A","STM32","Arduino","Raspberry Pi"] },
+      { g:"Vision &amp; AI", items:["OpenCV","Deep Learning","Signal &amp; image processing"] },
+      { g:"Programming", items:["C / C++","Python","MATLAB"] },
+      { g:"Control &amp; robotics", items:["PID","Industrial automation","ROS 2"] },
+      { g:"Power", items:["Power electronics"] },
+      { g:"Tools", items:["MATLAB / Simulink","LabVIEW","Proteus"] },
+      { g:"Notions", items:["Data Science","Cybersecurity"] },
+      { g:"Office", items:["Word","Excel","PowerPoint (MS certified)"] }
+    ],
+
+    langTitle: "Languages",
+    langs: [ ["Arabic","Native"], ["French","Fluent"], ["English","B2 — Upper Intermediate"] ],
+
+    certTitle: "Certifications",
+    certs: [
+      "Microsoft Office Specialist (Word, Excel &amp; PowerPoint)",
+      "Intro to Data Science &amp; Machine Learning",
+      "Cybersecurity Fundamentals"
+    ],
+
+    footer: "Lassaad Mahmoudi · Electrical &amp; Automation Engineering · Tunisia"
+  },
+
+  fr: {
+    name: "Lassaad Mahmoudi",
+    role: "Robotique, Systèmes embarqués &amp; Automatique — Étudiant ingénieur",
+    contact: [
+      ["Localisation", "Tunisie"],
+      ["Courriel", "assaadmahmoudio@gmail.com"],
+      ["Téléphone", "+216 23 315 873"],
+      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"]
+    ],
+    summary: "Étudiant ingénieur en 2ᵉ année en Génie Électrique (Automatique) à l'ENIG, orienté robotique — des véhicules terrestres autonomes et suiveurs de ligne PID aux PCB capteurs sur mesure et cellules d'automatisme industriel. Pratique de l'ESP32/STM32, ROS 2, commande PID, vision par ordinateur et électronique de puissance ; chaque projet ci-dessous tourne sur du matériel réel. Responsable Robotique du club Alliance of Engineers. À la recherche d'un stage en robotique, systèmes embarqués ou automatisme industriel.",
+
+    expTitle: "Stage",
+    exp: [
+      { t:"Stagiaire en automatisme", org:"STEG Feriana — Société Tunisienne de l'Électricité et du Gaz", y:"",
+        bullets:[
+          "Étude de l'infrastructure industrielle d'une centrale à turbine à gaz.",
+          "Analyse et compréhension des systèmes de commande et de régulation automatiques industriels.",
+          "Examen des boucles de contrôle-commande et de régulation en temps réel."
+        ] }
+    ],
+
+    projTitle: "Projets robotiques &amp; d'ingénierie",
+    projects: [
+      { t:"SHADOW — Véhicule terrestre autonome 4×4",
+        tech:"ROS 2 · Jetson Orin Nano · STM32 · BLDC · Python / C",
+        bullets:[
+          "Robot 4×4 grandeur nature conçu de zéro : cerveau Jetson Orin Nano, microcontrôleur moteur temps réel STM32, quatre moteurs-roues BLDC 52 V.",
+          "Pile ROS 2 en couches (driver moteur, téléop, bring-up) avec chien de garde de sécurité 0,5 s ; perception lidar + RGB-D et commande vocale multilingue.",
+          "Odométrie calibrée à 0,0232 m/impulsion au mètre-ruban."
+        ] },
+      { t:"Robot suiveur de ligne — commande PID &amp; simulateur",
+        tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
+        bullets:[
+          "Régulateur PID temps réel sur ESP32 avec barre de 16 capteurs QTR, ultrason et centrale inertielle MPU6050 ; freinage en virage et récupération automatique de ligne.",
+          "Six bugs de firmware corrigés ; simulateur Python/OpenCV réglant les gains à partir d'une photo du circuit avant que le robot ne le parcoure."
+        ] },
+      { t:"ALLIANCE — Robot de compétition &amp; PCB capteur sur mesure",
+        tech:"STM32 · Keil · PCB / Gerber sur mesure · TCRT5000 · ESP32",
+        bullets:[
+          "Conception d'un réseau de capteurs infrarouges TCRT5000 16 voies sur mesure, mené du schéma jusqu'à mes propres fichiers Gerber.",
+          "Pilote une voiture STM32 PID résolveuse de labyrinthe (Keil), avec nœud ESP32 Bluetooth de commande manuelle. Réalisé pour la compétition autonome ENIG ROBOTs."
+        ] },
+      { t:"Robot tout-terrain",
+        tech:"ESP32 / Arduino · C/C++ · commande moteur · capteurs",
+        bullets:[
+          "Conception et fabrication d'un robot tout-terrain capable de franchir des surfaces accidentées, avec commande moteur, fusion de capteurs et gestion de la stabilité hors route."
+        ] },
+      { t:"Cellule de tri automatisée — Robot KUKA + Siemens S7-1200",
+        tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
+        bullets:[
+          "Cellule industrielle de préhension et de tri : bras KUKA séquencé par un automate S7-1200 en Ladder, conçue selon des normes reconnues de sécurité machine (avec Chahin Dhaoui)."
+        ] },
+      { t:"Système de reconnaissance faciale temps réel",
+        tech:"Python · OpenCV · Raspberry Pi 4",
+        bullets:[
+          "Chaîne détection → extraction d'empreintes → classification d'identité en temps réel, ciblant un Raspberry Pi 4.",
+          "Seuil de confiance justifié par une analyse ROC documentée, et non par un simple taux de réussite."
+        ] },
+      { t:"Boîtier lidar étanche — CAO paramétrique",
+        tech:"OpenSCAD · CAO paramétrique · analyse de tolérances · DFM",
+        bullets:[
+          "Boîtier OpenSCAD étanche pour YDLIDAR X2 où le tube transparent est le chemin d'effort structurel et rien ne traverse le plan de balayage.",
+          "Contrôleur post-export ayant détecté une pièce sectionnée et non-manifold, invisible dans la vue par défaut du trancheur."
+        ] },
+      { t:"Électronique de puissance &amp; commandes moteur",
+        tech:"Proteus · électronique de puissance · KiCad / EasyEDA · Arduino",
+        bullets:[
+          "Contrôleur de moteur BLDC hoverboard (MOSFET IRFZ44N, capteurs Hall + PWM) et commande BLDC sensorless par FCEM, modélisés et simulés de bout en bout.",
+          "PCB sur mesure : carte capteur infrarouge QTR et gradateur de puissance AC à base de TRIAC."
+        ] }
+    ],
+
+    actTitle: "Activités &amp; responsabilités",
+    act: [
+      { t:"Alliance of Engineers Club — département Robotique",
+        bullets:["Co-responsable puis Responsable Robotique — co-gestion puis direction du département robotique."] },
+      { t:"ENIGRobots — événement international de robotique",
+        bullets:["Co-président d'ENIGRobots 7.0 ; membre organisateur de la 6ᵉ édition."] },
+      { t:"BattleSky 1.0 &amp; 2.0",
+        bullets:["Membre de l'équipe d'organisation des deux éditions."] }
+    ],
+
+    eduTitle: "Formation",
+    edu: [
+      { t:"Génie Électrique &amp; Automatique", org:"ENIG — Gabès", y:"2024 – aujourd'hui" },
+      { t:"Cycle préparatoire technologique", org:"IPEIG — Gafsa", y:"2022 – 2024" },
+      { t:"Baccalauréat technique", org:"", y:"2022" }
+    ],
+
+    skTitle: "Compétences",
+    skills: [
+      { g:"Embarqué", items:["ESP32","PIC16F877A","STM32","Arduino","Raspberry Pi"] },
+      { g:"Vision &amp; IA", items:["OpenCV","Deep Learning","Traitement signal &amp; image"] },
+      { g:"Programmation", items:["C / C++","Python","MATLAB"] },
+      { g:"Commande &amp; robotique", items:["PID","Automatisme industriel","ROS 2"] },
+      { g:"Puissance", items:["Électronique de puissance"] },
+      { g:"Outils", items:["MATLAB / Simulink","LabVIEW","Proteus"] },
+      { g:"Notions", items:["Data Science","Cybersécurité"] },
+      { g:"Bureautique", items:["Word","Excel","PowerPoint (certifié MS)"] }
+    ],
+
+    langTitle: "Langues",
+    langs: [ ["Arabe","Langue maternelle"], ["Français","Courant"], ["Anglais","B2 — intermédiaire supérieur"] ],
+
+    certTitle: "Certifications",
+    certs: [
+      "Microsoft Office Specialist (Word, Excel &amp; PowerPoint)",
+      "Introduction à la Data Science &amp; au Machine Learning",
+      "Fondamentaux de la cybersécurité"
+    ],
+
+    footer: "Lassaad Mahmoudi · Génie Électrique &amp; Automatique · Tunisie"
+  }
+};
+
+/* -------------------------------------------------------------------- render */
+function render(lang){
+  var d = CV[lang];
+  document.documentElement.lang = lang;
+
+  var contact = d.contact.map(function(c){
+    return '<span><b>'+c[0]+':</b> '+c[1]+'</span>';
+  }).join("");
+
+  function bullets(arr){
+    return arr && arr.length
+      ? '<ul>'+arr.map(function(b){return '<li>'+b+'</li>';}).join("")+'</ul>' : '';
+  }
+
+  var projects = d.projects.map(function(p){
+    return '<div class="item"><div class="t">'+p.t+'</div>'+
+      '<div class="tech">'+p.tech+'</div>'+bullets(p.bullets)+'</div>';
+  }).join("");
+
+  function orgBlock(list){
+    return list.map(function(e){
+      var meta = (e.org || e.y)
+        ? '<div class="m"><span class="org">'+(e.org||'')+'</span><span>'+(e.y||'')+'</span></div>' : '';
+      return '<div class="item"><div class="t">'+e.t+'</div>'+meta+bullets(e.bullets)+'</div>';
+    }).join("");
+  }
+
+  var skills = d.skills.map(function(s){
+    return '<div class="skwrap"><div class="g">'+s.g+'</div><div class="chips">'+
+      s.items.map(function(i){return '<span>'+i+'</span>';}).join("")+'</div></div>';
+  }).join("");
+
+  var langs = d.langs.map(function(l){
+    return '<div><b>'+l[0]+'</b> — <em>'+l[1]+'</em></div>';
+  }).join("");
+
+  var certs = '<ul class="tight">'+d.certs.map(function(c){return '<li>'+c+'</li>';}).join("")+'</ul>';
+
+  document.getElementById("sheet").innerHTML =
+    '<header class="cv"><h1>'+d.name+'</h1><div class="role">'+d.role+'</div>'+
+      '<div class="contact">'+contact+'</div></header>'+
+    '<p class="summary">'+d.summary+'</p>'+
+    '<div class="cols"><div class="main">'+
+      '<section><h2>'+d.expTitle+'</h2>'+orgBlock(d.exp)+'</section>'+
+      '<section><h2>'+d.projTitle+'</h2>'+projects+'</section>'+
+      '<section><h2>'+d.actTitle+'</h2>'+orgBlock(d.act)+'</section>'+
+    '</div><div class="side">'+
+      '<section><h2>'+d.eduTitle+'</h2>'+orgBlock(d.edu)+'</section>'+
+      '<section><h2>'+d.skTitle+'</h2>'+skills+'</section>'+
+      '<section><h2>'+d.langTitle+'</h2><div class="langs">'+langs+'</div></section>'+
+      '<section><h2>'+d.certTitle+'</h2>'+certs+'</section>'+
+    '</div></div>'+
+    '<footer class="cv">'+d.footer+'</footer>';
+
+  document.getElementById("en").classList.toggle("on", lang==="en");
+  document.getElementById("fr").classList.toggle("on", lang==="fr");
+  document.title = d.name + " — CV";
+}
+
+document.getElementById("en").onclick = function(){ render("en"); };
+document.getElementById("fr").onclick = function(){ render("fr"); };
+document.getElementById("print").onclick = function(){ window.print(); };
+render("en");
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.log
+
+# Not his work — friend's LEONI/rover PFE, kept off the public repo
+assets/img/rover-wiring.png
+assets/img/traceur-interior.png
+assets/img/traceur-v3.png
