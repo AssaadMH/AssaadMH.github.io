@@ -51,6 +51,7 @@
 
     var acts = [];
     acts.push('<a class="btn primary" href="mailto:' + esc(PROFILE.email) + '">' + t(UI.emailMe) + '</a>');
+    acts.push('<a class="btn" href="cv.html">' + t(UI.viewCv) + '</a>');
     if (PROFILE.github)   acts.push('<a class="btn" href="' + esc(PROFILE.github) + '" target="_blank" rel="noopener">GitHub</a>');
     if (PROFILE.linkedin) acts.push('<a class="btn" href="' + esc(PROFILE.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a>');
     if (PROFILE.phone)    acts.push('<a class="btn" href="tel:' + esc(PROFILE.phone.replace(/\s/g, "")) + '">' + esc(PROFILE.phone) + '</a>');

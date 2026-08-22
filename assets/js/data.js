@@ -632,5 +632,6 @@ const UI = {
     fr: "Disponible pour des stages d'ingénieur et des postes junior en robotique, systèmes embarqués et mécatronique."
   },
   emailMe:      { en: "Email me", fr: "M'écrire" },
+  viewCv:       { en: "CV", fr: "CV" },
   footer:       { en: "Built and documented from the source repositories of each project.", fr: "Construit et documenté à partir des dépôts source de chaque projet." }
 };
