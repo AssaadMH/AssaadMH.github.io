@@ -584,16 +584,12 @@ const SKILLS = [
     items: ["STM32 (F446RE, F401, H723ZG)", "Arduino / AVR", "PIC / mikroC", "ESP32", "PlatformIO", "BLDC drives", "Custom PCB / Gerber", "Serial protocols", "NFC / RFID", "Sensor interfacing"]
   },
   {
-    group: { en: "Reverse engineering &amp; diagnostics", fr: "Rétro-ingénierie &amp; diagnostic" },
-    items: ["Bus sniffing", "Protocol decoding", "Undocumented HTTP APIs", "Failure-mode analysis", "Datasheet derating"]
-  },
-  {
     group: { en: "Software", fr: "Logiciel" },
     items: ["Python", "C / C++", "OpenCV", "NumPy", "GDScript / Godot", "Git", "Linux", "Docker"]
   },
   {
     group: { en: "CAD &amp; manufacturing", fr: "CAO &amp; fabrication" },
-    items: ["OpenSCAD (parametric)", "SolidWorks", "Blender", "FDM printing", "ideaMaker", "Design for manufacture", "Tolerance analysis"]
+    items: ["OpenSCAD (parametric)", "SolidWorks", "Blender", "FDM printing", "ideaMaker", "Design for manufacture", "Tolerance analysis", "ANSYS (beginner)"]
   },
   {
     group: { en: "Electronics", fr: "Électronique" },
