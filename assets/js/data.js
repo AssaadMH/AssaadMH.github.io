@@ -9,9 +9,10 @@ const PROFILE = {
   // ---- EDIT THESE -----------------------------------------------------------
   name: "Lassaad Mahmoudi",
   initials: "LM",
+  photo: "profile.jpg",           // hero portrait, assets/img/
   email: "contact@iris-systems.tn",
   phone: "+216 23 315 873",
-  github: "",                       // e.g. "https://github.com/username"
+  github: "https://github.com/AssaadMH",
   linkedin: "https://linkedin.com/in/mahmoudiassaad",
   // ---------------------------------------------------------------------------
 
@@ -53,7 +54,7 @@ const CATEGORIES = [
 
 const PROJECTS = [
 
-  /* ===================================================================== 1 */
+  /* ====================================================================== 1 */
   {
     id: "shadow",
     featured: true,
@@ -64,7 +65,9 @@ const PROJECTS = [
       en: "NVIDIA Jetson Orin Nano + STM32, ROS 2, lidar and RGB-D perception on a 52 V hub-motor platform.",
       fr: "NVIDIA Jetson Orin Nano + STM32, ROS 2, perception lidar et RGB-D sur une plateforme 52 V à moteurs-roues."
     },
-    images: ["shadow-perfboard.png", "shadow-schema.png"],
+    images: ["shadow-vehicle.jpg", "shadow-ride.jpg", "shadow-power-bay.jpg", "shadow-pointcloud.jpg",
+              "shadow-architecture.png", "shadow-perfboard.png", "shadow-schema.png", "shadow-power-domains.png"],
+    fit: "cover",
     tags: ["ROS 2", "Jetson Orin Nano", "STM32 F446RE / F401", "Isaac ROS", "C", "Python", "BLDC", "Linux"],
     body: {
       en: [
@@ -73,7 +76,9 @@ const PROJECTS = [
         "<b>ROS 2 architecture.</b> I replaced an early monolithic gamepad bridge with a layered, hardware-verified stack: <code>motor_driver</code> (subscribes <code>cmd_vel</code>, <code>brake</code> and <code>cmd_raw</code>, holds a 0.5 s watchdog, talks serial to the STM32), <code>motor_teleop</code> (DualSense → <code>cmd_vel</code>), and <code>motor_bringup</code> (launch files and controller config). The old monolith was kept intact as a rollback path.",
         "<b>Perception.</b> A YDLidar X2 publishes scans through a ROS 2 driver with tuned parameters — the enable-motor gotcha turned out to be a serial DTR toggle. Two Xbox 360 Kinects supply RGB + depth over libfreenect plus a 4-microphone array via ALSA. On the Orin Nano, DetectNet, ESS stereo depth and U-Net from the Isaac ROS stack were deployed and verified.",
         "<b>Voice control.</b> Multilingual (FR / EN / AR) speech nodes map spoken commands directly to <code>cmd_vel</code>.",
-        "<b>The engineering lesson.</b> An electrical hold-brake I built caught fire. The root cause was not an undersized part but a topology fault: the controller's thin \"antivol\" blue/yellow pair is a <i>motor phase</i>, not a signal line, carrying 52 V PWM and generator current. Any logic-ground-referenced MOSFET or optocoupler placed across it is a permanent half-wave short. I documented the full post-mortem and moved the design to a fail-safe, spring-applied mechanical brake with zero electrical connection to the phases — which became the next project on this page."
+        "<b>Localisation.</b> The Jetson runs Isaac ROS visual SLAM (cuVSLAM) inside a container built from a pinned configuration, so the perception brain is reproducible rather than a hand-tuned install that exists only on one board.",
+        "<b>Developing without the robot.</b> The whole Jetson software layout is mirrored in a reproducible x86 virtual machine — same workspace structure, same container definition, same environment. It cannot run cuVSLAM, since there is no GPU and the architecture is wrong, and that is fine: what it does allow is versioning and testing launch files, the microcontroller bridge and sensor-fusion configuration without occupying, or risking, a robot with 52 V on board.",
+        "<b>The engineering lesson.</b> An electrical hold-brake I built caught fire. The root cause was not an undersized part but a topology fault: the controller's thin \"antivol\" blue/yellow pair is a <i>motor phase</i>, not a signal line, carrying 52 V PWM and generator current. Any logic-ground-referenced MOSFET or optocoupler placed across it is a permanent half-wave short. I documented the full post-mortem and moved the design to a mechanical brake with zero electrical connection to the phases — which became another project on this page. Everything on this robot that touches pack voltage has since been designed failure-mode first."
       ],
       fr: [
         "Un robot 4×4 grandeur nature conçu de zéro : un NVIDIA Jetson Orin Nano comme cerveau de calcul, un STM32 Nucleo comme microcontrôleur moteur temps réel, et quatre variateurs BLDC 48–64 V pour moteurs-roues alimentés par un pack 52 V. Marche avant et marche arrière fonctionnent sur les quatre roues.",
@@ -81,12 +86,76 @@ const PROJECTS = [
         "<b>Architecture ROS 2.</b> J'ai remplacé un pont manette monolithique par une pile en couches, validée sur matériel : <code>motor_driver</code> (souscrit à <code>cmd_vel</code>, <code>brake</code> et <code>cmd_raw</code>, chien de garde de 0,5 s, liaison série vers le STM32), <code>motor_teleop</code> (DualSense → <code>cmd_vel</code>) et <code>motor_bringup</code> (fichiers de lancement et configuration). L'ancien monolithe a été conservé comme solution de repli.",
         "<b>Perception.</b> Un YDLidar X2 publie ses scans via un driver ROS 2 paramétré — le piège d'activation du moteur s'est révélé être une bascule DTR sur le port série. Deux Kinect Xbox 360 fournissent RGB + profondeur via libfreenect ainsi qu'un réseau de 4 microphones via ALSA. Sur l'Orin Nano, DetectNet, la profondeur stéréo ESS et U-Net de la pile Isaac ROS ont été déployés et vérifiés.",
         "<b>Commande vocale.</b> Des nœuds multilingues (FR / EN / AR) traduisent directement la parole en <code>cmd_vel</code>.",
-        "<b>La leçon d'ingénierie.</b> Un frein de maintien électrique que j'avais construit a pris feu. La cause n'était pas un composant sous-dimensionné mais une faute de topologie : la paire fine bleu/jaune « antivol » du variateur est une <i>phase moteur</i>, pas une ligne de signal ; elle transporte du PWM 52 V et du courant de génératrice. Tout MOSFET ou optocoupleur référencé à la masse logique placé dessus constitue un court-circuit permanent en demi-alternance. J'ai rédigé le post-mortem complet et redirigé la conception vers un frein mécanique à sécurité positive, à ressort, sans aucune liaison électrique avec les phases — ce qui est devenu le projet suivant de cette page."
+        "<b>Localisation.</b> Le Jetson exécute le SLAM visuel Isaac ROS (cuVSLAM) dans un conteneur construit à partir d'une configuration figée : le cerveau de perception est ainsi reproductible, et non une installation réglée à la main n'existant que sur une seule carte.",
+        "<b>Développer sans le robot.</b> Toute l'organisation logicielle du Jetson est répliquée dans une machine virtuelle x86 reproductible — même structure de workspace, même définition de conteneur, même environnement. Elle ne peut pas exécuter cuVSLAM, faute de GPU et avec une architecture différente, et c'est très bien ainsi : ce qu'elle permet, c'est de versionner et de tester les fichiers de lancement, le pont vers le microcontrôleur et la configuration de fusion de capteurs sans occuper — ni risquer — un robot embarquant du 52 V.",
+        "<b>La leçon d'ingénierie.</b> Un frein de maintien électrique que j'avais construit a pris feu. La cause n'était pas un composant sous-dimensionné mais une faute de topologie : la paire fine bleu/jaune « antivol » du variateur est une <i>phase moteur</i>, pas une ligne de signal ; elle transporte du PWM 52 V et du courant de génératrice. Tout MOSFET ou optocoupleur référencé à la masse logique placé dessus constitue un court-circuit permanent en demi-alternance. J'ai rédigé le post-mortem complet et redirigé la conception vers un frein mécanique sans aucune liaison électrique avec les phases — ce qui est devenu un autre projet de cette page. Depuis, tout ce qui touche à la tension du pack sur ce robot est conçu en partant des modes de défaillance."
       ]
     }
   },
 
-  /* ===================================================================== 2 */
+  /* ====================================================================== 2 */
+  {
+    id: "scooter",
+    featured: false,
+    cats: ["embedded", "robotics", "electronics"],
+    year: "2025",
+    title: { en: "Electric-Scooter Drive — Reverse Engineering", fr: "Motorisation de trottinette électrique — rétro-ingénierie" },
+    subtitle: {
+      en: "Taking control of a sealed motor controller by first finding out what its display bus actually carried — the origin of SHADOW's drivetrain.",
+      fr: "Prendre le contrôle d'un variateur scellé en découvrant d'abord ce que transportait vraiment son bus d'afficheur — l'origine de la motorisation de SHADOW."
+    },
+    images: ["scooter-harness.jpg", "scooter-breakout.jpg", "scooter-controller.jpg"],
+    tags: ["Arduino", "Bus sniffing", "Protocol decoding", "PWM + RC", "PI control", "Reverse engineering"],
+    body: {
+      en: [
+        "Before SHADOW there was a scooter: a sealed commercial motor controller with no documented command interface, and the open question of whether a microcontroller could drive it at all.",
+        "<b>Sniffing the bus.</b> I wired an Arduino onto the line between the controller and the handlebar display and captured the traffic. The frame is a fixed-length packet ending in an XOR checksum — readable once the checksum was worked out — carrying speed, battery state and faults.",
+        "<b>The finding that redirected the project was a negative one:</b> that bus is <i>telemetry, not command</i>. Nothing sent on it makes a wheel turn. Establishing that saved all the effort that would have gone into forging command frames which do not exist, and moved the search to the dashboard connector instead.",
+        "<b>The real control path is the analog throttle line.</b> Mapping the six-pin dashboard connector located it, and driving it with PWM through a 1 kΩ + 10 µF RC network turns a digital output into the smooth analog voltage the controller expects. With wheel speed decoded from the display bus as feedback, a PI loop closes the speed control — the telemetry bus turned out to be useful for exactly the half of the problem it was suited to.",
+        "This is not archived history. SHADOW's four motor channels are driven exactly this way today; the 4WD documentation asserts that RC filter as a given, and this project is where it comes from."
+      ],
+      fr: [
+        "Avant SHADOW, il y a eu une trottinette : un variateur commercial scellé sans aucune interface de commande documentée, et la question ouverte de savoir si un microcontrôleur pouvait le piloter.",
+        "<b>Écoute du bus.</b> J'ai branché un Arduino sur la liaison entre le variateur et l'afficheur du guidon et capturé le trafic. La trame est un paquet de longueur fixe terminé par une somme de contrôle XOR — lisible une fois cette somme reconstituée — transportant vitesse, état de batterie et défauts.",
+        "<b>La découverte qui a réorienté le projet est négative :</b> ce bus transporte de la <i>télémétrie, pas des commandes</i>. Rien de ce qu'on y envoie ne fait tourner une roue. L'établir a évité tout l'effort qui serait parti dans la fabrication de trames de commande inexistantes, et a déplacé la recherche vers le connecteur du tableau de bord.",
+        "<b>Le vrai chemin de commande est la ligne analogique d'accélérateur.</b> La cartographie du connecteur six broches du tableau de bord l'a localisée, et la piloter en PWM à travers un filtre RC 1 kΩ + 10 µF transforme une sortie numérique en la tension analogique lisse attendue par le variateur. Avec la vitesse de roue décodée depuis le bus d'afficheur comme retour, une régulation PI ferme la boucle de vitesse — le bus de télémétrie s'est finalement révélé utile pour exactement la moitié du problème à laquelle il convenait.",
+        "Ce n'est pas de l'histoire archivée. Les quatre voies moteur de SHADOW sont pilotées ainsi aujourd'hui ; la documentation du 4×4 présente ce filtre RC comme une donnée, et c'est ici qu'il prend sa source."
+      ]
+    }
+  },
+
+  /* ====================================================================== 3 */
+  {
+    id: "shield",
+    featured: false,
+    cats: ["electronics", "embedded", "robotics"],
+    year: "2026",
+    title: { en: "4WD Motor-Control Shield — Custom Nucleo-64 PCB", fr: "Shield de commande moteur 4×4 — carte Nucleo-64 sur mesure" },
+    subtitle: {
+      en: "The 24-signal interface board that replaces SHADOW's perfboard wiring — and the two pin conflicts that only appeared on re-checking the spec.",
+      fr: "La carte d'interface 24 signaux qui remplace le câblage sur plaque perforée de SHADOW — et les deux conflits de brochage révélés par la relecture du cahier des charges."
+    },
+    images: ["shield-board-3d.jpg", "shield-groundplan.png"],
+    tags: ["Proteus 8", "PCB design", "STM32 Nucleo-64", "Schematic capture", "DRC", "BOM"],
+    body: {
+      en: [
+        "SHADOW's four motor controllers, steering bridge, encoder, brake servo and lights were all wired on perfboard. This is the board that replaces that harness: a Nucleo-64 shield carrying <b>24 signals</b> — four throttle and four reverse channels, six Hall inputs, a BTS7960 steering bridge, an AS5600 steering-angle encoder, the brake servo and five lighting channels — brought out on pluggable screw terminals so the loom can be disconnected without desoldering anything.",
+        "<b>Deliberate decisions, not defaults.</b> Every lighting channel is kept at 12 V so that pack voltage never appears anywhere on this board. The star ground is a real 0 Ω link rather than a net tie, because the chosen tool has no net-tie object and the simulator needs a single 0 V reference to converge. Only the two 2×19 Morpho headers are populated: all 24 signals are available there, and skipping the Arduino headers also sidesteps an ambiguous solder-bridge mapping in which one analog pin can land on a signal already in use.",
+        "<b>What re-checking the spec found.</b> The source wiring document stated there were no pin conflicts. Two survived that claim. The on-board user button shares an external-interrupt line with one of the Hall inputs, so the button has to be polled rather than interrupt-driven or it will fight the odometry. And one output sat on a timer already running at kilohertz for a throttle channel, forcing a move to a different alternate function. Neither would have announced itself — both would have shown up as intermittent misbehaviour after assembly.",
+        "<b>One circuit is missing on purpose.</b> The source document specifies an optocoupler across what it labels an anti-theft line. That pair is a motor phase, and driving it is what caused the earlier fire on this robot. It is left off the board deliberately, and the omission is written down as a decision — so that a later reader restores nothing as an apparent oversight.",
+        "<b>Footprint verification without the vendor.</b> The manufacturer's site was unreachable, so the connector geometry was taken from two independent published sources that agree with each other, cross-checked against the board's own width by symmetry, and is to be confirmed with a 1:1 paper print before any order. Coordinates prove mechanics, not orientation — pin 1 still gets checked against the silkscreen."
+      ],
+      fr: [
+        "Les quatre variateurs, le pont de direction, le codeur, le servomoteur de frein et l'éclairage de SHADOW étaient tous câblés sur plaque perforée. Voici la carte qui remplace ce faisceau : un shield Nucleo-64 portant <b>24 signaux</b> — quatre voies d'accélérateur et quatre de marche arrière, six entrées Hall, un pont de direction BTS7960, un codeur d'angle AS5600, le servomoteur de frein et cinq voies d'éclairage — sortis sur borniers à vis débrochables, afin de pouvoir déconnecter le faisceau sans rien dessouder.",
+        "<b>Des choix assumés, pas des valeurs par défaut.</b> Chaque voie d'éclairage reste en 12 V pour que la tension du pack n'apparaisse nulle part sur cette carte. La masse en étoile est un véritable strap 0 Ω plutôt qu'un net tie, car l'outil retenu n'offre pas d'objet net tie et le simulateur exige une référence 0 V unique pour converger. Seuls les deux connecteurs Morpho 2×19 sont implantés : les 24 signaux y sont tous disponibles, et se passer des connecteurs Arduino évite en outre une correspondance ambiguë de ponts de soudure où une broche analogique peut atterrir sur un signal déjà utilisé.",
+        "<b>Ce que la relecture du cahier des charges a révélé.</b> Le document de câblage source affirmait l'absence de tout conflit de brochage. Deux ont survécu à cette affirmation. Le bouton utilisateur de la carte partage une ligne d'interruption externe avec l'une des entrées Hall : il doit donc être scruté par polling et non par interruption, sous peine de perturber l'odométrie. Et une sortie se trouvait sur un timer déjà cadencé à plusieurs kilohertz pour une voie d'accélérateur, imposant le passage à une autre fonction alternative. Aucun des deux ne se serait signalé — tous deux se seraient manifestés en dysfonctionnements intermittents après assemblage.",
+        "<b>Un circuit est absent volontairement.</b> Le document source prévoit un optocoupleur sur ce qu'il désigne comme une ligne antivol. Cette paire est une phase moteur, et la piloter est ce qui a provoqué l'incendie survenu plus tôt sur ce robot. Elle est délibérément écartée de la carte, et cette omission est consignée comme une décision — afin qu'un lecteur ultérieur ne rétablisse rien en croyant corriger un oubli.",
+        "<b>Vérifier une empreinte sans le fabricant.</b> Le site du constructeur étant inaccessible, la géométrie du connecteur a été reprise de deux sources publiées indépendantes concordantes, recoupée par symétrie avec la largeur de la carte elle-même, et reste à confirmer par une impression papier à l'échelle 1:1 avant toute commande. Des coordonnées prouvent la mécanique, pas l'orientation — la broche 1 se vérifie encore sur la sérigraphie."
+      ]
+    }
+  },
+
+  /* ====================================================================== 4 */
   {
     id: "brake",
     featured: true,
@@ -97,25 +166,27 @@ const PROJECTS = [
       en: "A printed drum that lets one servo pull two bicycle brake cables — the mechanical answer to an electrical failure.",
       fr: "Un tambour imprimé permettant à un seul servo de tirer deux câbles de frein de vélo — la réponse mécanique à une panne électrique."
     },
-    images: ["brake-drum.png", "brake-horn.png"],
+    images: ["brake-drum.png", "brake-printed.jpg", "brake-horn.png", "brake-generations.png", "brake-chain.png"],
     tags: ["OpenSCAD", "Mechanism design", "FDM", "Force analysis"],
     body: {
       en: [
         "After the electrical hold-brake failure on SHADOW, the parking brake had to become purely mechanical. This actuator uses a TD-8130MG servo to pull two bicycle brake cables simultaneously through a printed cable drum.",
-        "<b>The key design decision</b> is that the drum <i>captures the servo's stock metal horn</i> rather than reproducing its 25-tooth spline. A 25T spline printed in PLA strips under load; a captured horn puts the torque into steel and reduces the plastic's job to holding it.",
-        "<b>Force analysis drove the geometry.</b> Cable stroke and force trade off directly against each other for a fixed servo torque. The 70 mm stroke needed to fully actuate both calipers yields only 6.7 kg per cable — a number worth knowing before printing, not after. Cable stops and mounting blocks were designed alongside the drum and laid out on a single print plate.",
-        "Every part was checked with an STL sanity script and a G-code verification pass before printing."
+        "<b>The key design decision</b> is that the drum <i>captures the servo's stock metal horn</i> rather than reproducing its 25-tooth spline. A 25T spline printed in PLA strips under load — 30 kg·cm across 0.3 mm teeth on a 6 mm shaft is on the order of 100 kg of shear along the layer lines. A captured horn puts the torque into steel and reduces the plastic's job to holding it in place.",
+        "<b>Force analysis drove the geometry, and it has exactly one governing variable.</b> At a fixed sweep angle the drum diameter follows directly from the cable stroke, and the pull follows inversely from the diameter — so <i>stroke sets force, and nothing else does</i>. That makes the honest way to gain force counter-intuitive: shrink the drum. The current design uses a 44 mm stroke on a Ø30.8 drum for about 6.4 kg per cable in normal working conditions, roughly 10.7 kg at stall. An earlier, larger revision with a longer stroke was weaker for the same servo. Going smaller still is not free either — below about Ø28 the cable groove undercuts the very shoulder the cable nipple pulls against, leaving under a millimetre of plastic to carry the load.",
+        "<b>Both cable anchors sit 180° apart and wind the same way,</b> so the two pulls cancel as a couple instead of summing into a side load on the servo's output bearing. Cable housing stops and mounting blocks were designed alongside the drum — the pull is taken by a tongue bearing against a groove wall rather than by the clamp bolt — and laid out on a single print plate with a fit-test coupon beside the real part, so one print answers both questions.",
+        "<b>The slicer caught what the CAD did not.</b> Square cable grooves left the flange above them hanging as an unsupported ring, so they became 90° V-sheaves that self-support — and, as a bonus, seat the cable at exactly the design radius automatically. A second finding is worth keeping: the CAD kernel reported the solid as clean while the exported mesh carried ten non-manifold edges, because a derived dimension landed exactly on another feature's rim. <b>A kernel saying \"simple: yes\" does not mean the exported file is sound</b> — the STL itself has to be checked, which is why every part here goes through an STL sanity script and a G-code verification pass before it reaches the printer."
       ],
       fr: [
         "Après la défaillance du frein de maintien électrique de SHADOW, le frein de stationnement devait devenir purement mécanique. Cet actionneur utilise un servo TD-8130MG pour tirer simultanément deux câbles de frein de vélo via un tambour imprimé.",
-        "<b>La décision de conception clé</b> est que le tambour <i>capture le palonnier métallique d'origine du servo</i> au lieu de reproduire ses cannelures à 25 dents. Une cannelure 25T imprimée en PLA s'arrache sous charge ; en capturant le palonnier, le couple passe par l'acier et le plastique n'a plus qu'à le maintenir.",
-        "<b>L'analyse des efforts a dicté la géométrie.</b> Course et effort du câble s'échangent directement à couple servo fixe. La course de 70 mm nécessaire pour actionner complètement les deux étriers ne donne que 6,7 kg par câble — un chiffre à connaître avant l'impression, pas après. Butées de câble et blocs de fixation ont été conçus avec le tambour et disposés sur une seule plaque d'impression.",
-        "Chaque pièce a été contrôlée par un script de vérification STL et une passe de vérification du G-code avant impression."
+        "<b>La décision de conception clé</b> est que le tambour <i>capture le palonnier métallique d'origine du servo</i> au lieu de reproduire ses cannelures à 25 dents. Une cannelure 25T imprimée en PLA s'arrache sous charge — 30 kg·cm répartis sur des dents de 0,3 mm autour d'un arbre de 6 mm représentent de l'ordre de 100 kg de cisaillement dans le sens des couches. En capturant le palonnier, le couple passe par l'acier et le plastique n'a plus qu'à le maintenir en place.",
+        "<b>L'analyse des efforts a dicté la géométrie, et elle ne compte qu'une seule variable directrice.</b> À angle de balayage fixe, le diamètre du tambour découle directement de la course du câble, et l'effort varie à l'inverse du diamètre — donc <i>la course fixe l'effort, et rien d'autre</i>. La façon honnête de gagner en effort en devient contre-intuitive : réduire le tambour. La conception actuelle utilise une course de 44 mm sur un tambour Ø30,8, soit environ 6,4 kg par câble en fonctionnement normal et près de 10,7 kg au blocage. Une révision antérieure, plus grande et à course plus longue, était plus faible pour le même servomoteur. Descendre encore n'est pas gratuit pour autant : en dessous d'environ Ø28, la gorge de câble vient miner l'épaulement même sur lequel s'appuie l'embout du câble, ne laissant pas un millimètre de plastique pour reprendre la charge.",
+        "<b>Les deux ancrages de câble sont à 180° et s'enroulent dans le même sens,</b> de sorte que les deux efforts s'annulent en couple au lieu de s'additionner en charge latérale sur le palier de sortie du servomoteur. Les butées de gaine et les blocs de fixation ont été conçus avec le tambour — l'effort est repris par une languette en appui sur la paroi d'une gorge, et non par le boulon de serrage — puis disposés sur une seule plaque d'impression avec une éprouvette d'ajustement à côté de la pièce réelle, si bien qu'une seule impression répond aux deux questions.",
+        "<b>Le trancheur a détecté ce que la CAO ignorait.</b> Des gorges de câble carrées laissaient la collerette au-dessus d'elles suspendue en anneau non soutenu : elles sont devenues des gorges en V à 90°, autoportantes — et qui, en prime, placent automatiquement le câble au rayon exact de conception. Un second enseignement mérite d'être retenu : le noyau CAO annonçait le solide comme sain alors que le maillage exporté portait dix arêtes non-manifold, parce qu'une dimension dérivée tombait exactement sur le bord d'une autre forme. <b>Un noyau qui répond « simple : oui » ne garantit pas un fichier exporté sain</b> — c'est le STL lui-même qu'il faut contrôler, raison pour laquelle chaque pièce passe ici par un script de vérification STL et une passe de vérification du G-code avant d'atteindre l'imprimante."
       ]
     }
   },
 
-  /* ===================================================================== 3 */
+  /* ====================================================================== 5 */
   {
     id: "lidarbox",
     featured: true,
@@ -146,7 +217,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 4 */
+  /* ====================================================================== 6 */
   {
     id: "linefollower",
     featured: true,
@@ -157,7 +228,7 @@ const PROJECTS = [
       en: "16-sensor PID follower, plus a Python simulator that tunes the gains from a photograph of the track.",
       fr: "Suiveur PID à 16 capteurs, et un simulateur Python qui règle les gains à partir d'une photo du circuit."
     },
-    images: ["linefollower-plan.svg", "linefollower-path.svg"],
+    images: ["linefollower-robot.jpg", "linefollower-plan.svg", "linefollower-path.svg"],
     tags: ["Arduino", "PID control", "Python", "OpenCV", "Simulation", "L298"],
     body: {
       en: [
@@ -175,7 +246,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 5 */
+  /* ====================================================================== 7 */
   {
     id: "agv",
     featured: false,
@@ -186,7 +257,8 @@ const PROJECTS = [
       en: "Mapping an undocumented HTTP control API on a warehouse AGV chassis, and diagnosing why auto-docking failed.",
       fr: "Cartographie d'une API HTTP non documentée sur un châssis AGV, et diagnostic de l'échec de l'accostage automatique."
     },
-    images: [],
+    images: ["agv-robot.jpg", "agv-topdown.jpg", "agv-diagnostics.jpg", "agv-app.jpg", "agv-diagnosis.svg"],
+    fit: "cover",
     tags: ["HTTP / REST", "Networking", "AGV", "Diagnostics", "Python"],
     body: {
       en: [
@@ -202,7 +274,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 7 */
+  /* ====================================================================== 8 */
   {
     id: "alliance",
     featured: false,
@@ -213,7 +285,7 @@ const PROJECTS = [
       en: "A 16-channel infrared line-sensor board I laid out myself, feeding an STM32 PID maze-solving car.",
       fr: "Une carte capteur infrarouge 16 voies que j'ai routée moi-même, alimentant une voiture STM32 PID résolveuse de labyrinthe."
     },
-    images: [],
+    images: ["alliance-array.svg"],
     tags: ["STM32", "Keil uVision", "Custom PCB", "Gerber", "TCRT5000", "PID", "ESP32", "MATLAB"],
     body: {
       en: [
@@ -229,7 +301,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 8 */
+  /* ====================================================================== 9 */
   {
     id: "kuka",
     featured: false,
@@ -240,7 +312,7 @@ const PROJECTS = [
       en: "An industrial pick-and-sort station: a KUKA arm sequenced by a Siemens S7-1200 PLC in Ladder, designed against recognised machine-safety standards.",
       fr: "Une station industrielle de préhension et de tri : un bras KUKA séquencé par un automate Siemens S7-1200 en Ladder, conçue selon les normes reconnues de sécurité machine."
     },
-    images: [],
+    images: ["kuka-cell.svg"],
     tags: ["KUKA", "Siemens S7-1200", "Ladder / TIA", "ISO 13849-1", "IEC 62061", "Industrial automation"],
     body: {
       en: [
@@ -256,7 +328,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 9 */
+  /* ===================================================================== 10 */
   {
     id: "face",
     featured: false,
@@ -267,7 +339,8 @@ const PROJECTS = [
       en: "OpenCV pipeline from dataset capture to live webcam recognition, with a documented ROC evaluation.",
       fr: "Chaîne OpenCV de la capture du jeu de données à la reconnaissance webcam en direct, avec évaluation ROC documentée."
     },
-    images: [],
+    images: ["face-live.jpg", "face-pipeline.svg"],
+    fit: "cover",
     tags: ["Python", "OpenCV", "LBPH", "Raspberry Pi 4", "Computer vision"],
     body: {
       en: [
@@ -283,92 +356,7 @@ const PROJECTS = [
     }
   },
 
-  /* ===================================================================== 8 */
-  {
-    id: "unknown",
-    featured: false,
-    cats: ["software"],
-    year: "2026",
-    title: { en: "UNKNOWN — 3D Game on a 0.5 GB GPU", fr: "UNKNOWN — jeu 3D sur un GPU de 0,5 Go" },
-    subtitle: {
-      en: "A Godot game engineered around a hard hardware ceiling, with a normal-mapped lighting pipeline built to fit it.",
-      fr: "Un jeu Godot conçu autour d'un plafond matériel strict, avec un pipeline d'éclairage normal-mappé taillé pour lui."
-    },
-    images: ["unknown-shrine.png", "unknown-room.png", "unknown-character.png"],
-    tags: ["Godot 4.3", "GDScript", "Blender", "Shaders", "Performance"],
-    body: {
-      en: [
-        "A personal game project whose real constraint is the target machine: a laptop GPU with roughly half a gigabyte of usable video memory, running Godot's GL Compatibility renderer. Everything is a performance decision.",
-        "The first build was 2D — six rooms and a boss encounter — and is archived complete. The current build is 3D, measured at about 37 fps on the target hardware, which is what makes the move defensible rather than aspirational.",
-        "<b>Lighting.</b> I proved out a normal-mapped 2.5D pipeline on the constrained renderer: sprite-based scenes lit as if they had real surface geometry, giving volumetric depth without the vertex and memory cost of true 3D. Asset generation is automated through Blender.",
-        "<b>Measurement discipline.</b> Building performance harnesses for this taught me something I now apply everywhere: three of four verification scripts I wrote silently reported plausible but wrong numbers. The only reliable test of a measurement harness is to change a known-good input and confirm the number actually moves."
-      ],
-      fr: [
-        "Un projet de jeu personnel dont la vraie contrainte est la machine cible : un GPU d'ordinateur portable disposant d'environ un demi-gigaoctet de mémoire vidéo utilisable, exécutant le moteur de rendu GL Compatibility de Godot. Tout y est une décision de performance.",
-        "La première version était en 2D — six salles et un combat de boss — et est archivée complète. La version actuelle est en 3D, mesurée à environ 37 images par seconde sur le matériel cible, ce qui rend le choix défendable plutôt qu'ambitieux.",
-        "<b>Éclairage.</b> J'ai validé un pipeline 2,5D normal-mappé sur ce moteur contraint : des scènes à base de sprites éclairées comme si elles possédaient une véritable géométrie de surface, offrant une profondeur volumétrique sans le coût en sommets et en mémoire de la vraie 3D. La génération des assets est automatisée via Blender.",
-        "<b>Discipline de mesure.</b> Construire les bancs de test de performance m'a appris quelque chose que j'applique désormais partout : trois des quatre scripts de vérification que j'avais écrits rapportaient silencieusement des chiffres plausibles mais faux. Le seul test fiable d'un banc de mesure consiste à modifier une entrée connue et à vérifier que le chiffre bouge réellement."
-      ]
-    }
-  },
-
-  /* ===================================================================== 9 */
-  {
-    id: "brand",
-    featured: false,
-    cats: ["mechanical"],
-    year: "2026",
-    title: { en: "Logo-to-Print Pipeline", fr: "Chaîne logo → impression 3D" },
-    subtitle: {
-      en: "Turning a raster logo into printable badges, keyfobs and freestanding letters through an automated trace pipeline.",
-      fr: "Transformer un logo matriciel en badges, porte-clés et lettres autoportantes imprimables via une chaîne de vectorisation automatisée."
-    },
-    images: ["iris-lockup.png", "iris-brand-hero.png", "dragon-yinyang.png"],
-    tags: ["OpenSCAD", "OpenCV", "Python", "FDM", "Design for manufacture"],
-    body: {
-      en: [
-        "A reusable pipeline that takes a raster logo, traces it with OpenCV into clean vector outlines, and emits parametric OpenSCAD geometry — producing badges, keyfobs and standalone dimensional letters from a single source image.",
-        "The whole toolchain is written against a printing constraint set: parts must lie flat, print without supports, and fit a 300 mm cubed build volume. That constraint shapes the geometry upstream rather than being discovered at slicing time.",
-        "Output was verified visually against the source artwork side by side before committing filament, and sliced with a reusable material profile.",
-        "The same trace-to-solid pipeline has been reused for decorative work, including a two-piece symmetric wall panel where both halves are traced from a single source silhouette and interlock without fasteners."
-      ],
-      fr: [
-        "Une chaîne réutilisable qui prend un logo matriciel, le vectorise avec OpenCV en contours propres et produit une géométrie paramétrique OpenSCAD — générant badges, porte-clés et lettres volumiques autoportantes à partir d'une seule image source.",
-        "L'ensemble de l'outillage est écrit selon un jeu de contraintes d'impression : les pièces doivent reposer à plat, s'imprimer sans supports et tenir dans un volume de 300 mm de côté. Cette contrainte façonne la géométrie en amont au lieu d'être découverte au moment du tranchage.",
-        "Le résultat a été vérifié visuellement côte à côte avec le visuel source avant d'engager du filament, puis tranché avec un profil matière réutilisable.",
-        "La même chaîne vectorisation-vers-solide a été réutilisée pour des pièces décoratives, dont un panneau mural symétrique en deux parties dont les deux moitiés sont tracées à partir d'une seule silhouette source et s'emboîtent sans fixation."
-      ]
-    }
-  },
-
-  /* ==================================================================== 10 */
-  {
-    id: "mounts",
-    featured: false,
-    cats: ["mechanical"],
-    year: "2026",
-    title: { en: "Non-Destructive Display Mounts", fr: "Supports d'exposition non destructifs" },
-    subtitle: {
-      en: "A shelf bracket that needs no screws in the furniture, and a 296 mm lamp post that could not stand until it was redesigned.",
-      fr: "Une équerre d'étagère sans aucune vis dans le meuble, et un lampadaire de 296 mm incapable de tenir debout avant refonte."
-    },
-    images: ["bracket-3d.png", "lamp-3d.png"],
-    tags: ["OpenSCAD", "Structural design", "Centre of mass", "FDM"],
-    body: {
-      en: [
-        "Two small mechanical problems with real constraints. The first is an over-the-edge shelf bracket: it had to carry a hanging display piece with <b>zero fasteners driven into the furniture</b>, so the load is taken entirely by clamping geometry over the shelf edge, and every part prints flat without supports.",
-        "The second started from a purchased 3D asset for a 296 mm lamp post — which, when analysed, <b>literally could not stand up</b>: its centre of mass fell outside its base footprint. I split the model into nine support-free printable parts and designed a weighted plinth that brings the combined centre of mass back inside the support polygon.",
-        "Both are reminders that a model looking correct on screen says nothing about whether the physical object is stable or manufacturable."
-      ],
-      fr: [
-        "Deux petits problèmes mécaniques à contraintes réelles. Le premier est une équerre à cheval sur le bord d'une étagère : elle devait porter un élément décoratif suspendu <b>sans aucune vis dans le meuble</b>, l'effort est donc entièrement repris par une géométrie de serrage sur le chant de l'étagère, et chaque pièce s'imprime à plat sans supports.",
-        "Le second part d'un modèle 3D acheté représentant un lampadaire de 296 mm — qui, après analyse, <b>ne pouvait littéralement pas tenir debout</b> : son centre de masse tombait en dehors de son embase. J'ai découpé le modèle en neuf pièces imprimables sans support et conçu un socle lesté qui ramène le centre de masse combiné à l'intérieur du polygone de sustentation.",
-        "Les deux rappellent qu'un modèle correct à l'écran ne dit rien de la stabilité ni de la fabricabilité de l'objet physique."
-      ]
-    }
-  },
-
-  /* ==================================================================== 11 */
+  /* ===================================================================== 11 */
   {
     id: "power",
     featured: false,
@@ -379,7 +367,7 @@ const PROJECTS = [
       en: "AC power controllers, a 0–10 V industrial dimmer, a digital tachometer and a brushless drive, designed and simulated end to end.",
       fr: "Gradateurs, variateur industriel 0–10 V, tachymètre numérique et commande brushless, conçus et simulés de bout en bout."
     },
-    images: [],
+    images: ["power-board-3d.jpg"],
     tags: ["Proteus", "Power electronics", "Analog design", "Microcontroller", "PSIM"],
     body: {
       en: [
@@ -395,7 +383,7 @@ const PROJECTS = [
     }
   },
 
-  /* ==================================================================== 13 */
+  /* ===================================================================== 12 */
   {
     id: "pvsyst",
     featured: false,
@@ -406,7 +394,7 @@ const PROJECTS = [
       en: "A solar PV installation sized and simulated in PVsyst against the real irradiation of a site in southern Tunisia.",
       fr: "Une installation solaire photovoltaïque dimensionnée et simulée sous PVsyst avec l'irradiation réelle d'un site du sud tunisien."
     },
-    images: [],
+    images: ["pvsyst-chain.svg"],
     tags: ["PVsyst 7", "Solar PV", "Energy yield", "Simulation", "Meteo data"],
     body: {
       en: [
@@ -420,7 +408,7 @@ const PROJECTS = [
     }
   },
 
-  /* ==================================================================== 14 */
+  /* ===================================================================== 13 */
   {
     id: "mcu",
     featured: false,
@@ -431,7 +419,7 @@ const PROJECTS = [
       en: "A set of small but complete embedded programs — PIC instrumentation with LCD readout, and an NFC tag reader.",
       fr: "Un ensemble de programmes embarqués petits mais complets — instrumentation PIC avec affichage LCD, et un lecteur de badges NFC."
     },
-    images: [],
+    images: ["mcu-board-3d.jpg"],
     tags: ["PIC", "mikroC", "Arduino", "PN532 NFC", "HD44780 LCD", "ADC", "I2C"],
     body: {
       en: [
@@ -449,7 +437,7 @@ const PROJECTS = [
     }
   },
 
-  /* ==================================================================== 16 */
+  /* ===================================================================== 14 */
   {
     id: "bldc",
     featured: false,
@@ -460,7 +448,7 @@ const PROJECTS = [
       en: "Spinning a brushless motor with no position sensor — commutating on the back-EMF zero crossings instead.",
       fr: "Faire tourner un moteur brushless sans capteur de position — en commutant sur les passages par zéro de la FCEM."
     },
-    images: [],
+    images: ["bldc-board-3d.jpg"],
     tags: ["BLDC", "Sensorless", "Back-EMF", "Arduino", "Proteus", "Motor control"],
     body: {
       en: [
@@ -476,7 +464,7 @@ const PROJECTS = [
     }
   },
 
-  /* ==================================================================== 17 */
+  /* ===================================================================== 15 */
   {
     id: "stockbot",
     featured: false,
@@ -487,7 +475,7 @@ const PROJECTS = [
       en: "A concept and business model for a warehouse robot that takes stock autonomously — the idea worked out before the hardware.",
       fr: "Un concept et un modèle économique pour un robot d'entrepôt qui réalise l'inventaire de façon autonome — l'idée mûrie avant le matériel."
     },
-    images: [],
+    images: ["stockbot-concept.svg"],
     tags: ["Concept", "Business Model Canvas", "Warehouse robotics", "Embedded AI", "Pitch"],
     body: {
       en: [
@@ -500,11 +488,54 @@ const PROJECTS = [
       ]
     }
   }
+,
+
+  /* ==================== hobby — kept last ==================== */
+  {
+    id: "unknown",
+    featured: false,
+    cats: ["software"],
+    year: "2026",
+    title: { en: "UNKNOWN — Hobby Game Project", fr: "UNKNOWN — projet de jeu personnel" },
+    subtitle: {
+      en: "A side project built in my own time. It is here for one reason: what it taught me about measuring instead of assuming.",
+      fr: "Un projet personnel mené sur mon temps libre. Il figure ici pour une seule raison : ce qu’il m’a appris sur la mesure plutôt que la supposition."
+    },
+    images: ["unknown3d-village.png"],
+    fit: "cover",
+    tags: ["Godot", "GDScript", "Profiling", "Hobby project"],
+    body: {
+      en: [
+        "A hobby project, made in my own time with the Godot engine on an integrated GPU with roughly half a gigabyte of usable video memory. It is not engineering work and it is not offered as such — but working to that budget turned it into a performance exercise.",
+        "<b>It taught me to measure instead of assuming.</b> The scene ran at 3.8 fps and I blamed the scenery; the real cost was a single directional-shadow pass taking roughly 70 % of the frame. Worse, three of the four test harnesses I had written were quietly reporting plausible but wrong numbers. Two rules came out of it, and I apply both to hardware now: to trust a measurement, change a known-good input and confirm the number moves — and to trust a visual claim, look at the pixels."
+      ],
+      fr: [
+        "Un projet personnel, réalisé sur mon temps libre avec le moteur Godot, sur un GPU intégré disposant d’environ un demi-gigaoctet de mémoire vidéo utilisable. Ce n’est pas un travail d’ingénierie et il n’est pas présenté comme tel — mais travailler sous cette contrainte en a fait un exercice de performance.",
+        "<b>Il m’a appris à mesurer plutôt qu’à supposer.</b> La scène tournait à 3,8 images/s et j’accusais le décor ; le coût réel était une seule passe d’ombres directionnelles occupant environ 70 % de la trame. Pire, trois des quatre bancs de test que j’avais écrits rapportaient discrètement des chiffres plausibles mais faux. Deux règles en découlent, que j’applique désormais au matériel : pour se fier à une mesure, modifier une entrée connue et vérifier que le chiffre bouge — et pour se fier à une affirmation visuelle, regarder les pixels."
+      ]
+    }
+  }
+
 ];
 
 /* -------------------------------------------------------------------------- */
 
 const EXPERIENCE = [
+  {
+    period: { en: "2026 — Summer (10 weeks)", fr: "2026 — Été (10 semaines)" },
+    role: {
+      en: "Engineering intern — Robotics &amp; embedded systems",
+      fr: "Stagiaire ingénieur — Robotique &amp; systèmes embarqués"
+    },
+    org: {
+      en: "IRIS Systems — SHADOW autonomous vehicle programme",
+      fr: "IRIS Systems — programme du véhicule autonome SHADOW"
+    },
+    detail: {
+      en: "Ten-week engineering internship on SHADOW, a 52 V four-wheel-drive autonomous ground vehicle. At the start it was a test bench: four drive chains that worked but were commanded separately, perception hardware installed but not integrated, and no vehicle-level safety function at all. The mission ran on four axes — coordinated control of the four traction motors including reverse, a parking brake and badge-based start authorisation, commissioning the on-board perception chain, and a KiCad interface board to replace the bench's flying wiring. A fire on the test bench on 14 July 2026 forced a failure analysis that redirected part of the work: the electrical hold-brake was abandoned for a purely mechanical one. Documented in a 66-page engineering report.",
+      fr: "Stage d'ingénieur de dix semaines sur SHADOW, un véhicule terrestre autonome à quatre roues motrices alimenté sous 52 V. Au départ, le véhicule était à l'état de banc d'essai : quatre chaînes de traction fonctionnelles mais commandées séparément, une informatique de perception installée mais non intégrée, et aucune fonction de sécurité au niveau du véhicule. La mission a porté sur quatre axes — la commande coordonnée des quatre moteurs de traction y compris en marche arrière, un frein de parc et une autorisation de mise en route par badge, la mise en service de la chaîne de perception embarquée, et une carte d'interface sous KiCad destinée à remplacer le câblage volant du banc. Un incendie survenu sur le banc le 14 juillet 2026 a imposé une analyse de défaillance qui a réorienté une partie du travail : le frein électrique a été abandonné au profit d'une solution purement mécanique. Le tout est documenté dans un rapport d'ingénieur de 66 pages."
+    }
+  },
   {
     period: { en: "2025 — present", fr: "2025 — aujourd'hui" },
     role: { en: "Engineering student — Electrical / Mechatronics", fr: "Élève ingénieur — Génie électrique / Mécatronique" },
@@ -546,15 +577,19 @@ const EXPERIENCE = [
 const SKILLS = [
   {
     group: { en: "Robotics &amp; autonomy", fr: "Robotique &amp; autonomie" },
-    items: ["ROS 2", "Isaac ROS", "Lidar / SLAM", "RGB-D perception", "Teleoperation", "PID control", "Odometry calibration"]
+    items: ["ROS 2 Humble", "Isaac ROS", "Visual SLAM (cuVSLAM)", "Jetson Orin Nano", "Lidar / SLAM", "RGB-D perception", "Teleoperation", "PID control", "Odometry calibration"]
   },
   {
     group: { en: "Embedded systems", fr: "Systèmes embarqués" },
     items: ["STM32 (F446RE, F401, H723ZG)", "Arduino / AVR", "PIC / mikroC", "ESP32", "PlatformIO", "BLDC drives", "Custom PCB / Gerber", "Serial protocols", "NFC / RFID", "Sensor interfacing"]
   },
   {
+    group: { en: "Reverse engineering &amp; diagnostics", fr: "Rétro-ingénierie &amp; diagnostic" },
+    items: ["Bus sniffing", "Protocol decoding", "Undocumented HTTP APIs", "Failure-mode analysis", "Datasheet derating"]
+  },
+  {
     group: { en: "Software", fr: "Logiciel" },
-    items: ["Python", "C / C++", "OpenCV", "NumPy", "GDScript / Godot", "Git", "Linux"]
+    items: ["Python", "C / C++", "OpenCV", "NumPy", "GDScript / Godot", "Git", "Linux", "Docker"]
   },
   {
     group: { en: "CAD &amp; manufacturing", fr: "CAO &amp; fabrication" },
@@ -562,7 +597,7 @@ const SKILLS = [
   },
   {
     group: { en: "Electronics", fr: "Électronique" },
-    items: ["KiCad", "Proteus", "Power electronics", "Schematic capture", "Custom PCB / Gerber", "Instrumentation"]
+    items: ["KiCad", "Proteus", "Power electronics", "Schematic capture", "Custom PCB / Gerber", "MOSFET gate drive", "DC load switching", "Fusing &amp; protection", "Instrumentation"]
   },
   {
     group: { en: "Simulation &amp; analysis", fr: "Simulation &amp; analyse" },

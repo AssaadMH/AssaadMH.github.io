@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 600" width="1320" height="600" role="img">
+  <style>
+    .f  { font-family: Arial, Helvetica, sans-serif; }
+    .m  { font-family: Consolas, "Courier New", monospace; }
+    .ttl{ font-size: 30px; font-weight: bold; fill: #14506b; letter-spacing: 1.2px; }
+    .hd { font-size: 26px; font-weight: bold; fill: #11161b; }
+    .bd { font-size: 24px; fill: #3f4a55; }
+    .sm { font-size: 21px; fill: #6a7580; }
+    .mo { font-size: 23px; fill: #14506b; }
+  </style>
+  <rect width="1320" height="600" fill="#ffffff"/>
+
+  <text class="f ttl" x="40" y="52">CUSTOM 16-CHANNEL TCRT5000 ARRAY — SCHEMATIC TO GERBER</text>
+
+  <!-- board strip -->
+  <rect x="40" y="84" width="1240" height="150" rx="12" fill="#f0f4f6" stroke="#14506b" stroke-width="3"/>
+  <text class="f sm" x="58" y="112">SENSOR BOARD · front edge · 16 reflectance channels</text>
+
+  <!-- the line being tracked, passing under channels 9-10 -->
+  <rect x="676" y="126" width="86" height="96" rx="4" fill="#11161b" opacity="0.88"/>
+  <text class="f sm" x="719" y="252" text-anchor="middle" fill="#11161b">line</text>
+
+  <g>
+    <!-- 16 channels: x = 58 + i*76, width 60 -->
+    <rect x="58"   y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="134"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="210"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="286"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="362"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="438"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="514"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="590"  y="132" width="60" height="60" rx="7" fill="#e2ecf1" stroke="#2c7c9e" stroke-width="3"/>
+    <rect x="666"  y="132" width="60" height="60" rx="7" fill="#14506b" stroke="#14506b" stroke-width="3"/>
+    <rect x="742"  y="132" width="60" height="60" rx="7" fill="#2c7c9e" stroke="#14506b" stroke-width="3"/>
+    <rect x="818"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="894"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="970"  y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="1046" y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="1122" y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+    <rect x="1198" y="132" width="60" height="60" rx="7" fill="#ffffff" stroke="#c4cdd4" stroke-width="3"/>
+  </g>
+
+  <text class="m" x="88"   y="222" text-anchor="middle" font-size="20" fill="#6a7580">1</text>
+  <text class="m" x="1228" y="222" text-anchor="middle" font-size="20" fill="#6a7580">16</text>
+
+  <!-- the chain -->
+  <rect x="40" y="272" width="290" height="112" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f hd" x="185" y="312" text-anchor="middle">Weighted read</text>
+  <text class="f sm" x="185" y="342" text-anchor="middle">16 reflectance values</text>
+  <text class="f sm" x="185" y="366" text-anchor="middle">→ one line position</text>
+
+  <path d="M348 328 h44" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M392 328 l-14 -8 v16 z" fill="#2c7c9e"/>
+
+  <rect x="406" y="272" width="250" height="112" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f hd" x="531" y="312" text-anchor="middle">PID loop</text>
+  <text class="f sm" x="531" y="342" text-anchor="middle">STM32 · Keil uVision</text>
+  <text class="f sm" x="531" y="366" text-anchor="middle">steering correction</text>
+
+  <path d="M674 328 h44" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M718 328 l-14 -8 v16 z" fill="#2c7c9e"/>
+
+  <rect x="732" y="272" width="250" height="112" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f hd" x="857" y="312" text-anchor="middle">Differential drive</text>
+  <text class="f sm" x="857" y="342" text-anchor="middle">left / right speed</text>
+  <text class="f sm" x="857" y="366" text-anchor="middle">split by the error</text>
+
+  <path d="M1000 328 h44" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M1044 328 l-14 -8 v16 z" fill="#2c7c9e"/>
+
+  <rect x="1058" y="272" width="222" height="112" rx="10" fill="#e3efe8" stroke="#285f42" stroke-width="3"/>
+  <text class="f hd" x="1169" y="312" text-anchor="middle" fill="#285f42">Maze route</text>
+  <text class="f sm" x="1169" y="342" text-anchor="middle">junction rules</text>
+  <text class="f sm" x="1169" y="366" text-anchor="middle">+ path memory</text>
+
+  <!-- footer claim -->
+  <rect x="40" y="416" width="1240" height="146" rx="12" fill="#e2ecf1" stroke="#14506b" stroke-width="3"/>
+  <text class="f" x="66" y="456" font-size="26" font-weight="bold" fill="#14506b">Designed, not bought.</text>
+  <text class="f bd" x="66" y="492">Schematic through to my own Gerber files and layer artwork. Sixteen channels across the front resolve line</text>
+  <text class="f bd" x="66" y="522">position far more finely than an off-the-shelf bar, which is what lets the PID term stay smooth near centre.</text>
+  <text class="f sm" x="66" y="550">Forked reference firmware studied alongside is kept separate and is not claimed as original work.</text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 600" width="1320" height="600" role="img">
+  <style>
+    .f  { font-family: Arial, Helvetica, sans-serif; }
+    .m  { font-family: Consolas, "Courier New", monospace; }
+    .ttl{ font-size: 30px; font-weight: bold; fill: #14506b; letter-spacing: 1.2px; }
+    .hd { font-size: 25px; font-weight: bold; fill: #11161b; }
+    .bd { font-size: 23px; fill: #3f4a55; }
+    .sm { font-size: 21px; fill: #6a7580; }
+    .mo { font-size: 22px; fill: #14506b; }
+  </style>
+  <rect width="1320" height="600" fill="#ffffff"/>
+
+  <text class="f ttl" x="40" y="52">AUTOMATED SORTING CELL — THE PLC OWNS THE CYCLE</text>
+
+  <!-- ================= left: cell layout ================= -->
+  <rect x="40" y="84" width="660" height="478" rx="12" fill="#f0f4f6" stroke="#14506b" stroke-width="3"/>
+  <text class="f sm" x="60" y="114">CELL LAYOUT · plan view</text>
+
+  <!-- safety fence -->
+  <rect x="66" y="130" width="608" height="316" rx="8" fill="none" stroke="#96271c" stroke-width="3" stroke-dasharray="12 9"/>
+  <text class="f sm" x="80" y="156" fill="#96271c">guarded perimeter</text>
+
+  <!-- infeed conveyor -->
+  <rect x="90" y="270" width="150" height="66" rx="6" fill="#ffffff" stroke="#3f4a55" stroke-width="3"/>
+  <line x1="105" y1="270" x2="105" y2="336" stroke="#c4cdd4" stroke-width="3"/>
+  <line x1="135" y1="270" x2="135" y2="336" stroke="#c4cdd4" stroke-width="3"/>
+  <line x1="165" y1="270" x2="165" y2="336" stroke="#c4cdd4" stroke-width="3"/>
+  <line x1="195" y1="270" x2="195" y2="336" stroke="#c4cdd4" stroke-width="3"/>
+  <line x1="225" y1="270" x2="225" y2="336" stroke="#c4cdd4" stroke-width="3"/>
+  <rect x="196" y="288" width="30" height="30" rx="4" fill="#2c7c9e"/>
+  <text class="f sm" x="165" y="364" text-anchor="middle">infeed</text>
+
+  <!-- KUKA arm -->
+  <circle cx="378" cy="304" r="34" fill="#e2ecf1" stroke="#14506b" stroke-width="4"/>
+  <line x1="378" y1="304" x2="332" y2="216" stroke="#14506b" stroke-width="13" stroke-linecap="round"/>
+  <line x1="332" y1="216" x2="452" y2="196" stroke="#14506b" stroke-width="11" stroke-linecap="round"/>
+  <line x1="452" y1="196" x2="470" y2="238" stroke="#14506b" stroke-width="8" stroke-linecap="round"/>
+  <rect x="456" y="236" width="30" height="20" rx="3" fill="#14506b"/>
+  <text class="f hd" x="378" y="384" text-anchor="middle" fill="#14506b">KUKA</text>
+  <text class="f sm" x="378" y="410" text-anchor="middle">6-axis · executes motion</text>
+
+  <!-- sort bins -->
+  <rect x="530" y="196" width="120" height="60" rx="6" fill="#ffffff" stroke="#285f42" stroke-width="3"/>
+  <text class="f sm" x="590" y="233" text-anchor="middle" fill="#285f42">type A</text>
+  <rect x="530" y="272" width="120" height="60" rx="6" fill="#ffffff" stroke="#285f42" stroke-width="3"/>
+  <text class="f sm" x="590" y="309" text-anchor="middle" fill="#285f42">type B</text>
+  <rect x="530" y="348" width="120" height="60" rx="6" fill="#ffffff" stroke="#285f42" stroke-width="3"/>
+  <text class="f sm" x="590" y="385" text-anchor="middle" fill="#285f42">reject</text>
+
+  <!-- PLC + handshake -->
+  <rect x="90" y="466" width="230" height="76" rx="8" fill="#e2ecf1" stroke="#14506b" stroke-width="3"/>
+  <text class="f hd" x="205" y="500" text-anchor="middle" fill="#14506b">S7-1200 PLC</text>
+  <text class="f sm" x="205" y="527" text-anchor="middle">cell controller</text>
+
+  <path d="M340 486 h60" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M400 486 l-14 -8 v16 z" fill="#2c7c9e"/>
+  <path d="M400 520 h-60" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M340 520 l14 -8 v16 z" fill="#2c7c9e"/>
+  <text class="f sm" x="416" y="494">request / go</text>
+  <text class="f sm" x="416" y="528">done / fault</text>
+  <text class="f sm" x="416" y="556" fill="#14506b">discrete I/O handshake</text>
+
+  <!-- ================= right: logic + safety ================= -->
+  <rect x="730" y="84" width="550" height="266" rx="12" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f hd" x="756" y="122" fill="#14506b">CYCLE — WRITTEN IN LADDER</text>
+
+  <text class="m mo" x="756" y="164">1 · part present</text>
+  <text class="m mo" x="756" y="200">2 · robot request → pick</text>
+  <text class="m mo" x="756" y="236">3 · place by type</text>
+  <text class="m mo" x="756" y="272">4 · cycle complete</text>
+  <text class="f sm" x="756" y="308">Ladder is what a maintenance team on a</text>
+  <text class="f sm" x="756" y="334">real line actually reads and edits.</text>
+
+  <rect x="730" y="362" width="550" height="200" rx="12" fill="#fbe8e5" stroke="#96271c" stroke-width="3"/>
+  <text class="f hd" x="756" y="400" fill="#96271c">SAFETY — A DESIGN INPUT</text>
+
+  <rect x="756" y="420" width="230" height="54" rx="8" fill="#ffffff" stroke="#96271c" stroke-width="3"/>
+  <text class="f" x="871" y="455" text-anchor="middle" font-size="24" font-weight="bold" fill="#96271c">ISO 13849-1</text>
+  <rect x="1002" y="420" width="252" height="54" rx="8" fill="#ffffff" stroke="#96271c" stroke-width="3"/>
+  <text class="f" x="1128" y="455" text-anchor="middle" font-size="24" font-weight="bold" fill="#96271c">IEC 62061</text>
+
+  <text class="f bd" x="756" y="500">These turn “add an emergency stop” into a</text>
+  <text class="f bd" x="756" y="526">quantified requirement on the safety</text>
+  <text class="f bd" x="756" y="552">function’s performance level.</text>
+</svg>

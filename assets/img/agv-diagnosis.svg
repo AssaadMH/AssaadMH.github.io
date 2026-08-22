@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 600" width="1320" height="600" role="img">
+  <style>
+    .f  { font-family: Arial, Helvetica, sans-serif; }
+    .m  { font-family: Consolas, "Courier New", monospace; }
+    .ttl{ font-size: 30px; font-weight: bold; fill: #14506b; letter-spacing: 1.2px; }
+    .hd { font-size: 27px; font-weight: bold; }
+    .bd { font-size: 24px; fill: #3f4a55; }
+    .sm { font-size: 22px; fill: #6a7580; }
+    .mo { font-size: 23px; fill: #14506b; }
+  </style>
+  <rect width="1320" height="600" fill="#ffffff"/>
+
+  <text class="f ttl" x="40" y="52">AGV CONTROL API — WHAT THE ENDPOINT COULD NOT FIX</text>
+
+  <!-- ============ left: the access that worked ============ -->
+  <rect x="40" y="86" width="600" height="330" rx="12" fill="#e2ecf1" stroke="#14506b" stroke-width="3"/>
+  <text class="f hd" x="66" y="126" fill="#14506b">ACCESS — SOLVED</text>
+
+  <rect x="66" y="148" width="230" height="60" rx="9" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f bd" x="181" y="177" text-anchor="middle" font-weight="bold" fill="#11161b">My scripts</text>
+  <text class="f sm" x="181" y="198" text-anchor="middle">Python</text>
+
+  <path d="M304 178 h56" stroke="#2c7c9e" stroke-width="4" fill="none"/>
+  <path d="M360 178 l-14 -8 v16 z" fill="#2c7c9e"/>
+
+  <rect x="374" y="148" width="240" height="60" rx="9" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f bd" x="494" y="177" text-anchor="middle" font-weight="bold" fill="#11161b">Onboard service</text>
+  <text class="m sm" x="494" y="198" text-anchor="middle">192.168.1.183</text>
+
+  <text class="m mo" x="66" y="252">POST /cmd/nav</text>
+  <text class="f sm" x="360" y="252">motion</text>
+  <text class="m mo" x="66" y="292">POST /cmd/charge  {"type": 2}</text>
+  <text class="f sm" x="510" y="292">go-dock</text>
+  <text class="m mo" x="66" y="332">GET  /status</text>
+  <text class="f sm" x="360" y="332">pose + confidence</text>
+
+  <rect x="66" y="352" width="548" height="42" rx="8" fill="#ffffff" stroke="#c4cdd4" stroke-width="2"/>
+  <text class="f sm" x="80" y="380">Mapped from scratch — no vendor documentation.</text>
+
+  <!-- ============ right: the state that was missing ============ -->
+  <rect x="680" y="86" width="600" height="330" rx="12" fill="#fbe8e5" stroke="#96271c" stroke-width="3"/>
+  <text class="f hd" x="706" y="126" fill="#96271c">ROBOT STATE — THE REAL FAULT</text>
+
+  <rect x="706" y="150" width="548" height="72" rx="9" fill="#ffffff" stroke="#96271c" stroke-width="3"/>
+  <text class="f bd" x="726" y="183" font-weight="bold" fill="#11161b">Localisation confidence</text>
+  <text class="m" x="1234" y="185" text-anchor="end" font-size="34" font-weight="bold" fill="#96271c">0 %</text>
+  <text class="f sm" x="726" y="209">the robot does not know where it is</text>
+
+  <rect x="706" y="238" width="548" height="72" rx="9" fill="#ffffff" stroke="#96271c" stroke-width="3"/>
+  <text class="f bd" x="726" y="271" font-weight="bold" fill="#11161b">Charge-pile waypoint</text>
+  <text class="m" x="1234" y="273" text-anchor="end" font-size="34" font-weight="bold" fill="#96271c">absent</text>
+  <text class="f sm" x="726" y="297">the saved map has no dock to navigate to</text>
+
+  <rect x="706" y="326" width="548" height="68" rx="9" fill="#ffffff" stroke="#c4cdd4" stroke-width="2"/>
+  <text class="f sm" x="726" y="354">The command was accepted every time.</text>
+  <text class="f sm" x="726" y="380">Nothing downstream of it had the state it needed.</text>
+
+  <!-- ============ verdict ============ -->
+  <rect x="40" y="444" width="1240" height="118" rx="12" fill="#e3efe8" stroke="#285f42" stroke-width="3"/>
+  <text class="f" x="660" y="490" text-anchor="middle" font-size="30" font-weight="bold" fill="#285f42">The API was not the bug.</text>
+  <text class="f bd" x="660" y="527" text-anchor="middle">Before blaming the interface you have just learned, check whether the system underneath it</text>
+  <text class="f bd" x="660" y="551" text-anchor="middle">holds the state that interface depends on.</text>
+</svg>

@@ -3,12 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio</title>
-<meta name="description" content="Engineering portfolio — robotics, embedded systems, mechatronics and CAD projects.">
+<title>Lassaad Mahmoudi — Robotics &amp; Embedded Systems Engineering Student</title>
+<meta name="description" content="Engineering portfolio of Lassaad Mahmoudi — autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD. 19 documented projects, all built on real hardware.">
+<meta name="author" content="Lassaad Mahmoudi">
+<meta name="theme-color" content="#0c0f13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+
+<!-- Link previews (LinkedIn, WhatsApp…). og:image must be an ABSOLUTE url to
+     resolve, so set og:url and og:image to the real domain once this is hosted. -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Lassaad Mahmoudi — Robotics &amp; Embedded Systems Engineering Student">
+<meta property="og:description" content="Autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD — 19 documented projects, all built on real hardware.">
+<meta property="og:image" content="assets/img/shadow-architecture.png">
+<meta property="og:locale" content="en">
+<meta property="og:locale:alternate" content="fr">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234ea3ff'/><text x='50' y='68' font-size='52' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2306121e'>IS</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234ea3ff'/><text x='50' y='68' font-size='46' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2306121e'>LM</text></svg>">
 </head>
 <body>
+
+<a class="skip" href="#projects">Skip to projects</a>
 
 <header class="site">
   <div class="wrap">
@@ -37,12 +55,18 @@
 
   <div class="hero">
     <div class="wrap">
-      <div class="eyebrow" id="hero-eyebrow"></div>
-      <h1 id="hero-name"></h1>
-      <p class="role"   id="hero-role"></p>
-      <p class="school" id="hero-school"></p>
-      <p class="tagline" id="hero-tagline"></p>
-      <div class="hero-actions" id="hero-actions"></div>
+      <div class="hero-top">
+        <div class="hero-intro">
+          <div class="eyebrow" id="hero-eyebrow"></div>
+          <h1 id="hero-name"></h1>
+          <p class="role"   id="hero-role"></p>
+          <p class="school" id="hero-school"></p>
+          <p class="tagline" id="hero-tagline"></p>
+          <div class="hero-actions" id="hero-actions"></div>
+        </div>
+        <!-- filled from PROFILE.photo; stays empty if no portrait is set -->
+        <div class="hero-portrait" id="hero-portrait"></div>
+      </div>
       <div class="stats" id="hero-stats"></div>
     </div>
   </div>

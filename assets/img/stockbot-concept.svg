@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 600" width="1320" height="600" role="img">
+  <style>
+    .f  { font-family: Arial, Helvetica, sans-serif; }
+    .ttl{ font-size: 30px; font-weight: bold; fill: #14506b; letter-spacing: 1.2px; }
+    .hd { font-size: 24px; font-weight: bold; fill: #11161b; }
+    .bd { font-size: 23px; fill: #3f4a55; }
+    .sm { font-size: 20px; fill: #6a7580; }
+    .lb { font-size: 19px; font-weight: bold; fill: #2c7c9e; letter-spacing: 1.1px; }
+  </style>
+  <rect width="1320" height="600" fill="#ffffff"/>
+
+  <text class="f ttl" x="40" y="50">STOCKBOT — AN INVENTORY ROBOT AS A PRODUCT</text>
+
+  <!-- honesty badge -->
+  <rect x="920" y="22" width="360" height="42" rx="21" fill="#faf0da" stroke="#83540a" stroke-width="3"/>
+  <text class="f" x="1100" y="50" text-anchor="middle" font-size="18" font-weight="bold" fill="#83540a">CONCEPT · NOT A BUILT MACHINE</text>
+
+  <!-- ================= left: the scene ================= -->
+  <rect x="40" y="86" width="560" height="344" rx="12" fill="#f0f4f6" stroke="#14506b" stroke-width="3"/>
+  <text class="f sm" x="62" y="116">WHAT IT WOULD DO</text>
+
+  <!-- shelf rack left -->
+  <rect x="80" y="140" width="150" height="216" fill="none" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="80" y1="196" x2="230" y2="196" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="80" y1="252" x2="230" y2="252" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="80" y1="308" x2="230" y2="308" stroke="#3f4a55" stroke-width="4"/>
+  <rect x="92"  y="158" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="142" y="158" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="92"  y="214" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="192" y="214" width="34" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="142" y="270" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="92"  y="270" width="40" height="34" rx="3" fill="#c4cdd4"/>
+
+  <!-- shelf rack right -->
+  <rect x="410" y="140" width="150" height="216" fill="none" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="410" y1="196" x2="560" y2="196" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="410" y1="252" x2="560" y2="252" stroke="#3f4a55" stroke-width="4"/>
+  <line x1="410" y1="308" x2="560" y2="308" stroke="#3f4a55" stroke-width="4"/>
+  <rect x="422" y="158" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="472" y="214" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="422" y="270" width="40" height="34" rx="3" fill="#c4cdd4"/>
+  <rect x="502" y="270" width="34" height="34" rx="3" fill="#c4cdd4"/>
+
+  <!-- aisle floor -->
+  <line x1="250" y1="356" x2="392" y2="356" stroke="#3f4a55" stroke-width="4"/>
+
+  <!-- scan cones -->
+  <polygon points="290,286 230,208 230,300" fill="#2c7c9e" opacity="0.22"/>
+  <polygon points="352,286 410,208 410,300" fill="#2c7c9e" opacity="0.22"/>
+
+  <!-- the robot -->
+  <rect x="284" y="278" width="74" height="58" rx="9" fill="#14506b"/>
+  <rect x="296" y="252" width="50" height="28" rx="6" fill="#2c7c9e"/>
+  <circle cx="302" cy="344" r="12" fill="#11161b"/>
+  <circle cx="340" cy="344" r="12" fill="#11161b"/>
+  <text class="f sm" x="321" y="392" text-anchor="middle">roams the aisle · counts as it goes</text>
+
+  <!-- ================= right: condensed BMC ================= -->
+  <text class="f hd" x="630" y="120" fill="#14506b">BUSINESS MODEL CANVAS — CONDENSED</text>
+
+  <rect x="630" y="140" width="310" height="88" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f lb" x="650" y="170">CUSTOMER</text>
+  <text class="f sm" x="650" y="200">warehouses, 3PL operators</text>
+  <text class="f sm" x="650" y="220">and retail stock rooms</text>
+
+  <rect x="960" y="140" width="320" height="88" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f lb" x="980" y="170">VALUE</text>
+  <text class="f sm" x="980" y="200">a stock picture that is live</text>
+  <text class="f sm" x="980" y="220">and traceable, not a snapshot</text>
+
+  <rect x="630" y="240" width="310" height="88" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f lb" x="650" y="270">KEY ACTIVITY</text>
+  <text class="f sm" x="650" y="300">autonomous navigation</text>
+  <text class="f sm" x="650" y="320">plus embedded AI counting</text>
+
+  <rect x="960" y="240" width="320" height="88" rx="10" fill="#fbe8e5" stroke="#96271c" stroke-width="3"/>
+  <text class="f lb" x="980" y="270" fill="#96271c">REPLACES</text>
+  <text class="f sm" x="980" y="300">the manual stock-take that</text>
+  <text class="f sm" x="980" y="320">is stale the moment it ends</text>
+
+  <rect x="630" y="340" width="310" height="88" rx="10" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+  <text class="f lb" x="650" y="370">DEVELOPED WITH</text>
+  <text class="f sm" x="650" y="400">FIDEL Metouia association</text>
+  <text class="f sm" x="650" y="420">and ENIG</text>
+
+  <rect x="960" y="340" width="320" height="88" rx="10" fill="#e3efe8" stroke="#285f42" stroke-width="3"/>
+  <text class="f lb" x="980" y="370" fill="#285f42">STATUS</text>
+  <text class="f sm" x="980" y="400">a worked-out concept and a</text>
+  <text class="f sm" x="980" y="420">Business Model Canvas</text>
+
+  <!-- ================= footer ================= -->
+  <rect x="40" y="452" width="1240" height="110" rx="12" fill="#e2ecf1" stroke="#14506b" stroke-width="3"/>
+  <text class="f" x="66" y="492" font-size="25" font-weight="bold" fill="#14506b">Why a concept earns a place next to built hardware.</text>
+  <text class="f bd" x="66" y="528">Framing a robotics idea as a product — who it is for, what it costs, why it wins — is a different</text>
+  <text class="f bd" x="66" y="554">muscle from building the robot, and it draws on the autonomy work elsewhere in this portfolio.</text>
+</svg>

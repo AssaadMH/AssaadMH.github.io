@@ -101,9 +101,10 @@ var CV = {
       ["Location", "Tunisia"],
       ["Email", "assaadmahmoudio@gmail.com"],
       ["Phone", "+216 23 315 873"],
-      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"]
+      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"],
+      ["GitHub", "github.com/AssaadMH"]
     ],
-    summary: "2nd-year Electrical Engineering student (Automation) at ENIG, focused on robotics — from autonomous ground vehicles and PID line-followers to custom sensor PCBs and industrial automation cells. Hands-on with ESP32/STM32, ROS 2, PID control, computer vision and power electronics; every project below is built on real hardware. Head of Robotics at the Alliance of Engineers Club. Seeking an internship in robotics, embedded systems or industrial automation.",
+    summary: "2nd-year Electrical Engineering student (Automation) at ENIG, focused on robotics — from an autonomous 4WD ground vehicle running ROS 2 and visual SLAM to custom PCBs taken from schematic through to Gerber, industrial automation cells and 52 V power-switching hardware. Hands-on with ESP32/STM32, Jetson, PID control, computer vision and power electronics; every project below is built on real hardware, and anything touching pack voltage is designed failure-mode first. Head of Robotics at the Alliance of Engineers Club. Seeking an internship in robotics, embedded systems or industrial automation.",
 
     expTitle: "Internship",
     exp: [
@@ -118,11 +119,23 @@ var CV = {
     projTitle: "Robotics &amp; engineering projects",
     projects: [
       { t:"SHADOW — Autonomous 4WD Ground Vehicle",
-        tech:"ROS 2 · Jetson Orin Nano · STM32 · BLDC · Python / C",
+        tech:"ROS 2 Humble · Jetson Orin Nano · Isaac ROS / cuVSLAM · STM32 · BLDC · Python / C",
         bullets:[
           "Built a full-size four-wheel-drive robot from scratch: Jetson Orin Nano compute brain, STM32 real-time motor MCU, four 52 V BLDC hub motors.",
-          "Layered ROS 2 stack (motor driver, teleop, bring-up) with a 0.5 s safety watchdog; lidar + RGB-D perception and multilingual voice control.",
-          "Calibrated odometry to 0.0232 m/pulse against tape measurement."
+          "Layered ROS 2 stack (motor driver, teleop, bring-up) with a 0.5 s safety watchdog; Isaac ROS visual SLAM (cuVSLAM) containerised on the Jetson, plus lidar, RGB-D and multilingual voice control.",
+          "Calibrated odometry to 0.0232 m/pulse against tape measurement; mirrored the whole Jetson software layout in a reproducible x86 VM so launch files and configuration can be tested without touching the robot."
+        ] },
+      { t:"4WD Motor-Control Shield — Custom Nucleo-64 PCB",
+        tech:"Proteus · STM32 Nucleo-64 · Schematic capture · PCB / DRC · BOM",
+        bullets:[
+          "Designed the 24-signal interface board that replaces SHADOW's perfboard wiring: four throttle and four reverse channels, six Hall inputs, BTS7960 steering, AS5600 encoder, servo brake and 12 V lighting on pluggable screw terminals.",
+          "Checking the pin map against the reference manual instead of trusting the source spec found two real faults it called conflict-free: an external-interrupt line shared between the user button and a Hall input, and a timer-channel clash that forced a different alternate function."
+        ] },
+      { t:"Electric-Scooter Drive — Reverse Engineering",
+        tech:"Arduino · Bus sniffing · Protocol decoding · PWM + RC · PI control",
+        bullets:[
+          "Instrumented the bus between an electric scooter's controller and its display, decoded the XOR-checksummed frame, and established that it carried telemetry only — so the command path had to be found elsewhere.",
+          "Located the real analog throttle line on the dashboard connector, drove it with RC-filtered PWM and closed a PI speed loop on the decoded wheel speed. SHADOW's four motor channels are still built on this interface."
         ] },
       { t:"Line-Following Robot — PID Control &amp; Simulator",
         tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
@@ -136,15 +149,21 @@ var CV = {
           "Designed a custom 16-channel TCRT5000 infrared sensor array from schematic through to my own Gerber files.",
           "Drives an STM32 PID maze-solving car (Keil), with an ESP32 Bluetooth manual-control node. Built for the ENIG ROBOTs autonomous competition."
         ] },
-      { t:"All-Terrain Robot",
-        tech:"ESP32 / Arduino · C/C++ · Motor Control · Sensors",
+      { t:"Commercial AGV — Control-Protocol Reverse Engineering",
+        tech:"HTTP / REST · Python · ROS navigation · Diagnostics",
         bullets:[
-          "Designed and built an all-terrain robot able to navigate rough surfaces, with motor control, sensor fusion and stability management for off-road movement."
+          "Mapped the undocumented HTTP control interface of a commercial warehouse AGV chassis and drove it — motion goals and auto-docking — from my own scripts instead of the vendor application.",
+          "Traced a persistent docking failure to the layer below the interface: the robot reported 0 % localisation confidence and its active map held no charge-pile waypoint, so the dock command had nothing to navigate to."
         ] },
       { t:"Automated Sorting Cell — KUKA Robot + Siemens S7-1200",
         tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
         bullets:[
           "Industrial pick-and-sort cell: a KUKA arm sequenced by an S7-1200 PLC in Ladder, designed against recognised machine-safety standards (with Chahin Dhaoui)."
+        ] },
+      { t:"All-Terrain Robot",
+        tech:"ESP32 / Arduino · C/C++ · Motor Control · Sensors",
+        bullets:[
+          "Designed and built an all-terrain robot able to navigate rough surfaces, with motor control, sensor fusion and stability management for off-road movement."
         ] },
       { t:"Real-Time Facial Recognition System",
         tech:"Python · OpenCV · Raspberry Pi 4",
@@ -152,17 +171,24 @@ var CV = {
           "Detection → embedding extraction → real-time identity classification pipeline targeting a Raspberry Pi 4.",
           "Confidence threshold justified with a documented ROC evaluation, not a single accuracy figure."
         ] },
-      { t:"Sealed Lidar Enclosure — Parametric CAD",
-        tech:"OpenSCAD · Parametric CAD · Tolerance analysis · DFM",
+      { t:"Mechanical Design for 3D Printing — Parametric CAD",
+        tech:"OpenSCAD · Parametric CAD · Tolerance analysis · DFM · Slicer validation",
         bullets:[
-          "Weather-sealed OpenSCAD housing for a YDLIDAR X2 where the clear tube is the structural load path and nothing crosses the scan plane.",
-          "Wrote a post-export checker that caught a severed, non-manifold part invisible in the slicer's default view."
+          "Weather-sealed housing for a YDLIDAR X2 where the clear tube is the structural load path and nothing crosses the scan plane; a post-export checker I wrote caught a severed, non-manifold part invisible in the slicer's default view.",
+          "Servo-driven twin-cable brake drum for SHADOW: the printed pocket captures the factory servo horn rather than reprinting its spline (which would shear along the layer lines), and the two cable anchors sit 180° apart so their pulls cancel as a couple instead of side-loading the servo bearing."
         ] },
-      { t:"Power Electronics &amp; Motor Drives",
-        tech:"Proteus · Power electronics · KiCad / EasyEDA · Arduino",
+      { t:"Power Electronics, Motor Drives &amp; High-Voltage Switching",
+        tech:"Proteus · Power electronics · MOSFET drive · KiCad / EasyEDA · Arduino",
         bullets:[
           "Hoverboard BLDC motor controller (IRFZ44N MOSFETs, Hall sensors + PWM) and a sensorless back-EMF BLDC drive, modelled and simulated end to end.",
+          "After an in-service failure on a 52 V line, redesigned SHADOW's 104 W lighting driver so the relay contacts no longer switch pack voltage at all: the relay steers a 12 V gate signal and a 100 V MOSFET does the switching — no arc, no weld-closed failure mode — held off at boot through the relay's normally-closed contact, with freewheel diode, fusing and every part derated against the pack's 58.8 V full charge.",
           "Custom PCBs: a QTR infrared sensor board and a TRIAC-based AC power dimmer (gradateur de puissance)."
+        ] },
+      { t:"UNKNOWN — 3D Action Game on a 0.5 GB GPU",
+        tech:"Godot 4.3 · GDScript · 3D math · Blender · Profiling · Audio DSP",
+        bullets:[
+          "Solo real-time 3D game built around a hard hardware ceiling: skinned character animation, enemy AI with telegraphed attacks driven by a data-table archetype system, and all fourteen sound effects synthesised in code with no audio files.",
+          "Measuring instead of guessing found the directional-shadow pass was costing roughly 70 % of the frame — turning it off took the level from 3.8 to about 15 fps with the atmosphere intact."
         ] }
     ],
 
@@ -185,12 +211,14 @@ var CV = {
 
     skTitle: "Skills",
     skills: [
-      { g:"Embedded", items:["ESP32","PIC16F877A","STM32","Arduino","Raspberry Pi"] },
+      { g:"Embedded", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano"] },
+      { g:"Control &amp; robotics", items:["PID","ROS 2","Visual SLAM (Isaac ROS)","Industrial automation"] },
+      { g:"Electronics &amp; PCB", items:["Schematic capture","PCB / Gerber","Proteus","KiCad / EasyEDA","Power electronics","MOSFET drive"] },
       { g:"Vision &amp; AI", items:["OpenCV","Deep Learning","Signal &amp; image processing"] },
-      { g:"Programming", items:["C / C++","Python","MATLAB"] },
-      { g:"Control &amp; robotics", items:["PID","Industrial automation","ROS 2"] },
-      { g:"Power", items:["Power electronics"] },
-      { g:"Tools", items:["MATLAB / Simulink","LabVIEW","Proteus"] },
+      { g:"Programming", items:["C / C++","Python","MATLAB","GDScript"] },
+      { g:"CAD &amp; fabrication", items:["OpenSCAD (parametric)","3D printing / DFM","Slicer preparation"] },
+      { g:"Systems", items:["Linux / Ubuntu","Docker","Protocol reverse engineering"] },
+      { g:"Tools", items:["MATLAB / Simulink","LabVIEW","Godot"] },
       { g:"Notions", items:["Data Science","Cybersecurity"] },
       { g:"Office", items:["Word","Excel","PowerPoint (MS certified)"] }
     ],
@@ -215,9 +243,10 @@ var CV = {
       ["Localisation", "Tunisie"],
       ["Courriel", "assaadmahmoudio@gmail.com"],
       ["Téléphone", "+216 23 315 873"],
-      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"]
+      ["LinkedIn", "linkedin.com/in/mahmoudiassaad"],
+      ["GitHub", "github.com/AssaadMH"]
     ],
-    summary: "Étudiant ingénieur en 2ᵉ année en Génie Électrique (Automatique) à l'ENIG, orienté robotique — des véhicules terrestres autonomes et suiveurs de ligne PID aux PCB capteurs sur mesure et cellules d'automatisme industriel. Pratique de l'ESP32/STM32, ROS 2, commande PID, vision par ordinateur et électronique de puissance ; chaque projet ci-dessous tourne sur du matériel réel. Responsable Robotique du club Alliance of Engineers. À la recherche d'un stage en robotique, systèmes embarqués ou automatisme industriel.",
+    summary: "Étudiant ingénieur en 2ᵉ année en Génie Électrique (Automatique) à l'ENIG, orienté robotique — d'un véhicule terrestre autonome 4×4 sous ROS 2 et SLAM visuel aux PCB sur mesure menés du schéma jusqu'aux Gerber, en passant par les cellules d'automatisme industriel et la commutation de puissance en 52 V. Pratique de l'ESP32/STM32, du Jetson, de la commande PID, de la vision par ordinateur et de l'électronique de puissance ; chaque projet ci-dessous tourne sur du matériel réel, et tout ce qui touche à la tension du pack est conçu en partant des modes de défaillance. Responsable Robotique du club Alliance of Engineers. À la recherche d'un stage en robotique, systèmes embarqués ou automatisme industriel.",
 
     expTitle: "Stage",
     exp: [
@@ -232,11 +261,23 @@ var CV = {
     projTitle: "Projets robotiques &amp; d'ingénierie",
     projects: [
       { t:"SHADOW — Véhicule terrestre autonome 4×4",
-        tech:"ROS 2 · Jetson Orin Nano · STM32 · BLDC · Python / C",
+        tech:"ROS 2 Humble · Jetson Orin Nano · Isaac ROS / cuVSLAM · STM32 · BLDC · Python / C",
         bullets:[
           "Robot 4×4 grandeur nature conçu de zéro : cerveau Jetson Orin Nano, microcontrôleur moteur temps réel STM32, quatre moteurs-roues BLDC 52 V.",
-          "Pile ROS 2 en couches (driver moteur, téléop, bring-up) avec chien de garde de sécurité 0,5 s ; perception lidar + RGB-D et commande vocale multilingue.",
-          "Odométrie calibrée à 0,0232 m/impulsion au mètre-ruban."
+          "Pile ROS 2 en couches (driver moteur, téléop, bring-up) avec chien de garde de sécurité 0,5 s ; SLAM visuel Isaac ROS (cuVSLAM) conteneurisé sur le Jetson, plus lidar, RGB-D et commande vocale multilingue.",
+          "Odométrie calibrée à 0,0232 m/impulsion au mètre-ruban ; toute l'organisation logicielle du Jetson répliquée dans une VM x86 reproductible, afin de tester fichiers de lancement et configuration sans toucher au robot."
+        ] },
+      { t:"Carte de commande moteur 4×4 — shield Nucleo-64 sur mesure",
+        tech:"Proteus · STM32 Nucleo-64 · saisie de schéma · PCB / DRC · nomenclature",
+        bullets:[
+          "Conception de la carte d'interface 24 signaux qui remplace le câblage sur plaque perforée de SHADOW : quatre voies d'accélérateur et quatre de marche arrière, six entrées Hall, direction BTS7960, codeur AS5600, frein à servomoteur et éclairage 12 V sur borniers à vis débrochables.",
+          "Vérifier le brochage sur le manuel de référence plutôt que de faire confiance au cahier des charges a révélé deux défauts réels qu'il déclarait sans conflit : une ligne d'interruption externe partagée entre le bouton utilisateur et une entrée Hall, et un conflit de voie de timer imposant une autre fonction alternative."
+        ] },
+      { t:"Motorisation de trottinette électrique — rétro-ingénierie",
+        tech:"Arduino · écoute de bus · décodage de protocole · PWM + RC · régulation PI",
+        bullets:[
+          "Instrumentation du bus entre le contrôleur d'une trottinette électrique et son afficheur, décodage de la trame à somme de contrôle XOR, et mise en évidence qu'elle ne transportait que de la télémétrie — le chemin de commande était donc ailleurs.",
+          "Identification de la vraie ligne analogique d'accélérateur sur le connecteur du tableau de bord, pilotage par PWM filtrée en RC et bouclage d'une régulation PI sur la vitesse décodée. Les quatre voies moteur de SHADOW reposent toujours sur cette interface."
         ] },
       { t:"Robot suiveur de ligne — commande PID &amp; simulateur",
         tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
@@ -250,15 +291,21 @@ var CV = {
           "Conception d'un réseau de capteurs infrarouges TCRT5000 16 voies sur mesure, mené du schéma jusqu'à mes propres fichiers Gerber.",
           "Pilote une voiture STM32 PID résolveuse de labyrinthe (Keil), avec nœud ESP32 Bluetooth de commande manuelle. Réalisé pour la compétition autonome ENIG ROBOTs."
         ] },
-      { t:"Robot tout-terrain",
-        tech:"ESP32 / Arduino · C/C++ · commande moteur · capteurs",
+      { t:"AGV commercial — rétro-ingénierie du protocole de commande",
+        tech:"HTTP / REST · Python · navigation ROS · diagnostic",
         bullets:[
-          "Conception et fabrication d'un robot tout-terrain capable de franchir des surfaces accidentées, avec commande moteur, fusion de capteurs et gestion de la stabilité hors route."
+          "Cartographie de l'interface de commande HTTP non documentée d'un châssis AGV commercial, puis pilotage — consignes de déplacement et accostage automatique — depuis mes propres scripts plutôt que l'application du fabricant.",
+          "Panne d'accostage persistante ramenée à la couche située sous l'interface : le robot annonçait 0 % de confiance de localisation et sa carte active ne contenait aucun point de borne de charge — la commande n'avait donc aucune destination."
         ] },
       { t:"Cellule de tri automatisée — Robot KUKA + Siemens S7-1200",
         tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
         bullets:[
           "Cellule industrielle de préhension et de tri : bras KUKA séquencé par un automate S7-1200 en Ladder, conçue selon des normes reconnues de sécurité machine (avec Chahin Dhaoui)."
+        ] },
+      { t:"Robot tout-terrain",
+        tech:"ESP32 / Arduino · C/C++ · commande moteur · capteurs",
+        bullets:[
+          "Conception et fabrication d'un robot tout-terrain capable de franchir des surfaces accidentées, avec commande moteur, fusion de capteurs et gestion de la stabilité hors route."
         ] },
       { t:"Système de reconnaissance faciale temps réel",
         tech:"Python · OpenCV · Raspberry Pi 4",
@@ -266,17 +313,24 @@ var CV = {
           "Chaîne détection → extraction d'empreintes → classification d'identité en temps réel, ciblant un Raspberry Pi 4.",
           "Seuil de confiance justifié par une analyse ROC documentée, et non par un simple taux de réussite."
         ] },
-      { t:"Boîtier lidar étanche — CAO paramétrique",
-        tech:"OpenSCAD · CAO paramétrique · analyse de tolérances · DFM",
+      { t:"Conception mécanique pour impression 3D — CAO paramétrique",
+        tech:"OpenSCAD · CAO paramétrique · analyse de tolérances · DFM · validation trancheur",
         bullets:[
-          "Boîtier OpenSCAD étanche pour YDLIDAR X2 où le tube transparent est le chemin d'effort structurel et rien ne traverse le plan de balayage.",
-          "Contrôleur post-export ayant détecté une pièce sectionnée et non-manifold, invisible dans la vue par défaut du trancheur."
+          "Boîtier étanche pour YDLIDAR X2 où le tube transparent est le chemin d'effort structurel et rien ne traverse le plan de balayage ; un contrôleur post-export de ma conception a détecté une pièce sectionnée et non-manifold, invisible dans la vue par défaut du trancheur.",
+          "Tambour de frein à deux câbles entraîné par servomoteur pour SHADOW : la poche imprimée capture le palonnier d'origine au lieu d'en réimprimer les cannelures (qui cisailleraient dans le sens des couches), et les deux ancrages de câble sont à 180° pour que leurs efforts s'annulent en couple au lieu de charger le palier du servomoteur."
         ] },
-      { t:"Électronique de puissance &amp; commandes moteur",
-        tech:"Proteus · électronique de puissance · KiCad / EasyEDA · Arduino",
+      { t:"Électronique de puissance, commandes moteur &amp; commutation haute tension",
+        tech:"Proteus · électronique de puissance · commande de MOSFET · KiCad / EasyEDA · Arduino",
         bullets:[
           "Contrôleur de moteur BLDC hoverboard (MOSFET IRFZ44N, capteurs Hall + PWM) et commande BLDC sensorless par FCEM, modélisés et simulés de bout en bout.",
+          "Après une défaillance en service sur une ligne 52 V, refonte du driver d'éclairage 104 W de SHADOW pour que les contacts du relais ne commutent plus du tout la tension du pack : le relais oriente un signal de grille 12 V et un MOSFET 100 V assure la commutation — sans arc ni soudure des contacts — maintenu à l'arrêt au démarrage par le contact normalement fermé du relais, avec diode de roue libre, fusible et chaque composant déclassé face aux 58,8 V du pack à pleine charge.",
           "PCB sur mesure : carte capteur infrarouge QTR et gradateur de puissance AC à base de TRIAC."
+        ] },
+      { t:"UNKNOWN — jeu d'action 3D sur un GPU de 0,5 Go",
+        tech:"Godot 4.3 · GDScript · maths 3D · Blender · profilage · DSP audio",
+        bullets:[
+          "Jeu 3D temps réel en solo bâti autour d'un plafond matériel strict : animation de personnages skinnés, IA d'ennemis à attaques télégraphiées pilotée par une table d'archétypes, et les quatorze effets sonores entièrement synthétisés par le code, sans aucun fichier audio.",
+          "Mesurer au lieu de supposer a révélé que la passe d'ombres directionnelles coûtait environ 70 % de la trame — la désactiver a fait passer le niveau de 3,8 à environ 15 images/s sans perdre l'atmosphère."
         ] }
     ],
 
@@ -299,12 +353,14 @@ var CV = {
 
     skTitle: "Compétences",
     skills: [
-      { g:"Embarqué", items:["ESP32","PIC16F877A","STM32","Arduino","Raspberry Pi"] },
+      { g:"Embarqué", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano"] },
+      { g:"Commande &amp; robotique", items:["PID","ROS 2","SLAM visuel (Isaac ROS)","Automatisme industriel"] },
+      { g:"Électronique &amp; PCB", items:["Saisie de schéma","PCB / Gerber","Proteus","KiCad / EasyEDA","Électronique de puissance","Commande de MOSFET"] },
       { g:"Vision &amp; IA", items:["OpenCV","Deep Learning","Traitement signal &amp; image"] },
-      { g:"Programmation", items:["C / C++","Python","MATLAB"] },
-      { g:"Commande &amp; robotique", items:["PID","Automatisme industriel","ROS 2"] },
-      { g:"Puissance", items:["Électronique de puissance"] },
-      { g:"Outils", items:["MATLAB / Simulink","LabVIEW","Proteus"] },
+      { g:"Programmation", items:["C / C++","Python","MATLAB","GDScript"] },
+      { g:"CAO &amp; fabrication", items:["OpenSCAD (paramétrique)","Impression 3D / DFM","Préparation trancheur"] },
+      { g:"Systèmes", items:["Linux / Ubuntu","Docker","Rétro-ingénierie de protocoles"] },
+      { g:"Outils", items:["MATLAB / Simulink","LabVIEW","Godot"] },
       { g:"Notions", items:["Data Science","Cybersécurité"] },
       { g:"Bureautique", items:["Word","Excel","PowerPoint (certifié MS)"] }
     ],

@@ -20,6 +20,12 @@
 
   function el(id) { return document.getElementById(id); }
 
+  // Body/title fields are authored as HTML; alt and aria need plain text.
+  function plain(field) {
+    return t(field).replace(/<[^>]+>/g, "")
+                   .replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").trim();
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
@@ -50,6 +56,13 @@
     if (PROFILE.phone)    acts.push('<a class="btn" href="tel:' + esc(PROFILE.phone.replace(/\s/g, "")) + '">' + esc(PROFILE.phone) + '</a>');
     el("hero-actions").innerHTML = acts.join("");
 
+    // The portrait is optional: with no PROFILE.photo the slot renders nothing
+    // and the hero falls back to the full-width text column it was before.
+    el("hero-portrait").innerHTML = PROFILE.photo
+      ? '<img src="assets/img/' + esc(PROFILE.photo) + '" alt="' + esc(PROFILE.name) +
+        '" width="200" height="200" decoding="async">'
+      : "";
+
     el("hero-stats").innerHTML = PROFILE.stats.map(function (s) {
       return '<div class="stat"><div class="v">' + esc(s.value) + '</div><div class="l">' + t(s.label) + "</div></div>";
     }).join("");
@@ -57,8 +70,9 @@
 
   function shotMarkup(p, wide) {
     if (p.images && p.images.length) {
-      return '<div class="shot"><img src="assets/img/' + esc(p.images[0]) +
-             '" alt="" loading="lazy"></div>';
+      var fit = p.fit === "cover" ? " class=\"cover\"" : "";
+      return '<div class="shot"><img' + fit + ' src="assets/img/' + esc(p.images[0]) +
+             '" alt="' + esc(plain(p.title)) + '" loading="lazy" decoding="async"></div>';
     }
     var initial = t(p.title).replace(/<[^>]+>/g, "").trim().charAt(0).toUpperCase();
     return '<div class="shot plain"><span>' + esc(initial) + "</span></div>";
@@ -70,8 +84,10 @@
 
     var extra = "";
     if (p.images && p.images.length > 1) {
-      extra = '<div class="extra-shots">' + p.images.slice(1).map(function (im) {
-        return '<img src="assets/img/' + esc(im) + '" alt="" loading="lazy">';
+      extra = '<div class="extra-shots">' + p.images.slice(1).map(function (im, i) {
+        return '<img src="assets/img/' + esc(im) + '" alt="' +
+               esc(plain(p.title)) + ' — figure ' + (i + 2) +
+               '" loading="lazy" decoding="async">';
       }).join("") + "</div>";
     }
 
@@ -83,7 +99,9 @@
           "<h3>" + t(p.title) + "</h3>" +
           '<p class="sub">' + t(p.subtitle) + "</p>" +
           '<div class="tags">' + p.tags.map(function (g) { return "<span>" + esc(g) + "</span>"; }).join("") + "</div>" +
-          '<button class="toggle" type="button" data-target="' + esc(p.id) + '">' + t(UI.readMore) + "</button>" +
+          '<button class="toggle" type="button" data-target="' + esc(p.id) +
+            '" aria-expanded="false" aria-controls="detail-' + esc(p.id) + '">' +
+            t(UI.readMore) + "</button>" +
           '<div class="detail" id="detail-' + esc(p.id) + '">' +
             paras.map(function (x) { return "<p>" + x + "</p>"; }).join("") +
             extra +
@@ -95,8 +113,12 @@
   function renderProjects() {
     el("sec-projects-title").innerHTML = t(UI.featured);
     el("filters").innerHTML = CATEGORIES.map(function (c) {
+      var count = c.id === "all" ? PROJECTS.length : PROJECTS.filter(function (p) {
+        return p.cats.indexOf(c.id) !== -1;
+      }).length;
       return '<button type="button" data-cat="' + esc(c.id) + '" aria-pressed="' +
-             (c.id === filter) + '">' + t(c.label) + "</button>";
+             (c.id === filter) + '">' + t(c.label) +
+             '<span class="n">' + count + "</span></button>";
     }).join("");
     el("grid").innerHTML = PROJECTS.map(cardMarkup).join("");
     applyFilter();
@@ -201,6 +223,7 @@
     if (b.classList.contains("toggle")) {
       var d = el("detail-" + b.getAttribute("data-target"));
       var open = d.classList.toggle("open");
+      b.setAttribute("aria-expanded", String(open));
       b.innerHTML = open ? t(UI.readLess) : t(UI.readMore);
       return;
     }
