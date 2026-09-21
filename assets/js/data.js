@@ -10,7 +10,7 @@ const PROFILE = {
   name: "Lassaad Mahmoudi",
   initials: "LM",
   photo: "profile.jpg",           // hero portrait, assets/img/
-  email: "assaadmahmoudio@gmail.com",
+  email: "assaadmahmoudi0@gmail.com",
   phone: "+216 23 315 873",
   github: "https://github.com/AssaadMH",
   linkedin: "https://linkedin.com/in/mahmoudiassaad",
