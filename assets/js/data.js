@@ -13,7 +13,7 @@ const PROFILE = {
   email: "assaadmahmoudi0@gmail.com",
   phone: "+216 23 315 873",
   github: "https://github.com/AssaadMH",
-  linkedin: "https://linkedin.com/in/mahmoudiassaad",
+  linkedin: "https://linkedin.com/in/mahmoudi-assaad",
   // ---------------------------------------------------------------------------
 
   role: {
