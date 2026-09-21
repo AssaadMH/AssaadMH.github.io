@@ -505,17 +505,20 @@ const PROJECTS = [
       en: "My first complete embedded system: badge-controlled barrier, slot sensing and a live LCD count, built in prépa for a robotics-programming innovation contest.",
       fr: "Mon premier système embarqué complet : barrière commandée par badge, détection des places et comptage en direct sur LCD, réalisé en prépa pour un concours d'innovation en programmation robotique."
     },
-    images: ["parkmate-system.svg"],
-    tags: ["Arduino", "MFRC522 RFID", "SPI", "I2C LCD", "Servo", "IR sensors", "Ultrasonic"],
+    images: ["parkmate-shield-copper.jpg", "parkmate-system.svg", "parkmate-shield-top.jpg", "parkmate-layout.png"],
+    fit: "cover",
+    tags: ["Arduino", "MFRC522 RFID", "SPI", "I2C LCD", "Servo", "IR sensors", "Ultrasonic", "Proteus ARES", "PCB etching"],
     body: {
       en: [
         "Built at IPEIG in September–October 2023 and presented at a robotics-programming innovation contest. ParkMate manages a small car park on a single Arduino: an ultrasonic sensor notices a car at the gate and asks for a badge, an <b>MFRC522 RFID reader</b> (SPI) checks the card, a servo raises the barrier for seven seconds when access is granted and a space is free, and a 20×4 I2C LCD shows occupied and free spaces fed by an infrared sensor on each slot.",
         "<b>Iterated, not written once.</b> The firmware went through seven revisions in two weeks. Early ones used a PIR motion sensor at the gate, and later ones replaced it with an ultrasonic range check so that only a car standing at the barrier triggers the prompt. The slot counting was rewritten twice. All the revisions are kept in the repository as the project's real history.",
+        "<b>My first own circuit board.</b> Instead of leaving the prototype as jumper wires, I laid out a board in Proteus ARES, transferred it onto copper-clad and etched it myself, then fitted it with stacking headers so it plugs straight onto the Arduino. The photos show the etched copper side and the component side.",
         "<b>What I would change today.</b> Two of the slot sensors sit on D0 and D1, which are also the serial port the sketch uses for debugging. The count also moves on every pass of the loop while a sensor is covered, instead of once when a car arrives or leaves. The fix for both is edge detection on free pins. It is the kind of mistake that taught me to read a pin map and to think in events, not in states."
       ],
       fr: [
         "Réalisé à l'IPEIG en septembre–octobre 2023 et présenté à un concours d'innovation en programmation robotique. ParkMate gère un petit parking avec une seule carte Arduino : un capteur ultrason détecte une voiture à l'entrée et demande un badge, un <b>lecteur RFID MFRC522</b> (SPI) vérifie la carte, un servomoteur lève la barrière pendant sept secondes si l'accès est autorisé et qu'une place est libre, et un afficheur LCD I2C 20×4 indique les places occupées et libres à partir d'un capteur infrarouge par place.",
         "<b>Itéré, pas écrit d'un seul jet.</b> Le firmware a connu sept versions en deux semaines. Les premières utilisaient un détecteur de mouvement PIR à l'entrée, remplacé ensuite par une mesure de distance ultrason pour que seule une voiture arrêtée devant la barrière déclenche la demande. Le comptage des places a été réécrit deux fois. Toutes les versions sont conservées dans le dépôt, comme l'historique réel du projet.",
+        "<b>Ma première carte électronique.</b> Plutôt que de laisser le prototype en fils volants, j'ai dessiné une carte sous Proteus ARES, je l'ai transférée sur du cuivre et gravée moi-même, puis équipée de connecteurs empilables pour qu'elle s'enfiche directement sur l'Arduino. Les photos montrent la face cuivre gravée et la face composants.",
         "<b>Ce que je changerais aujourd'hui.</b> Deux des capteurs de place sont sur D0 et D1, qui sont aussi le port série utilisé par le programme pour le débogage. Le compteur bouge aussi à chaque passage de la boucle tant qu'un capteur est couvert, au lieu d'une fois à l'arrivée ou au départ d'une voiture. La correction des deux défauts passe par une détection de fronts sur des broches libres. C'est le genre d'erreur qui m'a appris à lire un plan de brochage et à raisonner en événements plutôt qu'en états."
       ]
     }
