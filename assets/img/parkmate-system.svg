@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 600" width="1320" height="600" role="img">
+  <style>
+    .f  { font-family: Arial, Helvetica, sans-serif; }
+    .m  { font-family: Consolas, "Courier New", monospace; }
+    .ttl{ font-size: 30px; font-weight: bold; fill: #14506b; letter-spacing: 1.2px; }
+    .hd { font-size: 24px; font-weight: bold; fill: #11161b; }
+    .bd { font-size: 21px; fill: #3f4a55; }
+    .sm { font-size: 19px; fill: #6a7580; }
+    .mo { font-size: 19px; fill: #14506b; }
+  </style>
+  <rect width="1320" height="600" fill="#ffffff"/>
+
+  <text class="f ttl" x="40" y="52">PARKMATE: AN RFID-GATED CAR PARK ON ONE ARDUINO</text>
+
+  <!-- ================= left: hardware ================= -->
+  <rect x="40" y="84" width="640" height="478" rx="12" fill="#f0f4f6" stroke="#14506b" stroke-width="3"/>
+  <text class="f sm" x="60" y="114">HARDWARE · pin map from the sketch</text>
+
+  <!-- controller -->
+  <rect x="262" y="262" width="196" height="120" rx="10" fill="#14506b"/>
+  <text class="f hd" x="360" y="314" text-anchor="middle" style="fill:#ffffff">Arduino</text>
+  <text class="f sm" x="360" y="344" text-anchor="middle" style="fill:#e2ecf1">gate + slot logic</text>
+
+  <!-- peripherals -->
+  <g class="f">
+    <rect x="64" y="138" width="250" height="84" rx="8" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+    <text class="hd" x="84" y="172">RFID MFRC522</text>
+    <text class="m mo" x="84" y="202">SPI · SS 9 · RST 8</text>
+
+    <rect x="406" y="138" width="250" height="84" rx="8" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+    <text class="hd" x="426" y="172">LCD 20x4</text>
+    <text class="m mo" x="426" y="202">I2C · 0x27</text>
+
+    <rect x="64" y="422" width="250" height="84" rx="8" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+    <text class="hd" x="84" y="456">Ultrasonic</text>
+    <text class="m mo" x="84" y="486">TRIG 13 · ECHO 12</text>
+
+    <rect x="406" y="422" width="250" height="84" rx="8" fill="#ffffff" stroke="#2c7c9e" stroke-width="3"/>
+    <text class="hd" x="426" y="456">3 IR slot sensors</text>
+    <text class="m mo" x="426" y="486">D0 · D1 · D4</text>
+
+    <rect x="64" y="290" width="160" height="64" rx="8" fill="#ffffff" stroke="#83540a" stroke-width="3"/>
+    <text class="hd" x="84" y="318">Servo</text>
+    <text class="m mo" x="84" y="342">barrier · D2</text>
+  </g>
+
+  <g stroke="#3f4a55" stroke-width="3" fill="none">
+    <line x1="189" y1="222" x2="300" y2="262"/>
+    <line x1="531" y1="222" x2="420" y2="262"/>
+    <line x1="189" y1="422" x2="300" y2="382"/>
+    <line x1="531" y1="422" x2="420" y2="382"/>
+    <line x1="224" y1="322" x2="262" y2="322"/>
+  </g>
+
+  <!-- ================= right: gate logic ================= -->
+  <rect x="712" y="84" width="568" height="478" rx="12" fill="#ffffff" stroke="#14506b" stroke-width="3"/>
+  <text class="f sm" x="732" y="114">GATE LOGIC · one pass of loop()</text>
+
+  <g class="f">
+    <rect x="740" y="134" width="512" height="56" rx="8" fill="#e2ecf1" stroke="#2c7c9e" stroke-width="2"/>
+    <text class="bd" x="760" y="170">Car at gate (echo &lt; 5 cm): "Show your ID card"</text>
+
+    <rect x="740" y="214" width="512" height="56" rx="8" fill="#e2ecf1" stroke="#2c7c9e" stroke-width="2"/>
+    <text class="bd" x="760" y="250">Badge read: does the UID match the tag?</text>
+
+    <rect x="740" y="294" width="244" height="92" rx="8" fill="#ffffff" stroke="#285f42" stroke-width="3"/>
+    <text class="hd" x="760" y="326" style="fill:#285f42">Space free</text>
+    <text class="bd" x="760" y="354">barrier up 7 s</text>
+    <text class="bd" x="760" y="378">occupied + 1</text>
+
+    <rect x="1008" y="294" width="244" height="92" rx="8" fill="#ffffff" stroke="#83540a" stroke-width="3"/>
+    <text class="hd" x="1028" y="326" style="fill:#83540a">Car park full</text>
+    <text class="bd" x="1028" y="354">"Parking Full"</text>
+    <text class="bd" x="1028" y="378">barrier stays down</text>
+
+    <rect x="740" y="410" width="512" height="56" rx="8" fill="#ffffff" stroke="#96271c" stroke-width="3"/>
+    <text class="bd" x="760" y="446" style="fill:#96271c">Unknown badge: "Access denied. Please leave."</text>
+
+    <rect x="740" y="490" width="512" height="52" rx="8" fill="#e2ecf1" stroke="#2c7c9e" stroke-width="2"/>
+    <text class="bd" x="760" y="524">IR slots update the count · LCD shows OS / CS</text>
+  </g>
+
+  <g stroke="#3f4a55" stroke-width="3">
+    <line x1="996" y1="190" x2="996" y2="214"/>
+    <line x1="862" y1="270" x2="862" y2="294"/>
+    <line x1="1130" y1="270" x2="1130" y2="294"/>
+  </g>
+</svg>
