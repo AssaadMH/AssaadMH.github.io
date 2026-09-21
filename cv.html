@@ -43,6 +43,8 @@
   h2{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);
     margin:0 0 8px;padding-bottom:3px;border-bottom:1px solid var(--line)}
   section{margin-bottom:15px;break-inside:avoid}
+  section.flow{break-inside:auto}
+  h2{break-after:avoid}
 
   .item{margin-bottom:11px;break-inside:avoid}
   .item .t{font-weight:700;font-size:13px}
@@ -184,6 +186,12 @@ var CV = {
           "Hoverboard BLDC motor controller (IRFZ44N MOSFETs, Hall sensors + PWM) and a sensorless back-EMF BLDC drive, modelled and simulated end to end.",
           "After an in-service failure on a 52 V line, redesigned SHADOW's 104 W lighting driver so the relay contacts no longer switch pack voltage at all: the relay steers a 12 V gate signal and a 100 V MOSFET does the switching — no arc, no weld-closed failure mode — held off at boot through the relay's normally-closed contact, with freewheel diode, fusing and every part derated against the pack's 58.8 V full charge.",
           "Custom PCBs: a QTR infrared sensor board and a TRIAC-based AC power dimmer (gradateur de puissance)."
+        ] },
+      { t:"ParkMate — RFID-Gated Smart Parking",
+        tech:"Arduino · MFRC522 RFID (SPI) · I2C LCD · Servo · IR / ultrasonic · Proteus ARES · PCB etching",
+        bullets:[
+          "First complete embedded system (IPEIG, 2023, robotics-programming innovation contest): ultrasonic car detection at the gate, RFID badge check, servo barrier and a live free/occupied count on a 20×4 LCD fed by one IR sensor per slot.",
+          "Laid out the board in Proteus ARES and etched it myself as a plug-on Arduino shield; seven firmware revisions in two weeks, and a candid post-mortem (sensors on the serial pins, state- instead of edge-based counting)."
         ] },
       { t:"UNKNOWN — 3D Action Game on a 0.5 GB GPU",
         tech:"Godot 4.3 · GDScript · 3D math · Blender · Profiling · Audio DSP",
@@ -328,6 +336,12 @@ var CV = {
           "Après une défaillance en service sur une ligne 52 V, refonte du driver d'éclairage 104 W de SHADOW pour que les contacts du relais ne commutent plus du tout la tension du pack : le relais oriente un signal de grille 12 V et un MOSFET 100 V assure la commutation — sans arc ni soudure des contacts — maintenu à l'arrêt au démarrage par le contact normalement fermé du relais, avec diode de roue libre, fusible et chaque composant déclassé face aux 58,8 V du pack à pleine charge.",
           "PCB sur mesure : carte capteur infrarouge QTR et gradateur de puissance AC à base de TRIAC."
         ] },
+      { t:"ParkMate — Parking intelligent à accès RFID",
+        tech:"Arduino · RFID MFRC522 (SPI) · LCD I2C · servomoteur · IR / ultrason · Proteus ARES · gravure de PCB",
+        bullets:[
+          "Premier système embarqué complet (IPEIG, 2023, concours d'innovation en programmation robotique) : détection ultrason de la voiture à l'entrée, contrôle du badge RFID, barrière à servomoteur et comptage en direct des places libres/occupées sur LCD 20×4 via un capteur IR par place.",
+          "Carte dessinée sous Proteus ARES et gravée moi-même en shield enfichable sur l'Arduino ; sept versions du firmware en deux semaines, et un retour d'expérience honnête (capteurs sur les broches série, comptage par états au lieu de fronts)."
+        ] },
       { t:"UNKNOWN — jeu d'action 3D sur un GPU de 0,5 Go",
         tech:"Godot 4.3 · GDScript · maths 3D · Blender · profilage · DSP audio",
         bullets:[
@@ -425,7 +439,7 @@ function render(lang){
     '<p class="summary">'+d.summary+'</p>'+
     '<div class="cols"><div class="main">'+
       '<section><h2>'+d.expTitle+'</h2>'+orgBlock(d.exp)+'</section>'+
-      '<section><h2>'+d.projTitle+'</h2>'+projects+'</section>'+
+      '<section class="flow"><h2>'+d.projTitle+'</h2>'+projects+'</section>'+
       '<section><h2>'+d.actTitle+'</h2>'+orgBlock(d.act)+'</section>'+
     '</div><div class="side">'+
       '<section><h2>'+d.eduTitle+'</h2>'+orgBlock(d.edu)+'</section>'+
