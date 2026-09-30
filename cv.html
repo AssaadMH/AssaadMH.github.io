@@ -109,8 +109,14 @@ var CV = {
     ],
     summary: "2nd-year Electrical Engineering student (Automation) at ENIG, focused on robotics — from an autonomous 4WD ground vehicle running ROS 2 and visual SLAM to custom PCBs taken from schematic through to Gerber, industrial automation cells and 52 V power-switching hardware. Hands-on with ESP32/STM32, Jetson, PID control, computer vision and power electronics; every project below is built on real hardware, and anything touching pack voltage is designed failure-mode first. Head of Robotics at the Alliance of Engineers Club. Seeking an internship in robotics, embedded systems or industrial automation.",
 
-    expTitle: "Internship",
+    expTitle: "Internships",
     exp: [
+      { t:"Engineering Intern — SHADOW autonomous vehicle", org:"IRIS Systems", y:"Jun – Aug 2026",
+        bullets:[
+          "Worked with the team on SHADOW, a full-size 4WD autonomous ground vehicle (NVIDIA Jetson Orin Nano, STM32, 52 V BLDC hub motors).",
+          "Skills built: motor control and embedded programming (STM32) · ROS 2 and robot software architecture · perception with LiDAR, depth cameras and visual SLAM on Jetson.",
+          "Power electronics and safe high-voltage design · debugging and reverse engineering real hardware · teamwork on a real engineering project."
+        ] },
       { t:"Automation Intern", org:"STEG Feriana — Tunisian Electricity &amp; Gas Company", y:"",
         bullets:[
           "Studied the industrial infrastructure of a gas-turbine power plant.",
@@ -121,42 +127,17 @@ var CV = {
 
     projTitle: "Robotics &amp; engineering projects",
     projects: [
-      { t:"SHADOW — Autonomous 4WD Ground Vehicle",
-        tech:"ROS 2 Humble · Jetson Orin Nano · Isaac ROS / cuVSLAM · STM32 · BLDC · Python / C",
-        bullets:[
-          "Built a full-size four-wheel-drive robot from scratch: Jetson Orin Nano compute brain, STM32 real-time motor MCU, four 52 V BLDC hub motors.",
-          "Layered ROS 2 stack (motor driver, teleop, bring-up) with a 0.5 s safety watchdog; Isaac ROS visual SLAM (cuVSLAM) containerised on the Jetson, plus lidar, RGB-D and multilingual voice control.",
-          "Calibrated odometry to 0.0090 m/pulse against tape measurement; mirrored the whole Jetson software layout in a reproducible x86 VM so launch files and configuration can be tested without touching the robot."
-        ] },
       { t:"4WD Motor-Control Shield — Custom Nucleo-64 PCB",
         tech:"Proteus · STM32 Nucleo-64 · Schematic capture · PCB / DRC · BOM",
         bullets:[
           "Designed the 24-signal interface board that replaces SHADOW's perfboard wiring: four throttle and four reverse channels, six Hall inputs, BTS7960 steering, AS5600 encoder, servo brake and 12 V lighting on pluggable screw terminals.",
           "Checking the pin map against the reference manual instead of trusting the source spec found two real faults it called conflict-free: an external-interrupt line shared between the user button and a Hall input, and a timer-channel clash that forced a different alternate function."
         ] },
-      { t:"Electric-Scooter Drive — Reverse Engineering",
-        tech:"Arduino · Bus sniffing · Protocol decoding · PWM + RC · PI control",
-        bullets:[
-          "Instrumented the bus between an electric scooter's controller and its display, decoded the XOR-checksummed frame, and established that it carried telemetry only — so the command path had to be found elsewhere.",
-          "Located the real analog throttle line on the dashboard connector, drove it with RC-filtered PWM and closed a PI speed loop on the decoded wheel speed. SHADOW's four motor channels are still built on this interface."
-        ] },
       { t:"Line-Following Robot — PID Control &amp; Simulator",
         tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
         bullets:[
           "Real-time PID controller on ESP32 with 16-channel QTR line sensing, ultrasonic and MPU6050 IMU; corner-braking and automatic line recovery.",
           "Found and fixed six firmware bugs; wrote a Python/OpenCV simulator that tunes the gains from a photo of the track before the robot runs it."
-        ] },
-      { t:"ALLIANCE — Competition Robot &amp; Custom Sensor PCB",
-        tech:"STM32 · Keil · Custom PCB / Gerber · TCRT5000 · ESP32",
-        bullets:[
-          "Designed a custom 16-channel TCRT5000 infrared sensor array from schematic through to my own Gerber files.",
-          "Drives an STM32 PID maze-solving car (Keil), with an ESP32 Bluetooth manual-control node. Built for the ENIG ROBOTs autonomous competition."
-        ] },
-      { t:"Commercial AGV — Control-Protocol Reverse Engineering",
-        tech:"HTTP / REST · Python · ROS navigation · Diagnostics",
-        bullets:[
-          "Mapped the undocumented HTTP control interface of a commercial warehouse AGV chassis and drove it — motion goals and auto-docking — from my own scripts instead of the vendor application.",
-          "Traced a persistent docking failure to the layer below the interface: the robot reported 0 % localisation confidence and its active map held no charge-pile waypoint, so the dock command had nothing to navigate to."
         ] },
       { t:"Automated Sorting Cell — KUKA Robot + Siemens S7-1200",
         tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
@@ -184,7 +165,6 @@ var CV = {
         tech:"Proteus · Power electronics · MOSFET drive · KiCad / EasyEDA · Arduino",
         bullets:[
           "Hoverboard BLDC motor controller (IRFZ44N MOSFETs, Hall sensors + PWM) and a sensorless back-EMF BLDC drive, modelled and simulated end to end.",
-          "After an in-service failure on a 52 V line, redesigned SHADOW's 104 W lighting driver so the relay contacts no longer switch pack voltage at all: the relay steers a 12 V gate signal and a 100 V MOSFET does the switching — no arc, no weld-closed failure mode — held off at boot through the relay's normally-closed contact, with freewheel diode, fusing and every part derated against the pack's 58.8 V full charge.",
           "Custom PCBs: a QTR infrared sensor board and a TRIAC-based AC power dimmer (gradateur de puissance)."
         ] },
       { t:"ParkMate — RFID-Gated Smart Parking",
@@ -258,8 +238,14 @@ var CV = {
     ],
     summary: "Étudiant ingénieur en 2ᵉ année en Génie Électrique (Automatique) à l'ENIG, orienté robotique — d'un véhicule terrestre autonome 4×4 sous ROS 2 et SLAM visuel aux PCB sur mesure menés du schéma jusqu'aux Gerber, en passant par les cellules d'automatisme industriel et la commutation de puissance en 52 V. Pratique de l'ESP32/STM32, du Jetson, de la commande PID, de la vision par ordinateur et de l'électronique de puissance ; chaque projet ci-dessous tourne sur du matériel réel, et tout ce qui touche à la tension du pack est conçu en partant des modes de défaillance. Responsable Robotique du club Alliance of Engineers. À la recherche d'un stage en robotique, systèmes embarqués ou automatisme industriel.",
 
-    expTitle: "Stage",
+    expTitle: "Stages",
     exp: [
+      { t:"Stagiaire ingénieur — véhicule autonome SHADOW", org:"IRIS Systems", y:"juin – août 2026",
+        bullets:[
+          "Travail en équipe sur SHADOW, un véhicule terrestre autonome 4×4 grandeur nature (NVIDIA Jetson Orin Nano, STM32, moteurs-roues BLDC 52 V).",
+          "Compétences acquises : commande moteur et programmation embarquée (STM32) · ROS 2 et architecture logicielle robotique · perception par LiDAR, caméras de profondeur et SLAM visuel sur Jetson.",
+          "Électronique de puissance et conception haute tension sûre · débogage et rétro-ingénierie de matériel réel · travail d'équipe sur un vrai projet d'ingénierie."
+        ] },
       { t:"Stagiaire en automatisme", org:"STEG Feriana — Société Tunisienne de l'Électricité et du Gaz", y:"",
         bullets:[
           "Étude de l'infrastructure industrielle d'une centrale à turbine à gaz.",
@@ -270,42 +256,17 @@ var CV = {
 
     projTitle: "Projets robotiques &amp; d'ingénierie",
     projects: [
-      { t:"SHADOW — Véhicule terrestre autonome 4×4",
-        tech:"ROS 2 Humble · Jetson Orin Nano · Isaac ROS / cuVSLAM · STM32 · BLDC · Python / C",
-        bullets:[
-          "Robot 4×4 grandeur nature conçu de zéro : cerveau Jetson Orin Nano, microcontrôleur moteur temps réel STM32, quatre moteurs-roues BLDC 52 V.",
-          "Pile ROS 2 en couches (driver moteur, téléop, bring-up) avec chien de garde de sécurité 0,5 s ; SLAM visuel Isaac ROS (cuVSLAM) conteneurisé sur le Jetson, plus lidar, RGB-D et commande vocale multilingue.",
-          "Odométrie calibrée à 0,0090 m/impulsion au mètre-ruban ; toute l'organisation logicielle du Jetson répliquée dans une VM x86 reproductible, afin de tester fichiers de lancement et configuration sans toucher au robot."
-        ] },
       { t:"Carte de commande moteur 4×4 — shield Nucleo-64 sur mesure",
         tech:"Proteus · STM32 Nucleo-64 · saisie de schéma · PCB / DRC · nomenclature",
         bullets:[
           "Conception de la carte d'interface 24 signaux qui remplace le câblage sur plaque perforée de SHADOW : quatre voies d'accélérateur et quatre de marche arrière, six entrées Hall, direction BTS7960, codeur AS5600, frein à servomoteur et éclairage 12 V sur borniers à vis débrochables.",
           "Vérifier le brochage sur le manuel de référence plutôt que de faire confiance au cahier des charges a révélé deux défauts réels qu'il déclarait sans conflit : une ligne d'interruption externe partagée entre le bouton utilisateur et une entrée Hall, et un conflit de voie de timer imposant une autre fonction alternative."
         ] },
-      { t:"Motorisation de trottinette électrique — rétro-ingénierie",
-        tech:"Arduino · écoute de bus · décodage de protocole · PWM + RC · régulation PI",
-        bullets:[
-          "Instrumentation du bus entre le contrôleur d'une trottinette électrique et son afficheur, décodage de la trame à somme de contrôle XOR, et mise en évidence qu'elle ne transportait que de la télémétrie — le chemin de commande était donc ailleurs.",
-          "Identification de la vraie ligne analogique d'accélérateur sur le connecteur du tableau de bord, pilotage par PWM filtrée en RC et bouclage d'une régulation PI sur la vitesse décodée. Les quatre voies moteur de SHADOW reposent toujours sur cette interface."
-        ] },
       { t:"Robot suiveur de ligne — commande PID &amp; simulateur",
         tech:"ESP32 · C/C++ · QTR · MPU6050 · Python / OpenCV",
         bullets:[
           "Régulateur PID temps réel sur ESP32 avec barre de 16 capteurs QTR, ultrason et centrale inertielle MPU6050 ; freinage en virage et récupération automatique de ligne.",
           "Six bugs de firmware corrigés ; simulateur Python/OpenCV réglant les gains à partir d'une photo du circuit avant que le robot ne le parcoure."
-        ] },
-      { t:"ALLIANCE — Robot de compétition &amp; PCB capteur sur mesure",
-        tech:"STM32 · Keil · PCB / Gerber sur mesure · TCRT5000 · ESP32",
-        bullets:[
-          "Conception d'un réseau de capteurs infrarouges TCRT5000 16 voies sur mesure, mené du schéma jusqu'à mes propres fichiers Gerber.",
-          "Pilote une voiture STM32 PID résolveuse de labyrinthe (Keil), avec nœud ESP32 Bluetooth de commande manuelle. Réalisé pour la compétition autonome ENIG ROBOTs."
-        ] },
-      { t:"AGV commercial — rétro-ingénierie du protocole de commande",
-        tech:"HTTP / REST · Python · navigation ROS · diagnostic",
-        bullets:[
-          "Cartographie de l'interface de commande HTTP non documentée d'un châssis AGV commercial, puis pilotage — consignes de déplacement et accostage automatique — depuis mes propres scripts plutôt que l'application du fabricant.",
-          "Panne d'accostage persistante ramenée à la couche située sous l'interface : le robot annonçait 0 % de confiance de localisation et sa carte active ne contenait aucun point de borne de charge — la commande n'avait donc aucune destination."
         ] },
       { t:"Cellule de tri automatisée — Robot KUKA + Siemens S7-1200",
         tech:"KUKA · S7-1200 · Ladder / TIA · ISO 13849-1 / IEC 62061",
@@ -333,7 +294,6 @@ var CV = {
         tech:"Proteus · électronique de puissance · commande de MOSFET · KiCad / EasyEDA · Arduino",
         bullets:[
           "Contrôleur de moteur BLDC hoverboard (MOSFET IRFZ44N, capteurs Hall + PWM) et commande BLDC sensorless par FCEM, modélisés et simulés de bout en bout.",
-          "Après une défaillance en service sur une ligne 52 V, refonte du driver d'éclairage 104 W de SHADOW pour que les contacts du relais ne commutent plus du tout la tension du pack : le relais oriente un signal de grille 12 V et un MOSFET 100 V assure la commutation — sans arc ni soudure des contacts — maintenu à l'arrêt au démarrage par le contact normalement fermé du relais, avec diode de roue libre, fusible et chaque composant déclassé face aux 58,8 V du pack à pleine charge.",
           "PCB sur mesure : carte capteur infrarouge QTR et gradateur de puissance AC à base de TRIAC."
         ] },
       { t:"ParkMate — Parking intelligent à accès RFID",
