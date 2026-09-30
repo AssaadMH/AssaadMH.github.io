@@ -35,7 +35,7 @@ const PROFILE = {
     { value: "ROS 2", label: { en: "Autonomy stack", fr: "Pile d'autonomie" } },
     { value: "STM32", label: { en: "Firmware in C", fr: "Firmware en C" } },
     { value: "4WD", label: { en: "UGV on 52 V", fr: "UGV en 52 V" } },
-    { value: "17", label: { en: "Documented projects", fr: "Projets documentés" } }
+    { value: "14", label: { en: "Documented projects", fr: "Projets documentés" } }
   ]
 };
 
@@ -66,60 +66,17 @@ const PROJECTS = [
       fr: "NVIDIA Jetson Orin Nano + STM32, ROS 2, perception lidar et RGB-D sur une plateforme 52 V à moteurs-roues."
     },
     images: ["shadow-vehicle.jpg", "shadow-ride.jpg", "shadow-power-bay.jpg", "shadow-pointcloud.jpg",
-              "shadow-architecture.png", "shadow-perfboard.png", "shadow-schema.png", "shadow-power-domains.png"],
+              "shadow-architecture.png", "shadow-power-domains.png"],
     fit: "cover",
     tags: ["ROS 2", "Jetson Orin Nano", "STM32 F446RE / F401", "Isaac ROS", "C", "Python", "BLDC", "Linux"],
     body: {
       en: [
-        "A full-size four-wheel-drive robot built from scratch: an NVIDIA Jetson Orin Nano as the compute brain, an STM32 Nucleo as the real-time motor MCU, and four generic 48–64 V BLDC hub-motor controllers on a 52 V pack. Throttle and reverse work on all four wheels.",
-        "<b>Motor control.</b> Each throttle line is filtered through a 1 kΩ + 10 µF RC network into the controller, and each reverse line is driven through a 2N2222 inverter. The controllers only latch reverse at a standstill, so the firmware implements an explicit stop → settle (1000 ms) → reverse-throttle sequence. A bench safety cap limits duty to 216/255 while the wheels are raised. Odometry was calibrated against tape measurements to 0.0090 m per pulse.",
-        "<b>ROS 2 architecture.</b> I replaced an early monolithic gamepad bridge with a layered, hardware-verified stack: <code>motor_driver</code> (subscribes <code>cmd_vel</code>, <code>brake</code> and <code>cmd_raw</code>, holds a 0.5 s watchdog, talks serial to the STM32), <code>motor_teleop</code> (DualSense → <code>cmd_vel</code>), and <code>motor_bringup</code> (launch files and controller config). The old monolith was kept intact as a rollback path.",
-        "<b>Perception.</b> A YDLidar X2 publishes scans through a ROS 2 driver with tuned parameters — the enable-motor gotcha turned out to be a serial DTR toggle. Two Xbox 360 Kinects supply RGB + depth over libfreenect plus a 4-microphone array via ALSA. On the Orin Nano, DetectNet, ESS stereo depth and U-Net from the Isaac ROS stack were deployed and verified.",
-        "<b>Voice control.</b> Multilingual (FR / EN / AR) speech nodes map spoken commands directly to <code>cmd_vel</code>.",
-        "<b>Localisation.</b> The Jetson runs Isaac ROS visual SLAM (cuVSLAM) inside a container built from a pinned configuration, so the perception brain is reproducible rather than a hand-tuned install that exists only on one board.",
-        "<b>Developing without the robot.</b> The whole Jetson software layout is mirrored in a reproducible x86 virtual machine — same workspace structure, same container definition, same environment. It cannot run cuVSLAM, since there is no GPU and the architecture is wrong, and that is fine: what it does allow is versioning and testing launch files, the microcontroller bridge and sensor-fusion configuration without occupying, or risking, a robot with 52 V on board.",
-        "<b>The engineering lesson.</b> An electrical hold-brake built by the team caught fire. The root cause was not an undersized part but a topology fault: the controller's thin \"antivol\" blue/yellow pair is a <i>motor phase</i>, not a signal line, carrying 52 V PWM and generator current. Any logic-ground-referenced MOSFET or optocoupler placed across it is a permanent half-wave short. The brake was a team effort throughout: the electrical version was the team’s work, and my own contribution was the mechanical replacement that followed — a design with zero electrical connection to the phases, which became another project on this page. Everything on this robot that touches pack voltage has since been designed failure-mode first."
+        "Built at <b>IRIS Systems</b> during my 2026 engineering internship (June – August), working with the team on SHADOW: a full-size four-wheel-drive autonomous ground vehicle with an NVIDIA Jetson Orin Nano as its brain, an STM32 as the real-time motor controller, and four BLDC hub motors on a 52 V pack. SHADOW is an IRIS Systems project; this page is a short showcase of what I learned on it.",
+        "<b>Skills I built.</b> Motor control and embedded programming (STM32) · ROS 2 and robot software architecture · perception with LiDAR, depth cameras and visual SLAM on NVIDIA Jetson · power electronics and safe high-voltage design · debugging and reverse engineering real hardware · teamwork on a real engineering project."
       ],
       fr: [
-        "Un robot 4×4 grandeur nature conçu de zéro : un NVIDIA Jetson Orin Nano comme cerveau de calcul, un STM32 Nucleo comme microcontrôleur moteur temps réel, et quatre variateurs BLDC 48–64 V pour moteurs-roues alimentés par un pack 52 V. Marche avant et marche arrière fonctionnent sur les quatre roues.",
-        "<b>Commande moteur.</b> Chaque ligne d'accélération passe par un filtre RC 1 kΩ + 10 µF vers le variateur, et chaque ligne de marche arrière est pilotée via un inverseur 2N2222. Les variateurs ne verrouillent la marche arrière qu'à l'arrêt : le firmware applique donc une séquence explicite arrêt → stabilisation (1000 ms) → accélération inverse. Un plafond de sécurité limite le rapport cyclique à 216/255 tant que les roues sont levées. L'odométrie a été calibrée au mètre-ruban à 0,0090 m par impulsion.",
-        "<b>Architecture ROS 2.</b> J'ai remplacé un pont manette monolithique par une pile en couches, validée sur matériel : <code>motor_driver</code> (souscrit à <code>cmd_vel</code>, <code>brake</code> et <code>cmd_raw</code>, chien de garde de 0,5 s, liaison série vers le STM32), <code>motor_teleop</code> (DualSense → <code>cmd_vel</code>) et <code>motor_bringup</code> (fichiers de lancement et configuration). L'ancien monolithe a été conservé comme solution de repli.",
-        "<b>Perception.</b> Un YDLidar X2 publie ses scans via un driver ROS 2 paramétré — le piège d'activation du moteur s'est révélé être une bascule DTR sur le port série. Deux Kinect Xbox 360 fournissent RGB + profondeur via libfreenect ainsi qu'un réseau de 4 microphones via ALSA. Sur l'Orin Nano, DetectNet, la profondeur stéréo ESS et U-Net de la pile Isaac ROS ont été déployés et vérifiés.",
-        "<b>Commande vocale.</b> Des nœuds multilingues (FR / EN / AR) traduisent directement la parole en <code>cmd_vel</code>.",
-        "<b>Localisation.</b> Le Jetson exécute le SLAM visuel Isaac ROS (cuVSLAM) dans un conteneur construit à partir d'une configuration figée : le cerveau de perception est ainsi reproductible, et non une installation réglée à la main n'existant que sur une seule carte.",
-        "<b>Développer sans le robot.</b> Toute l'organisation logicielle du Jetson est répliquée dans une machine virtuelle x86 reproductible — même structure de workspace, même définition de conteneur, même environnement. Elle ne peut pas exécuter cuVSLAM, faute de GPU et avec une architecture différente, et c'est très bien ainsi : ce qu'elle permet, c'est de versionner et de tester les fichiers de lancement, le pont vers le microcontrôleur et la configuration de fusion de capteurs sans occuper — ni risquer — un robot embarquant du 52 V.",
-        "<b>La leçon d'ingénierie.</b> Un frein de maintien électrique construit par l'équipe a pris feu. La cause n'était pas un composant sous-dimensionné mais une faute de topologie : la paire fine bleu/jaune « antivol » du variateur est une <i>phase moteur</i>, pas une ligne de signal ; elle transporte du PWM 52 V et du courant de génératrice. Tout MOSFET ou optocoupleur référencé à la masse logique placé dessus constitue un court-circuit permanent en demi-alternance. J'ai rédigé le post-mortem complet et redirigé la conception vers un frein mécanique sans aucune liaison électrique avec les phases — ce qui est devenu un autre projet de cette page. Depuis, tout ce qui touche à la tension du pack sur ce robot est conçu en partant des modes de défaillance."
-      ]
-    }
-  },
-
-  /* ====================================================================== 2 */
-  {
-    id: "scooter",
-    featured: false,
-    cats: ["embedded", "robotics", "electronics"],
-    year: "2025",
-    title: { en: "Electric-Scooter Drive — Reverse Engineering", fr: "Motorisation de trottinette électrique — rétro-ingénierie" },
-    subtitle: {
-      en: "Taking control of a sealed motor controller by first finding out what its display bus actually carried — the origin of SHADOW's drivetrain.",
-      fr: "Prendre le contrôle d'un variateur scellé en découvrant d'abord ce que transportait vraiment son bus d'afficheur — l'origine de la motorisation de SHADOW."
-    },
-    images: ["scooter-harness.jpg", "scooter-breakout.jpg", "scooter-controller.jpg"],
-    tags: ["Arduino", "Bus sniffing", "Protocol decoding", "PWM + RC", "PI control", "Reverse engineering"],
-    body: {
-      en: [
-        "Before SHADOW there was a scooter: a sealed commercial motor controller with no documented command interface, and the open question of whether a microcontroller could drive it at all.",
-        "<b>Sniffing the bus.</b> I wired an Arduino onto the line between the controller and the handlebar display and captured the traffic. The frame is a fixed-length packet ending in an XOR checksum — readable once the checksum was worked out — carrying speed, battery state and faults.",
-        "<b>The finding that redirected the project was a negative one:</b> that bus is <i>telemetry, not command</i>. Nothing sent on it makes a wheel turn. Establishing that saved all the effort that would have gone into forging command frames which do not exist, and moved the search to the dashboard connector instead.",
-        "<b>The real control path is the analog throttle line.</b> Mapping the six-pin dashboard connector located it, and driving it with PWM through a 1 kΩ + 10 µF RC network turns a digital output into the smooth analog voltage the controller expects. With wheel speed decoded from the display bus as feedback, a PI loop closes the speed control — the telemetry bus turned out to be useful for exactly the half of the problem it was suited to.",
-        "This is not archived history. SHADOW's four motor channels are driven exactly this way today; the 4WD documentation asserts that RC filter as a given, and this project is where it comes from."
-      ],
-      fr: [
-        "Avant SHADOW, il y a eu une trottinette : un variateur commercial scellé sans aucune interface de commande documentée, et la question ouverte de savoir si un microcontrôleur pouvait le piloter.",
-        "<b>Écoute du bus.</b> J'ai branché un Arduino sur la liaison entre le variateur et l'afficheur du guidon et capturé le trafic. La trame est un paquet de longueur fixe terminé par une somme de contrôle XOR — lisible une fois cette somme reconstituée — transportant vitesse, état de batterie et défauts.",
-        "<b>La découverte qui a réorienté le projet est négative :</b> ce bus transporte de la <i>télémétrie, pas des commandes</i>. Rien de ce qu'on y envoie ne fait tourner une roue. L'établir a évité tout l'effort qui serait parti dans la fabrication de trames de commande inexistantes, et a déplacé la recherche vers le connecteur du tableau de bord.",
-        "<b>Le vrai chemin de commande est la ligne analogique d'accélérateur.</b> La cartographie du connecteur six broches du tableau de bord l'a localisée, et la piloter en PWM à travers un filtre RC 1 kΩ + 10 µF transforme une sortie numérique en la tension analogique lisse attendue par le variateur. Avec la vitesse de roue décodée depuis le bus d'afficheur comme retour, une régulation PI ferme la boucle de vitesse — le bus de télémétrie s'est finalement révélé utile pour exactement la moitié du problème à laquelle il convenait.",
-        "Ce n'est pas de l'histoire archivée. Les quatre voies moteur de SHADOW sont pilotées ainsi aujourd'hui ; la documentation du 4×4 présente ce filtre RC comme une donnée, et c'est ici qu'il prend sa source."
+        "Réalisé chez <b>IRIS Systems</b> pendant mon stage d'ingénieur 2026 (juin – août), en équipe, sur SHADOW : un véhicule terrestre autonome 4×4 grandeur nature, avec un NVIDIA Jetson Orin Nano comme cerveau, un STM32 comme contrôleur moteur temps réel et quatre moteurs-roues BLDC sur un pack 52 V. SHADOW est un projet d'IRIS Systems ; cette page présente brièvement ce que j'y ai appris.",
+        "<b>Compétences acquises.</b> Commande moteur et programmation embarquée (STM32) · ROS 2 et architecture logicielle robotique · perception par LiDAR, caméras de profondeur et SLAM visuel sur NVIDIA Jetson · électronique de puissance et conception haute tension sûre · débogage et rétro-ingénierie de matériel réel · travail d'équipe sur un vrai projet d'ingénierie."
       ]
     }
   },
@@ -246,61 +203,6 @@ const PROJECTS = [
         "<b>Firmware.</b> Au-delà du PID, deux comportements permettent au même programme de survivre à n'importe quel circuit : le <i>freinage en virage</i>, où la vitesse de base est réduite proportionnellement à l'effort de braquage pour que le robot ralentisse à l'entrée du virage au lieu de le dépasser, et la <i>récupération de ligne</i>, où la perte de ligne déclenche un pivot vers le côté où elle a été vue en dernier. J'ai identifié et corrigé six bugs de firmware pendant la mise en service.",
         "<b>Le simulateur est la partie intéressante.</b> Plutôt que de régler sur le robot réel, j'ai écrit un simulateur Python avec des modes <code>autotune</code>, <code>sweep</code> et <code>animate</code>. Il a convergé vers KP 0,030, KD 1,2, vitesse de base 200, et a produit deux conclusions qui ont changé la méthode de réglage : pour aller plus vite il faut augmenter la vitesse de base en gardant le freinage en virage proche de 1,0 — l'augmenter ne fait que ralentir les virages, c'est un réglage de douceur, pas de vitesse. Et KD dépend du temps de boucle, car le terme dérivé est calculé par itération ; le programme affiche son propre temps de boucle moyen pour permettre le rééchelonnement du gain.",
         "<b>De la photo au plan.</b> Un outil complémentaire prend une image du circuit vue de dessus, la seuille, la squelettise en une ligne centrale d'un pixel, construit un graphe de segments droits et de jonctions, calcule un itinéraire et produit un profil de vitesse — rapide en ligne droite, lent en virage serré — ainsi que les jetons de trajectoire pour le firmware de labyrinthe et un SVG annoté. La même chaîne de vision peut charger le circuit réel directement dans le simulateur, afin de régler les gains pour ce circuit avant que le robot ne le touche."
-      ]
-    }
-  },
-
-  /* ====================================================================== 7 */
-  {
-    id: "agv",
-    featured: false,
-    cats: ["robotics", "software"],
-    year: "2026",
-    title: { en: "Commercial AGV — Protocol Reverse-Engineering", fr: "AGV commercial — rétro-ingénierie du protocole" },
-    subtitle: {
-      en: "Mapping an undocumented HTTP control API on a warehouse AGV chassis, and diagnosing why auto-docking failed.",
-      fr: "Cartographie d'une API HTTP non documentée sur un châssis AGV, et diagnostic de l'échec de l'accostage automatique."
-    },
-    images: ["agv-robot.jpg", "agv-topdown.jpg", "agv-diagnostics.jpg", "agv-app.jpg", "agv-diagnosis.svg"],
-    fit: "cover",
-    tags: ["HTTP / REST", "Networking", "AGV", "Diagnostics", "Python"],
-    body: {
-      en: [
-        "A commercial AGV chassis on the lab network shipped with no usable developer documentation. I probed its onboard service, mapped the control endpoints, and established a working command interface — motion commands and the auto-docking trigger — driving the chassis from my own scripts instead of the vendor app.",
-        "<b>The diagnosis mattered more than the access.</b> Auto-docking kept failing, and the obvious conclusion was that the command was wrong. It was not. The robot was reporting 0 % localisation confidence and its saved map contained no charge-pile waypoint, so the dock command had nothing to navigate to. The fix belonged in mapping and localisation, not in the API layer.",
-        "The exercise is a good illustration of a habit I try to keep: before blaming the interface you just learned, check whether the system underneath it has the state it needs."
-      ],
-      fr: [
-        "Un châssis AGV commercial présent sur le réseau du laboratoire était livré sans documentation développeur exploitable. J'ai sondé son service embarqué, cartographié les points de terminaison de commande et établi une interface fonctionnelle — commandes de déplacement et déclenchement de l'accostage automatique — pilotant le châssis depuis mes propres scripts plutôt que l'application du fabricant.",
-        "<b>Le diagnostic comptait plus que l'accès.</b> L'accostage automatique échouait systématiquement, et la conclusion évidente était que la commande était fausse. Elle ne l'était pas. Le robot annonçait 0 % de confiance de localisation et sa carte enregistrée ne contenait aucun point de passage vers la borne de charge : la commande d'accostage n'avait donc aucune destination. Le correctif relevait de la cartographie et de la localisation, pas de la couche API.",
-        "L'exercice illustre bien une habitude que j'essaie de garder : avant d'accuser l'interface que l'on vient de découvrir, vérifier si le système sous-jacent dispose de l'état dont il a besoin."
-      ]
-    }
-  },
-
-  /* ====================================================================== 8 */
-  {
-    id: "alliance",
-    featured: false,
-    cats: ["embedded", "electronics", "robotics"],
-    year: "2025",
-    title: { en: "ALLIANCE — Competition Robot &amp; Custom Sensor PCB", fr: "ALLIANCE — Robot de compétition &amp; PCB capteur sur mesure" },
-    subtitle: {
-      en: "A 16-channel infrared line-sensor board I laid out myself, feeding an STM32 PID maze-solving car.",
-      fr: "Une carte capteur infrarouge 16 voies que j'ai routée moi-même, alimentant une voiture STM32 PID résolveuse de labyrinthe."
-    },
-    images: ["alliance-array.svg"],
-    tags: ["STM32", "Keil uVision", "Custom PCB", "Gerber", "TCRT5000", "PID", "ESP32", "MATLAB"],
-    body: {
-      en: [
-        "A robotics-competition build centred on a piece of hardware I designed rather than bought: a <b>custom 16-channel TCRT5000 infrared sensor array</b>, taken from schematic through to my own Gerber files and layer artwork. Sixteen reflectance channels across the front give the controller a much finer read of line position than an off-the-shelf bar.",
-        "<b>Control.</b> The car runs an STM32 firmware in Keil uVision with a PID steering loop and a maze-solving path routine, backed by encoder and BLDC bring-up sketches used to characterise the drivetrain before the full stack went on. An ESP32 Bluetooth node with speed-ramping handles manual drive. A MATLAB Live Script was used to study the follower's behaviour off the vehicle.",
-        "The project is deliberately reported for what is mine — the sensor PCB, the PID car and the test firmware. Reference firmware I forked to study is kept separate and is not claimed as original work."
-      ],
-      fr: [
-        "Une réalisation pour compétition robotique construite autour d'un matériel que j'ai conçu plutôt qu'acheté : un <b>réseau de capteurs infrarouges TCRT5000 16 voies sur mesure</b>, mené du schéma jusqu'à mes propres fichiers Gerber et plans de couches. Seize voies de réflectance à l'avant donnent au correcteur une lecture bien plus fine de la position de la ligne qu'une barre du commerce.",
-        "<b>Commande.</b> La voiture exécute un firmware STM32 sous Keil uVision avec une boucle PID de direction et une routine de résolution de labyrinthe, appuyée par des programmes de mise en service encodeur et BLDC servant à caractériser la motorisation avant l'intégration complète. Un nœud ESP32 Bluetooth avec montée en vitesse progressive gère le pilotage manuel. Un Live Script MATLAB a servi à étudier le comportement du suiveur hors véhicule.",
-        "Le projet est volontairement présenté pour ce qui m'appartient — le PCB capteur, la voiture PID et le firmware de test. Le firmware de référence que j'ai forké pour l'étudier est tenu à part et n'est pas revendiqué comme travail original."
       ]
     }
   },
