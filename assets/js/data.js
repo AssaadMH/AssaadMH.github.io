@@ -491,7 +491,7 @@ const EXPERIENCE = [
     }
   },
   {
-    period: { en: "2023 — present", fr: "2023 — aujourd'hui" },
+    period: { en: "2024 — 2026", fr: "2024 — 2026" },
     role: { en: "Head of Robotics — Alliance of Engineers Club", fr: "Responsable Robotique — Club Alliance of Engineers" },
     org: { en: "ENIG · ENIGRobots 7.0 (Co-Chair) · BattleSky 1.0 & 2.0", fr: "ENIG · ENIGRobots 7.0 (co-président) · BattleSky 1.0 & 2.0" },
     detail: {
