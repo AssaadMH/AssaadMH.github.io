@@ -33,6 +33,7 @@
   header.cv .contact{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px 16px;
     font-size:12px;color:var(--mut)}
   header.cv .contact b{color:var(--ink);font-weight:600}
+  header.cv .contact a{color:inherit;text-decoration:none}
 
   .summary{font-size:12.5px;color:#25333f;margin:0 0 14px}
 
@@ -103,7 +104,7 @@ var CV = {
       ["Location", "Tunisia"],
       ["Email", "assaadmahmoudi0@gmail.com"],
       ["Phone", "+216 23 315 873"],
-      ["LinkedIn", "linkedin.com/in/mahmoudi-assaad"],
+      ["LinkedIn", "linkedin.com/in/mahmoudi-assaad-00548a354"],
       ["GitHub", "github.com/AssaadMH"],
       ["Portfolio", "assaadmh.github.io"]
     ],
@@ -128,7 +129,7 @@ var CV = {
     projTitle: "Robotics &amp; engineering projects",
     projects: [
       { t:"4WD Motor-Control Shield — Custom Nucleo-64 PCB",
-        tech:"Proteus · STM32 Nucleo-64 · Schematic capture · PCB / DRC · BOM",
+        tech:"KiCad · STM32 Nucleo-64 · Schematic capture · PCB / DRC · BOM",
         bullets:[
           "Designed the 24-signal interface board that replaces SHADOW's perfboard wiring: four throttle and four reverse channels, six Hall inputs, BTS7960 steering, AS5600 encoder, servo brake and 12 V lighting on pluggable screw terminals.",
           "Checking the pin map against the reference manual instead of trusting the source spec found two real faults it called conflict-free: an external-interrupt line shared between the user button and a Hall input, and a timer-channel clash that forced a different alternate function."
@@ -232,7 +233,7 @@ var CV = {
       ["Localisation", "Tunisie"],
       ["Courriel", "assaadmahmoudi0@gmail.com"],
       ["Téléphone", "+216 23 315 873"],
-      ["LinkedIn", "linkedin.com/in/mahmoudi-assaad"],
+      ["LinkedIn", "linkedin.com/in/mahmoudi-assaad-00548a354"],
       ["GitHub", "github.com/AssaadMH"],
       ["Portfolio", "assaadmh.github.io"]
     ],
@@ -257,7 +258,7 @@ var CV = {
     projTitle: "Projets robotiques &amp; d'ingénierie",
     projects: [
       { t:"Carte de commande moteur 4×4 — shield Nucleo-64 sur mesure",
-        tech:"Proteus · STM32 Nucleo-64 · saisie de schéma · PCB / DRC · nomenclature",
+        tech:"KiCad · STM32 Nucleo-64 · saisie de schéma · PCB / DRC · nomenclature",
         bullets:[
           "Conception de la carte d'interface 24 signaux qui remplace le câblage sur plaque perforée de SHADOW : quatre voies d'accélérateur et quatre de marche arrière, six entrées Hall, direction BTS7960, codeur AS5600, frein à servomoteur et éclairage 12 V sur borniers à vis débrochables.",
           "Vérifier le brochage sur le manuel de référence plutôt que de faire confiance au cahier des charges a révélé deux défauts réels qu'il déclarait sans conflit : une ligne d'interruption externe partagée entre le bouton utilisateur et une entrée Hall, et un conflit de voie de timer imposant une autre fonction alternative."
@@ -361,7 +362,8 @@ function render(lang){
   document.documentElement.lang = lang;
 
   var contact = d.contact.map(function(c){
-    return '<span><b>'+c[0]+':</b> '+c[1]+'</span>';
+    var v = c[0] === "LinkedIn" ? '<a href="https://www.'+c[1]+'" target="_blank" rel="noopener">'+c[1]+'</a>' : c[1];
+    return '<span><b>'+c[0]+':</b> '+v+'</span>';
   }).join("");
 
   function bullets(arr){

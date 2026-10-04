@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lassaad Mahmoudi — Robotics &amp; Embedded Systems Engineering Student</title>
-<meta name="description" content="Engineering portfolio of Lassaad Mahmoudi — autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD. 19 documented projects, all built on real hardware.">
+<meta name="description" content="Engineering portfolio of Lassaad Mahmoudi — autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD. 14 documented projects, all built on real hardware.">
 <meta name="author" content="Lassaad Mahmoudi">
-<meta name="theme-color" content="#0c0f13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#05080c" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
 
 <!-- Link previews (LinkedIn, WhatsApp…). og:image must be an ABSOLUTE url to
@@ -14,7 +14,7 @@
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://assaadmh.github.io/">
 <meta property="og:title" content="Lassaad Mahmoudi — Robotics &amp; Embedded Systems Engineering Student">
-<meta property="og:description" content="Autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD — 19 documented projects, all built on real hardware.">
+<meta property="og:description" content="Autonomous ground vehicles, motor control, embedded firmware, custom PCBs and CAD — 14 documented projects, all built on real hardware.">
 <meta property="og:image" content="https://assaadmh.github.io/assets/img/shadow-vehicle.jpg">
 <meta property="og:locale" content="en">
 <meta property="og:locale:alternate" content="fr">
@@ -23,7 +23,7 @@
 <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234ea3ff'/><text x='50' y='68' font-size='46' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2306121e'>LM</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232bd4ff'/><text x='50' y='68' font-size='46' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2306121e'>LM</text></svg>">
 </head>
 <body>
 
@@ -50,11 +50,13 @@
       <button type="button" id="print-btn" title="Print / PDF">⎙</button>
     </div>
   </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
 </header>
 
 <main id="top">
 
   <div class="hero">
+    <canvas class="hero-fx" id="hero-fx" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="hero-top">
         <div class="hero-intro">

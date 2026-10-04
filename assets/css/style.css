@@ -3,17 +3,20 @@
    ========================================================================== */
 
 :root {
-  --bg:        #0c0f13;
-  --bg-2:      #12161c;
-  --bg-3:      #171d25;
-  --line:      #232c37;
-  --line-2:    #2e3946;
-  --text:      #e6ebf2;
-  --text-2:    #9aa7b8;
-  --text-3:    #6b7a8d;
-  --accent:    #4ea3ff;
-  --accent-2:  #7ee0c0;
+  --bg:        #05080c;
+  --bg-2:      #0a0f15;
+  --bg-3:      #101821;
+  --line:      #17222e;
+  --line-2:    #24344a;
+  --text:      #e8eef6;
+  --text-2:    #97a6b8;
+  --text-3:    #627387;
+  --accent:    #2bd4ff;
+  --accent-2:  #6cf2c2;
   --warn:      #ffb454;
+  --ink-on-accent: #021118;
+  --grid:      rgba(43, 212, 255, .045);
+  --glow:      rgba(43, 212, 255, .22);
 
   --shadow-1:  0 1px 2px rgba(0,0,0,.20);
   --shadow-2:  0 14px 32px -14px rgba(0,0,0,.62);
@@ -33,8 +36,11 @@ html[data-theme="light"] {
   --text:   #141a21;
   --text-2: #4d5a69;
   --text-3: #77848f;
-  --accent: #0b63c5;
-  --accent-2: #0d7f66;
+  --accent: #0a74a8;
+  --accent-2: #0b7f62;
+  --grid:   rgba(10, 116, 168, .06);
+  --glow:   rgba(10, 116, 168, .16);
+  --ink-on-accent: #ffffff;
   --shadow-1: 0 1px 2px rgba(16,32,52,.07);
   --shadow-2: 0 14px 30px -16px rgba(16,32,52,.28);
 }
@@ -90,7 +96,7 @@ header.site .wrap {
   display: grid; place-items: center;
   border-radius: 9px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #06121e; font-size: 13px; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--ink-on-accent); font-size: 13px; font-weight: 800; letter-spacing: 0.02em;
 }
 nav.main { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 nav.main a {
@@ -112,8 +118,8 @@ nav.main a:hover { color: var(--text); background: var(--bg-3); text-decoration:
 .ctrl button:hover { color: var(--text); border-color: var(--line-2); background: var(--bg-3); }
 .langbtn { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .langbtn button { border: 0; border-radius: 0; padding: 5px 10px; }
-.langbtn button[aria-pressed="true"] { background: var(--accent); color: #06121e; }
-.langbtn button[aria-pressed="true"]:hover { background: var(--accent); color: #06121e; }
+.langbtn button[aria-pressed="true"] { background: var(--accent); color: var(--ink-on-accent); }
+.langbtn button[aria-pressed="true"]:hover { background: var(--accent); color: var(--ink-on-accent); }
 
 /* ---------- hero --------------------------------------------------------- */
 
@@ -166,7 +172,7 @@ nav.main a:hover { color: var(--text); background: var(--bg-3); text-decoration:
   border: 1px solid var(--line-2); color: var(--text); background: var(--bg-2);
 }
 .btn:hover { text-decoration: none; border-color: var(--accent); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #06121e; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--ink-on-accent); }
 .btn.primary:hover { filter: brightness(1.1); }
 
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
@@ -201,7 +207,7 @@ section { padding: 72px 0; border-bottom: 1px solid var(--line); }
 }
 .filters button:hover { color: var(--text); border-color: var(--line-2); }
 .filters button[aria-pressed="true"] {
-  background: var(--accent); border-color: var(--accent); color: #06121e;
+  background: var(--accent); border-color: var(--accent); color: var(--ink-on-accent);
 }
 .filters button .n {
   margin-left: 8px; font-family: var(--mono);
@@ -211,7 +217,7 @@ section { padding: 72px 0; border-bottom: 1px solid var(--line); }
 
 /* ---------- project cards ------------------------------------------------ */
 
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; grid-auto-flow: row dense; }
 
 .card {
   background: var(--bg-2); border: 1px solid var(--line);
@@ -398,7 +404,7 @@ footer.site {
 .skip {
   position: fixed; top: 12px; left: 50%; z-index: 100;
   transform: translateX(-50%) translateY(-250%);
-  background: var(--accent); color: #06121e;
+  background: var(--accent); color: var(--ink-on-accent);
   font-size: 14px; font-weight: 700;
   padding: 11px 20px; border-radius: 10px;
   box-shadow: var(--shadow-2);
@@ -417,6 +423,170 @@ footer.site {
   }
   .card:hover { transform: none; }
 }
+
+/* ---------- tech layer: grid, glow, motion ------------------------------- */
+
+/* Blueprint grid behind everything, fading out towards the bottom of the
+   viewport so it never competes with body text. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 85%);
+          mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 85%);
+}
+section, footer.site { background: transparent; }
+
+/* scroll progress, drawn along the bottom edge of the sticky header */
+.progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform-origin: 0 50%; transform: scaleX(0);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+nav.main a { position: relative; }
+nav.main a.active { color: var(--text); }
+nav.main a::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px;
+  border-radius: 2px; background: var(--accent);
+  transform: scaleX(0); transition: transform .25s ease;
+}
+nav.main a.active::after { transform: scaleX(1); }
+
+.brand .mark {
+  background-size: 200% 200%;
+  animation: mark-shift 6s ease-in-out infinite;
+  box-shadow: 0 0 18px var(--glow);
+}
+@keyframes mark-shift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+/* hero: animated circuit traces on a canvas, fading out at the bottom */
+.hero-fx {
+  position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  opacity: .9;
+}
+.hero h1 {
+  background: linear-gradient(100deg, var(--text) 30%, var(--accent) 70%, var(--accent-2));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .eyebrow::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 10px;
+  border-radius: 50%; background: var(--accent-2); vertical-align: 1px;
+  box-shadow: 0 0 0 0 var(--accent-2);
+  animation: ping 2.2s ease-out infinite;
+}
+@keyframes ping {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-2) 60%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+.hero .role .typed { font-family: var(--mono); font-weight: 600; font-size: .92em; color: var(--accent); }
+.hero .role .caret {
+  display: inline-block; width: .55em; height: 1.05em; margin-left: 2px;
+  vertical-align: -3px; background: var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* portrait: a slowly rotating conic ring */
+.hero-portrait { position: relative; padding: 5px; border-radius: 50%; }
+.hero-portrait:not(:empty)::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent), transparent 30%, var(--accent-2) 55%, transparent 80%, var(--accent));
+  animation: spin 9s linear infinite;
+  filter: drop-shadow(0 0 12px var(--glow));
+}
+.hero-portrait img { position: relative; outline: 0; border: 4px solid var(--bg); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn { transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease, filter .2s ease; }
+.btn:hover { box-shadow: 0 0 0 1px var(--accent), 0 8px 24px -10px var(--glow); transform: translateY(-1px); }
+.btn.primary { box-shadow: 0 6px 22px -8px var(--glow); }
+
+.stat {
+  position: relative; overflow: hidden;
+  background: color-mix(in srgb, var(--bg-2) 82%, transparent);
+  backdrop-filter: blur(6px);
+}
+.stat::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+}
+.stat .v { color: var(--text); }
+
+/* numbered section headers: "01 // Projects" */
+main { counter-reset: sec; }
+section { counter-increment: sec; }
+.sec-head h2::before {
+  content: counter(sec, decimal-leading-zero) " //";
+  display: block; margin-bottom: 8px;
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  letter-spacing: .14em; color: var(--accent);
+}
+.sec-head h2::after {
+  content: ""; display: block; width: 56px; height: 2px; margin-top: 14px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+/* cards: a glow that follows the cursor (--mx/--my set from main.js) */
+.card { position: relative; isolation: isolate; }
+.card::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  border-radius: inherit; opacity: 0; transition: opacity .25s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 45%);
+  mix-blend-mode: screen;
+}
+html[data-theme="light"] .card::after { mix-blend-mode: multiply; opacity: 0; }
+.card:hover::after { opacity: .55; }
+html[data-theme="light"] .card:hover::after { opacity: .35; }
+.card:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line-2));
+  box-shadow: var(--shadow-2), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent), 0 18px 50px -24px var(--glow);
+}
+.card .shot img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.card:hover .shot img { transform: scale(1.035); }
+.card .yr { color: var(--accent); }
+.tags span { transition: border-color .2s ease, color .2s ease; }
+.card:hover .tags span { border-color: var(--line-2); color: var(--text-2); }
+.card .toggle::after { content: " →"; display: inline-block; transition: transform .2s ease; }
+.card .toggle:hover::after { transform: translateX(3px); }
+.card .toggle[aria-expanded="true"]::after { content: " ↑"; }
+
+.filters button { transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.filters button[aria-pressed="true"] { box-shadow: 0 0 18px -4px var(--glow); }
+
+.skillcard, .langrow div, .contact-box { transition: border-color .2s ease, transform .2s ease; }
+.skillcard:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); transform: translateY(-2px); }
+.skillcard li { transition: color .2s ease, border-color .2s ease; }
+.skillcard li:hover { color: var(--text); border-color: var(--accent); }
+
+.timeline { border-left-color: transparent; position: relative; }
+.timeline::before {
+  content: ""; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2) 60%, var(--line));
+}
+.tl-item::before { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 14px var(--glow); }
+
+.contact-box { border-color: color-mix(in srgb, var(--accent) 25%, var(--line)); }
+
+/* scroll reveal: only armed once main.js has added .fx to <html>, so the
+   page is fully visible without JavaScript and in print */
+.fx .reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--d, 0ms);
+}
+.fx .reveal.in { opacity: 1; transform: none; }
+.fx .card.reveal.in { transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), border-color .18s ease, box-shadow .18s ease; transition-delay: var(--d, 0ms), var(--d, 0ms), 0ms, 0ms; }
+.fx .card.reveal.in:hover { transform: translateY(-4px); transition-delay: 0ms; }
+.card.pop { animation: pop .45s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
 /* ---------- responsive --------------------------------------------------- */
 
@@ -478,4 +648,7 @@ footer.site {
   .hero-top { flex-direction: row; align-items: flex-start; gap: 20px; }
   .hero-portrait { margin: 0; }
   .hero-portrait img { width: 108px; height: 108px; outline: 0; border: 1px solid #aaa; }
+  .hero-fx, .progress, body::before, .card::after, .hero-portrait::before, .hero .role .caret { display: none !important; }
+  .hero h1 { background: none; -webkit-text-fill-color: currentColor; color: #000; }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
