@@ -17,8 +17,8 @@ const PROFILE = {
   // ---------------------------------------------------------------------------
 
   role: {
-    en: "Robotics &amp; Embedded Systems Engineering Student",
-    fr: "Étudiant ingénieur — Robotique &amp; Systèmes embarqués"
+    en: "Electrical Engineering Student — Robotics &amp; Embedded Systems",
+    fr: "Élève ingénieur en génie électrique — Robotique &amp; Systèmes embarqués"
   },
   school: {
     en: "National Engineering School of Gabès (ENIG) — University of Gabès, Tunisia",
@@ -27,15 +27,15 @@ const PROFILE = {
   location: { en: "Tunisia", fr: "Tunisie" },
 
   tagline: {
-    en: "I build machines that have to work in the physical world — autonomous ground vehicles, motor control, lidar perception, and the enclosures and brackets that hold them together. Every project below runs on real hardware, and every number on this page was measured, not estimated.",
-    fr: "Je construis des machines destinées au monde réel — véhicules terrestres autonomes, commande de moteurs, perception lidar, ainsi que les boîtiers et supports qui les assemblent. Chaque projet ci-dessous tourne sur du matériel réel, et chaque chiffre de cette page a été mesuré, pas estimé."
+    en: "I'm an electrical engineer in training at ENIG (Electrical &amp; Automation Engineering), working where electronics meet real machines — motor control, embedded firmware, power electronics and robot autonomy. I have a solid grounding in the fundamentals — circuits, control and programming — and I learn fast: when a project needs a tool or a technology I don't know yet, I pick it up and make it work. That is how I went from coursework to ROS 2, visual SLAM and custom PCBs on a 52 V vehicle. Every project below runs on real hardware.",
+    fr: "Élève ingénieur en génie électrique à l'ENIG (Génie Électrique et Automatique), je travaille là où l'électronique rencontre les machines réelles — commande de moteurs, firmware embarqué, électronique de puissance et autonomie robotique. J'ai de bonnes bases dans les fondamentaux — circuits, automatique et programmation — et j'apprends vite : quand un projet exige un outil ou une technologie que je ne connais pas encore, je l'apprends et je la mets en œuvre. C'est ainsi que je suis passé des cours à ROS 2, au SLAM visuel et à des PCB sur mesure sur un véhicule 52 V. Chaque projet ci-dessous tourne sur du matériel réel."
   },
 
   stats: [
     { value: "ROS 2", label: { en: "Autonomy stack", fr: "Pile d'autonomie" } },
     { value: "STM32", label: { en: "Firmware in C", fr: "Firmware en C" } },
     { value: "4WD", label: { en: "UGV on 52 V", fr: "UGV en 52 V" } },
-    { value: "14", label: { en: "Documented projects", fr: "Projets documentés" } }
+    { value: "13", label: { en: "Documented projects", fr: "Projets documentés" } }
   ]
 };
 
@@ -45,7 +45,7 @@ const CATEGORIES = [
   { id: "all",        label: { en: "All projects",  fr: "Tous les projets" } },
   { id: "robotics",   label: { en: "Robotics",      fr: "Robotique" } },
   { id: "embedded",   label: { en: "Embedded",      fr: "Embarqué" } },
-  { id: "mechanical", label: { en: "Mechanical / CAD", fr: "Mécanique / CAO" } },
+  { id: "mechanical", label: { en: "Mechanical", fr: "Mécanique" } },
   { id: "electronics",label: { en: "Electronics",   fr: "Électronique" } },
   { id: "software",   label: { en: "Software",      fr: "Logiciel" } }
 ];
@@ -143,37 +143,6 @@ const PROJECTS = [
         "<b>Le trancheur a détecté ce que la CAO ignorait.</b> Des gorges de câble carrées laissaient la collerette au-dessus d'elles suspendue en anneau non soutenu : elles sont devenues des gorges en V à 90°, autoportantes — et qui, en prime, placent automatiquement le câble au rayon exact de conception. Un second enseignement mérite d'être retenu : le noyau CAO annonçait le solide comme sain alors que le maillage exporté portait dix arêtes non-manifold, parce qu'une dimension dérivée tombait exactement sur le bord d'une autre forme. <b>Un noyau qui répond « simple : oui » ne garantit pas un fichier exporté sain</b> — c'est le STL lui-même qu'il faut contrôler, raison pour laquelle chaque pièce passe ici par un script de vérification STL et une passe de vérification du G-code avant d'atteindre l'imprimante.",
         "<b>Le tambour final n’est pas entraîné par servomoteur.</b> La version à servomoteur ci-dessus a validé le principe de traction par câble, mais la pièce définitive remplace la roue à vis blanche d’un moteur de lève-vitre Bosch (<code>0130821xxx</code>) par une roue imprimée portant le tambour quatre câbles sur le même moyeu — la réduction du motoréducteur assure alors la traction. Le nombre de dents a été retrouvé à partir de photographies en déroulant la jante en coordonnées polaires puis en prenant la DFT de la fréquence des dents : un pic sans ambiguïté à 72. La pièce vive, <code>gear60_v3</code>, compte 76 dents sur un diamètre primitif de 60,80&nbsp;mm (62,40&nbsp;mm en tête), une hauteur de dent de 2,00&nbsp;mm et un alésage de 8&nbsp;mm, sur un moyeu à serrage fendu avec vis M3.",
         "<b>Un seul chiffre décide de la compatibilité, et il reste ouvert.</b> L’entraxe ne dépend que du cercle <i>primitif</i> : porter la roue à 60,80&nbsp;mm éloigne la vis de 1,60&nbsp;mm, l’entraxe passant de 33,00 à 34,60&nbsp;mm. Raboter la tête des dents n’en récupère rien : une révision antérieure a tronqué la saillie sans déplacer l’entraxe. Face à une hauteur de dent de 2,00&nbsp;mm, 1,60&nbsp;mm d’interférence constitue un blocage et non un engrènement serré : cette roue exige donc une modification délibérée du carter et ne se monte pas dans une boîte d’origine. C’est une contrainte connue et chiffrée de la conception actuelle, pas une mauvaise surprise à l’assemblage."
-      ]
-    }
-  },
-
-  /* ====================================================================== 5 */
-  {
-    id: "lidarbox",
-    featured: true,
-    cats: ["mechanical", "robotics"],
-    year: "2026",
-    title: { en: "Sealed Lidar Enclosure with 360° Optical Window", fr: "Boîtier lidar étanche à fenêtre optique 360°" },
-    subtitle: {
-      en: "Parametric OpenSCAD housing for a YDLIDAR X2 — three printed parts and a structural clear tube.",
-      fr: "Boîtier paramétrique OpenSCAD pour YDLIDAR X2 — trois pièces imprimées et un tube transparent structurel."
-    },
-    images: ["lidarbox-assembly.png", "lidarbox-section.png"],
-    tags: ["OpenSCAD", "Parametric CAD", "Tolerance analysis", "DFM", "Python"],
-    body: {
-      en: [
-        "A weather-sealed enclosure for a YDLIDAR X2 and its driver board, designed around one hard constraint: <b>nothing may cross the scan plane.</b> Any post, screw or rib inside that band becomes a permanent blind sector in the point cloud, so the clear acrylic tube is not a cover — it is the load path between the base and the lid.",
-        "<b>All geometry is measured, not guessed.</b> The lidar's dimensions come from the vendor's own CAD model, imported and measured, and are isolated in a single locked block of the source.",
-        "<b>Key numbers:</b> 104.03 × 78.60 mm footprint, 79.5 mm tall. The free optical window spans z = 58.0 … 67.5 mm while the laser needs 59.30 … 64.00 mm, clearing both ends. Radial clearance around the rotating head inside the tube is 2.75 mm, and the lid underside sits 2.18 mm above the head.",
-        "<b>Tolerance study.</b> Extruded acrylic at Ø70 carries +0.35/−1.05 mm on outside diameter and ±20 % on wall thickness — more variation than any sane press fit allows. So the tube groove is deliberately loose at 0.6 mm per side and a silicone bead takes up the slack, which also seals against dust and decouples the tube from the head's vibration. That makes diameter error forgiving, but wall error is not: wall thickness eats head clearance one-for-one.",
-        "<b>Verification tooling.</b> I wrote a post-export checker that reports connected components with signed volume and bounding box per part. This caught a real failure: a subtracted chamfer cone sized wider than the lid was <i>severing</i> it into a body plus a floating ring. The file was manifold, plausibly sized, and invisible in the slicer's default view — only the component count exposed it."
-      ],
-      fr: [
-        "Un boîtier étanche pour YDLIDAR X2 et sa carte, conçu autour d'une contrainte absolue : <b>rien ne doit traverser le plan de balayage.</b> Tout montant, vis ou nervure dans cette bande devient un secteur aveugle permanent dans le nuage de points ; le tube acrylique transparent n'est donc pas un capot — c'est le chemin d'effort entre la base et le couvercle.",
-        "<b>Toute la géométrie est mesurée, pas estimée.</b> Les dimensions du lidar proviennent du modèle CAO du fabricant, importé et mesuré, et sont isolées dans un unique bloc verrouillé du code source.",
-        "<b>Chiffres clés :</b> emprise 104,03 × 78,60 mm, hauteur 79,5 mm. La fenêtre optique libre s'étend de z = 58,0 à 67,5 mm alors que le laser exige 59,30 à 64,00 mm — dégagement des deux côtés. Le jeu radial autour de la tête rotative dans le tube est de 2,75 mm, et le dessous du couvercle se situe 2,18 mm au-dessus de la tête.",
-        "<b>Étude de tolérances.</b> L'acrylique extrudé en Ø70 présente +0,35/−1,05 mm sur le diamètre extérieur et ±20 % sur l'épaisseur de paroi — plus de dispersion que n'en tolère un ajustement serré. La gorge du tube est donc volontairement lâche, à 0,6 mm par côté, et un joint silicone rattrape le jeu, ce qui étanchéifie aussi contre la poussière et découple le tube des vibrations de la tête. L'erreur de diamètre devient ainsi tolérable ; l'erreur de paroi ne l'est pas, car elle grignote directement le dégagement de la tête.",
-        "<b>Outillage de vérification.</b> J'ai écrit un contrôleur post-export qui rapporte les composantes connexes avec volume signé et boîte englobante pour chaque pièce. Il a détecté une vraie défaillance : un cône de chanfrein soustrait, plus large que le couvercle, le <i>sectionnait</i> en un corps plus un anneau flottant. Le fichier était manifold, de taille plausible, et invisible dans la vue par défaut du trancheur — seul le compte de composantes l'a révélé."
       ]
     }
   },
@@ -474,11 +443,11 @@ const EXPERIENCE = [
   },
   {
     period: { en: "2025 — present", fr: "2025 — aujourd'hui" },
-    role: { en: "Engineering student — Electrical / Mechatronics", fr: "Élève ingénieur — Génie électrique / Mécatronique" },
+    role: { en: "Engineering student — Electrical &amp; Automation Engineering", fr: "Élève ingénieur — Génie électrique et automatique" },
     org: { en: "National Engineering School of Gabès (ENIG)", fr: "École Nationale d'Ingénieurs de Gabès (ENIG)" },
     detail: {
-      en: "Coursework and personal projects across embedded control, power electronics, robotics and CAD. Most of the hardware on this page was designed and built alongside the programme.",
-      fr: "Cursus et projets personnels en commande embarquée, électronique de puissance, robotique et CAO. La plupart du matériel présenté ici a été conçu et réalisé en parallèle de la formation."
+      en: "Coursework and personal projects across embedded control, power electronics, automation and robotics. Most of the hardware on this page was designed and built alongside the programme.",
+      fr: "Cursus et projets personnels en commande embarquée, électronique de puissance, automatique et robotique. La plupart du matériel présenté ici a été conçu et réalisé en parallèle de la formation."
     }
   },
   {
@@ -524,7 +493,7 @@ const SKILLS = [
     items: ["Python", "C / C++", "OpenCV", "NumPy", "GDScript / Godot", "Git", "Linux", "Docker"]
   },
   {
-    group: { en: "CAD &amp; manufacturing", fr: "CAO &amp; fabrication" },
+    group: { en: "Mechanical &amp; prototyping", fr: "Mécanique &amp; prototypage" },
     items: ["OpenSCAD (parametric)", "SolidWorks", "Blender", "FDM printing", "ideaMaker", "Design for manufacture", "Tolerance analysis", "ANSYS (beginner)"]
   },
   {
@@ -545,7 +514,30 @@ const LANGUAGES = [
 
 /* -------------------------------------------------------------------------- */
 
+const ABOUT = {
+  text: {
+    en: [
+      "I come from a humble background — a calm, peaceful place where you learn patience and how to make the most of what you have. I carry that calm with me, but I've also learned to adapt: on a noisy test bench, under a deadline, or when a prototype fails in the worst possible way, I keep a clear head and keep working.",
+      "I take the work seriously, but not myself — a bit of humour goes a long way in a team, especially when things get stressful. Away from the bench I play ping-pong and football, and sometimes I sit down and draw."
+    ],
+    fr: [
+      "Je viens d'un milieu modeste — un endroit calme et paisible, où l'on apprend la patience et à tirer le meilleur de ce que l'on a. Je garde ce calme avec moi, mais j'ai aussi appris à m'adapter : sur un banc d'essai bruyant, sous la pression d'une échéance, ou quand un prototype lâche de la pire des façons, je garde la tête froide et je continue.",
+      "Je prends le travail au sérieux, mais pas moi-même — un peu d'humour aide beaucoup une équipe, surtout quand la pression monte. Loin de l'établi, je joue au ping-pong et au football, et il m'arrive de m'asseoir pour dessiner."
+    ]
+  },
+  interests: [
+    { icon: "🏓", label: { en: "Ping-pong", fr: "Ping-pong" } },
+    { icon: "⚽", label: { en: "Football", fr: "Football" } },
+    { icon: "✏️", label: { en: "Drawing", fr: "Dessin" } },
+    { icon: "😄", label: { en: "Good humour", fr: "Bonne humeur" } }
+  ]
+};
+
+/* -------------------------------------------------------------------------- */
+
 const UI = {
+  navAbout:     { en: "About",      fr: "À propos" },
+  aboutTitle:   { en: "About me",   fr: "À propos de moi" },
   navProjects:  { en: "Projects",   fr: "Projets" },
   navSkills:    { en: "Skills",     fr: "Compétences" },
   navExp:       { en: "Experience", fr: "Parcours" },

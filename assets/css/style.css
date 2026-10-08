@@ -349,6 +349,16 @@ section { padding: 72px 0; border-bottom: 1px solid var(--line); }
 .langrow strong { color: var(--text); font-weight: 650; }
 .langrow em { color: var(--text-3); font-style: normal; }
 
+/* ---------- about -------------------------------------------------------- */
+.about { max-width: 72ch; }
+.about p { margin: 0 0 16px; color: var(--text-2); font-size: 16.5px; line-height: 1.7; }
+.interests { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.interests li {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 8px 16px; font-size: 14px; color: var(--text);
+}
+
 /* ---------- experience --------------------------------------------------- */
 
 .timeline { border-left: 2px solid var(--line); padding-left: 28px; margin-left: 6px; }

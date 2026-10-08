@@ -38,6 +38,7 @@
     el("brand-mark").textContent = PROFILE.initials;
     el("brand-name").textContent = PROFILE.name;
 
+    el("nav-about").innerHTML    = t(UI.navAbout);
     el("nav-projects").innerHTML = t(UI.navProjects);
     el("nav-skills").innerHTML   = t(UI.navSkills);
     el("nav-exp").innerHTML      = t(UI.navExp);
@@ -136,6 +137,16 @@
     }
   }
 
+  function renderAbout() {
+    el("sec-about-title").innerHTML = t(UI.aboutTitle);
+    el("about-text").innerHTML = t(ABOUT.text).map(function (p) {
+      return "<p>" + p + "</p>";
+    }).join("");
+    el("about-interests").innerHTML = ABOUT.interests.map(function (i) {
+      return '<li><span aria-hidden="true">' + i.icon + "</span>" + t(i.label) + "</li>";
+    }).join("");
+  }
+
   function renderSkills() {
     el("sec-skills-title").innerHTML = t(UI.skillsTitle);
     el("skillgrid").innerHTML = SKILLS.map(function (s) {
@@ -178,6 +189,7 @@
     document.documentElement.lang = lang;
     document.title = PROFILE.name + " — " + t(PROFILE.role).replace(/&amp;/g, "&");
     renderHeaderAndHero();
+    renderAbout();
     renderProjects();
     renderSkills();
     renderExperience();
