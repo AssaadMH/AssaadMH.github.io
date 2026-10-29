@@ -41,7 +41,7 @@
   .main{flex:1 1 62%;min-width:0}
   .side{flex:0 0 33%}
 
-  h2{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);
+  h2{font-size:12px;text-transform:uppercase;color:var(--accent);
     margin:0 0 8px;padding-bottom:3px;border-bottom:1px solid var(--line)}
   section{margin-bottom:15px;break-inside:avoid}
   section.flow{break-inside:auto}
@@ -58,7 +58,7 @@
   .item ul li{font-size:12px;margin-bottom:1px;color:#2c3a46}
 
   .side h2{border-bottom-color:var(--line)}
-  .skwrap{margin-bottom:10px}
+  .skwrap{margin-bottom:10px;break-inside:avoid}
   .skwrap .g{font-weight:700;font-size:12px;margin-bottom:3px}
   .chips{display:flex;flex-wrap:wrap;gap:4px}
   .chips span{font-size:10.5px;background:#eef4fb;color:#274a6b;border:1px solid #d5e3f2;
@@ -118,7 +118,7 @@ var CV = {
           "Skills built: motor control and embedded programming (STM32) · ROS 2 and robot software architecture · perception with LiDAR, depth cameras and visual SLAM on Jetson.",
           "Power electronics and safe high-voltage design · debugging and reverse engineering real hardware · teamwork on a real engineering project."
         ] },
-      { t:"Automation Intern", org:"STEG Feriana — Tunisian Electricity &amp; Gas Company", y:"",
+      { t:"Automation Intern", org:"STEG Feriana — Tunisian Electricity &amp; Gas Company", y:"Aug 2025",
         bullets:[
           "Studied the industrial infrastructure of a gas-turbine power plant.",
           "Analysed and understood industrial automatic control and regulation systems.",
@@ -170,14 +170,7 @@ var CV = {
       { t:"ParkMate — RFID-Gated Smart Parking",
         tech:"Arduino · MFRC522 RFID (SPI) · I2C LCD · Servo · IR / ultrasonic · Proteus ARES · PCB etching",
         bullets:[
-          "First complete embedded system (IPEIG, 2023, robotics-programming innovation contest): ultrasonic car detection at the gate, RFID badge check, servo barrier and a live free/occupied count on a 20×4 LCD fed by one IR sensor per slot.",
-          "Laid out the board in Proteus ARES and etched it myself as a plug-on Arduino shield; seven firmware revisions in two weeks, and a candid post-mortem (sensors on the serial pins, state- instead of edge-based counting)."
-        ] },
-      { t:"UNKNOWN — 3D Action Game on a 0.5 GB GPU",
-        tech:"Godot 4.3 · GDScript · 3D math · Blender · Profiling · Audio DSP",
-        bullets:[
-          "Solo real-time 3D game built around a hard hardware ceiling: skinned character animation, enemy AI with telegraphed attacks driven by a data-table archetype system, and all fourteen sound effects synthesised in code with no audio files.",
-          "Measuring instead of guessing found the directional-shadow pass was costing roughly 70 % of the frame — turning it off took the level from 3.8 to about 15 fps with the atmosphere intact."
+          "First complete embedded system (IPEIG, 2023, robotics-programming innovation contest): ultrasonic car detection at the gate, RFID badge check, servo barrier and a live free/occupied count on a 20×4 LCD; board laid out in Proteus ARES and etched by hand."
         ] }
     ],
 
@@ -195,19 +188,19 @@ var CV = {
     edu: [
       { t:"Electrical &amp; Automation Engineering", org:"ENIG — Gabès", y:"2024 – 2027 (final year)" },
       { t:"Preparatory Technological Cycle", org:"IPEIG — Gafsa", y:"2022 – 2024" },
-      { t:"Technical Baccalaureate", org:"", y:"2022" }
+      { t:"Technical Baccalaureate (Technology)", org:"Lycée Majel Bel Abbès", y:"2022" }
     ],
 
     skTitle: "Skills",
     skills: [
-      { g:"Embedded", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano"] },
-      { g:"Control &amp; robotics", items:["PID","ROS 2","Visual SLAM (Isaac ROS)","Industrial automation"] },
+      { g:"Embedded", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano","UART","SPI","I2C"] },
+      { g:"Control &amp; robotics", items:["PID","ROS 2","Gazebo","Visual SLAM (Isaac ROS)","Industrial automation"] },
       { g:"Electronics &amp; PCB", items:["Schematic capture","PCB / Gerber","Proteus","KiCad / EasyEDA","Power electronics","MOSFET drive"] },
       { g:"Vision &amp; AI", items:["OpenCV","Deep Learning","Signal &amp; image processing"] },
-      { g:"Programming", items:["C / C++","Python","MATLAB","GDScript"] },
+      { g:"Programming", items:["C / C++","Python","MATLAB"] },
       { g:"Prototyping", items:["OpenSCAD (parametric)","3D printing / DFM","Slicer preparation","ANSYS (beginner)"] },
-      { g:"Systems", items:["Linux / Ubuntu","Docker"] },
-      { g:"Tools", items:["MATLAB / Simulink","LabVIEW","Godot"] },
+      { g:"Systems", items:["Linux / Ubuntu","Docker","Git / GitHub"] },
+      { g:"Tools", items:["MATLAB / Simulink","LabVIEW"] },
       { g:"Notions", items:["Data Science","Cybersecurity"] },
       { g:"Office", items:["Word","Excel","PowerPoint (MS certified)"] }
     ],
@@ -246,7 +239,7 @@ var CV = {
           "Compétences acquises : commande moteur et programmation embarquée (STM32) · ROS 2 et architecture logicielle robotique · perception par LiDAR, caméras de profondeur et SLAM visuel sur Jetson.",
           "Électronique de puissance et conception haute tension sûre · débogage et rétro-ingénierie de matériel réel · travail d'équipe sur un vrai projet d'ingénierie."
         ] },
-      { t:"Stagiaire en automatisme", org:"STEG Feriana — Société Tunisienne de l'Électricité et du Gaz", y:"",
+      { t:"Stagiaire en automatisme", org:"STEG Feriana — Société Tunisienne de l'Électricité et du Gaz", y:"août 2025",
         bullets:[
           "Étude de l'infrastructure industrielle d'une centrale à turbine à gaz.",
           "Analyse et compréhension des systèmes de commande et de régulation automatiques industriels.",
@@ -298,14 +291,7 @@ var CV = {
       { t:"ParkMate — Parking intelligent à accès RFID",
         tech:"Arduino · RFID MFRC522 (SPI) · LCD I2C · servomoteur · IR / ultrason · Proteus ARES · gravure de PCB",
         bullets:[
-          "Premier système embarqué complet (IPEIG, 2023, concours d'innovation en programmation robotique) : détection ultrason de la voiture à l'entrée, contrôle du badge RFID, barrière à servomoteur et comptage en direct des places libres/occupées sur LCD 20×4 via un capteur IR par place.",
-          "Carte dessinée sous Proteus ARES et gravée moi-même en shield enfichable sur l'Arduino ; sept versions du firmware en deux semaines, et un retour d'expérience honnête (capteurs sur les broches série, comptage par états au lieu de fronts)."
-        ] },
-      { t:"UNKNOWN — jeu d'action 3D sur un GPU de 0,5 Go",
-        tech:"Godot 4.3 · GDScript · maths 3D · Blender · profilage · DSP audio",
-        bullets:[
-          "Jeu 3D temps réel en solo bâti autour d'un plafond matériel strict : animation de personnages skinnés, IA d'ennemis à attaques télégraphiées pilotée par une table d'archétypes, et les quatorze effets sonores entièrement synthétisés par le code, sans aucun fichier audio.",
-          "Mesurer au lieu de supposer a révélé que la passe d'ombres directionnelles coûtait environ 70 % de la trame — la désactiver a fait passer le niveau de 3,8 à environ 15 images/s sans perdre l'atmosphère."
+          "Premier système embarqué complet (IPEIG, 2023, concours d'innovation en programmation robotique) : détection ultrason de la voiture à l'entrée, contrôle du badge RFID, barrière à servomoteur et comptage en direct des places libres/occupées sur LCD 20×4 ; carte dessinée sous Proteus ARES et gravée à la main."
         ] }
     ],
 
@@ -323,19 +309,19 @@ var CV = {
     edu: [
       { t:"Génie Électrique &amp; Automatique", org:"ENIG — Gabès", y:"2024 – 2027 (dernière année)" },
       { t:"Cycle préparatoire technologique", org:"IPEIG — Gafsa", y:"2022 – 2024" },
-      { t:"Baccalauréat technique", org:"", y:"2022" }
+      { t:"Baccalauréat technique (Technologie)", org:"Lycée Majel Bel Abbès", y:"2022" }
     ],
 
     skTitle: "Compétences",
     skills: [
-      { g:"Embarqué", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano"] },
-      { g:"Commande &amp; robotique", items:["PID","ROS 2","SLAM visuel (Isaac ROS)","Automatisme industriel"] },
+      { g:"Embarqué", items:["ESP32","STM32","PIC16F877A","Arduino","Raspberry Pi","Jetson Orin Nano","UART","SPI","I2C"] },
+      { g:"Commande &amp; robotique", items:["PID","ROS 2","Gazebo","SLAM visuel (Isaac ROS)","Automatisme industriel"] },
       { g:"Électronique &amp; PCB", items:["Saisie de schéma","PCB / Gerber","Proteus","KiCad / EasyEDA","Électronique de puissance","Commande de MOSFET"] },
       { g:"Vision &amp; IA", items:["OpenCV","Deep Learning","Traitement signal &amp; image"] },
-      { g:"Programmation", items:["C / C++","Python","MATLAB","GDScript"] },
+      { g:"Programmation", items:["C / C++","Python","MATLAB"] },
       { g:"Prototypage", items:["OpenSCAD (paramétrique)","Impression 3D / DFM","Préparation trancheur","ANSYS (débutant)"] },
-      { g:"Systèmes", items:["Linux / Ubuntu","Docker"] },
-      { g:"Outils", items:["MATLAB / Simulink","LabVIEW","Godot"] },
+      { g:"Systèmes", items:["Linux / Ubuntu","Docker","Git / GitHub"] },
+      { g:"Outils", items:["MATLAB / Simulink","LabVIEW"] },
       { g:"Notions", items:["Data Science","Cybersécurité"] },
       { g:"Bureautique", items:["Word","Excel","PowerPoint (certifié MS)"] }
     ],
@@ -403,7 +389,7 @@ function render(lang){
       '<section><h2>'+d.actTitle+'</h2>'+orgBlock(d.act)+'</section>'+
     '</div><div class="side">'+
       '<section><h2>'+d.eduTitle+'</h2>'+orgBlock(d.edu)+'</section>'+
-      '<section><h2>'+d.skTitle+'</h2>'+skills+'</section>'+
+      '<section class="flow"><h2>'+d.skTitle+'</h2>'+skills+'</section>'+
       '<section><h2>'+d.langTitle+'</h2><div class="langs">'+langs+'</div></section>'+
       '<section><h2>'+d.certTitle+'</h2>'+certs+'</section>'+
     '</div></div>'+
