@@ -17,8 +17,8 @@ const PROFILE = {
   // ---------------------------------------------------------------------------
 
   role: {
-    en: "Electrical Engineering Student — Robotics &amp; Embedded Systems",
-    fr: "Élève ingénieur en génie électrique — Robotique &amp; Systèmes embarqués"
+    en: "Final-Year Electrical Engineering Student — Robotics &amp; Embedded Systems",
+    fr: "Élève ingénieur en 3ᵉ et dernière année de génie électrique — Robotique &amp; Systèmes embarqués"
   },
   school: {
     en: "National Engineering School of Gabès (ENIG) — University of Gabès, Tunisia",
@@ -27,8 +27,8 @@ const PROFILE = {
   location: { en: "Tunisia", fr: "Tunisie" },
 
   tagline: {
-    en: "I'm an electrical engineer in training at ENIG (Electrical &amp; Automation Engineering), working where electronics meet real machines — motor control, embedded firmware, power electronics and robot autonomy. I have a solid grounding in the fundamentals — circuits, control and programming — and I learn fast: when a project needs a tool or a technology I don't know yet, I pick it up and make it work. That is how I went from coursework to ROS 2, visual SLAM and custom PCBs on a 52 V vehicle. Every project below runs on real hardware.",
-    fr: "Élève ingénieur en génie électrique à l'ENIG (Génie Électrique et Automatique), je travaille là où l'électronique rencontre les machines réelles — commande de moteurs, firmware embarqué, électronique de puissance et autonomie robotique. J'ai de bonnes bases dans les fondamentaux — circuits, automatique et programmation — et j'apprends vite : quand un projet exige un outil ou une technologie que je ne connais pas encore, je l'apprends et je la mets en œuvre. C'est ainsi que je suis passé des cours à ROS 2, au SLAM visuel et à des PCB sur mesure sur un véhicule 52 V. Chaque projet ci-dessous tourne sur du matériel réel."
+    en: "I'm a final-year (3rd-year) engineering student at ENIG (Electrical &amp; Automation Engineering), working where electronics meet real machines — motor control, embedded firmware, power electronics and robot autonomy. I have a solid grounding in the fundamentals — circuits, control and programming — and I learn fast: when a project needs a tool or a technology I don't know yet, I pick it up and make it work. That is how I went from coursework to ROS 2, visual SLAM and custom PCBs on a 52 V vehicle. Every project below runs on real hardware.",
+    fr: "Élève ingénieur en 3ᵉ et dernière année de génie électrique à l'ENIG (Génie Électrique et Automatique), je travaille là où l'électronique rencontre les machines réelles — commande de moteurs, firmware embarqué, électronique de puissance et autonomie robotique. J'ai de bonnes bases dans les fondamentaux — circuits, automatique et programmation — et j'apprends vite : quand un projet exige un outil ou une technologie que je ne connais pas encore, je l'apprends et je la mets en œuvre. C'est ainsi que je suis passé des cours à ROS 2, au SLAM visuel et à des PCB sur mesure sur un véhicule 52 V. Chaque projet ci-dessous tourne sur du matériel réel."
   },
 
   stats: [
@@ -442,8 +442,8 @@ const EXPERIENCE = [
     }
   },
   {
-    period: { en: "2025 — present", fr: "2025 — aujourd'hui" },
-    role: { en: "Engineering student — Electrical &amp; Automation Engineering", fr: "Élève ingénieur — Génie électrique et automatique" },
+    period: { en: "2024 — 2027", fr: "2024 — 2027" },
+    role: { en: "Final-year (3rd-year) engineering student — Electrical &amp; Automation Engineering", fr: "Élève ingénieur en 3ᵉ et dernière année — Génie électrique et automatique" },
     org: { en: "National Engineering School of Gabès (ENIG)", fr: "École Nationale d'Ingénieurs de Gabès (ENIG)" },
     detail: {
       en: "Coursework and personal projects across embedded control, power electronics, automation and robotics. Most of the hardware on this page was designed and built alongside the programme.",
